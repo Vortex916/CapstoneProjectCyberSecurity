@@ -51,22 +51,21 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.				
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
-				//We check if there is no other user using the same username
-				if ($link -> connect_errno) 
-				{
-					echo '<script type="text/javascript">alert("SQL connection error")</script>';
+				$row_cnt = 0;
+				if ($result = mysqli_query($link, 'select id from users where username="'.$username.'"')) {
+					echo '<script type="text/javascript">alert("Determining row count now")</script>';
+					/* determine number of rows result set */
+					$row_cnt = mysqli_num_rows($result);
+					/* close result set */
+					mysqli_free_result($result);
 				}
-				else
-				{
-					echo '<script type="text/javascript">alert("No SQL connection error")</script>';
-				}
+
+				//$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"');
+				//echo '<script type="text/javascript">alert("Finished query")</script>';
+				//$dn = mysqli_num_rows($query_result);
+				//echo '<script type="text/javascript">alert("Finished mysqli_num_rows()")</script>';
 				
-				$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"');
-				echo '<script type="text/javascript">alert("Finished query")</script>';
-				$dn = mysqli_num_rows($query_result);
-				echo '<script type="text/javascript">alert("Finished mysqli_num_rows()")</script>';
-				
-				if($dn == 0)
+				if($row_cnt == 0)
 				{
 					//We count the number of users to give an ID to this one
 					$dn2 = mysqli_num_rows(mysqli_query($link, 'select id from users'));
