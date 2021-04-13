@@ -49,7 +49,7 @@ if (isset($_SESSION['username'])) {
 else {
 //Otherwise, we display a link to log in and to Sign up
 ?>
-<a href="sign_up.php">Sign up</a><br />
+<button onclick="window.location.href = 'sign_up.php';">Sign up</button>
 <a href="connexion.php">Log in</a>
 <?php
 }
