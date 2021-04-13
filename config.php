@@ -23,15 +23,24 @@ $db_access = 'DB access not successful';
 //$db = substr($url["path"], 1);
 //$link = new mysqli($server, $username, $password, $db);
 
-if (!$link) {
-	die('Could not connect: ' . mysqli_error());
-	$db_access = 'DB access absolutely not successful';
+//if (!$link) {
+//	die('Could not connect: ' . mysqli_error());
+//	$db_access = 'DB access absolutely not successful';
+//}
+//else
+//{
+//	$db_access = 'DB access successful';
+//}
+
+if (mysqli_connect_errno())
+{
+  $db_access = "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 else
 {
 	$db_access = 'DB access successful';
 }
-
+  
 //Webmaster Email
 $mail_webmaster = 'vortex916@yahoo.de';
 
