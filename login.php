@@ -73,7 +73,7 @@ else
 	//We display the form
 ?>
 <div class="content">
-    <form action="connexion.php" method="post">
+    <form action="login.php" method="post">
         Please type your IDs to log in:<br />
         <div class="center">
             <label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
