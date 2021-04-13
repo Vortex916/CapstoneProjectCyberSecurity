@@ -41,16 +41,16 @@ if (isset($_SESSION['username'])) {
 	//We display the links
 ?>
 
-<a href="edit_infos.php">Edit my personnal information</a><br />
-<a href="list_pm.php">My personnal messages (<?php echo $nb_new_pm; ?> unread)</a><br />
+<a href="edit_infos.php">Edit my personnal information</a><br>
+<a href="list_pm.php">My personnal messages (<?php echo $nb_new_pm; ?> unread)</a><br>
 <a href="connexion.php">Logout</a>
 <?php
 }
 else {
 //Otherwise, we display a link to log in and to Sign up
 ?>
-<button onclick="window.location.href = 'sign_up.php';">Sign up</button>
-<a href="connexion.php">Log in</a>
+<button onclick="window.location.href = 'sign_up.php';">Sign up</button><br>
+<button onclick="window.location.href = 'connexion.php';">Log in</button><br>
 <?php
 }
 ?>
