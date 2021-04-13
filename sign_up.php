@@ -52,7 +52,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
 				$row_cnt = 0;
-				if ($result = mysqli_query($link, "select id from users where username="'.$username.'"")) {
+				if ($result = mysqli_query($link, 'select id from users where username="'.$username.'"')) {
 					echo '<script type="text/javascript">alert("Determining row count now")</script>';
 					/* determine number of rows result set */
 					$row_cnt = mysqli_num_rows($result);
@@ -69,8 +69,17 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				{
 					echo '<script type="text/javascript">alert("row_cnt is 0")</script>';
 					//We count the number of users to give an ID to this one
-					$dn2 = mysqli_num_rows(mysqli_query($link, 'select id from users'));
-					$id = $dn2 + 1;
+					$id = 1
+					if ($result = mysqli_query($link, 'select id from users')) {
+						/* determine number of rows result set */
+						$dn2 = mysqli_num_rows($result);
+						/* close result set */
+						mysqli_free_result($result);
+						$id = $dn2 + 1;
+					}
+
+					//$dn2 = mysqli_num_rows(mysqli_query($link, 'select id from users'));
+					//$id = $dn2 + 1;
 					//We save the informations to the databse
 					if(mysqli_query($link, 'insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
 					{
