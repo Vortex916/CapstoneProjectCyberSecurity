@@ -15,9 +15,11 @@ include('config.php');
 			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
 		</div>
 <?php
+$message = 'Did not enter if isset() yet.';
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
 {
+	$message = 'Entered isset().';
 	//We remove slashes depending on the configuration
 	if(get_magic_quotes_gpc())
 	{
@@ -101,7 +103,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 else
 {
 	$form = true;
-	$message = 'Basic Error!';
 }
 if ($form) {
 	//We display a message if necessary
@@ -126,5 +127,7 @@ if ($form) {
 }
 ?>
 		<div class="foot"><a href="<?php echo $url_home; ?>">Go Home</a></div>
+		<br>
+		Log: <?php echo $message; ?><br />
 	</body>
 </html>
