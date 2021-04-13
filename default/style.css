@@ -7,7 +7,7 @@
 }
 body
 {
-	background:#e2f6ff url('images/background.gif') center top no-repeat;
+	background:#e2f6ff;
 	padding-left:10%;
 	padding-right:10%;
 	font-family:Arial, Geneva, sans-serif;
