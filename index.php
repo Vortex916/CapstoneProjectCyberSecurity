@@ -27,6 +27,7 @@ if(isset($_SESSION['username'])) {
 
 		<br />
 Welcome on our website.<br />
+<?php echo $db_access; ?><br />
 <?php
 //If the user is logged, we display links to edit his infos, to see his pms and to log out
 if (isset($_SESSION['username'])) {

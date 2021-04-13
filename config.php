@@ -14,6 +14,7 @@ $heroku_usr = 'be733191673c07';						// Root user.
 $heroku_pwd = '9c890bcf';							  // Password.
 $heroku_sch = 'heroku_e0c315f03c29448';				// Schema.
 $link	    = new mysqli($heroku_svr, $heroku_usr, $heroku_pwd, $heroku_sch);
+$db_access = 'DB access not successful';
 
 //$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 //$server = $url["host"];
@@ -24,6 +25,11 @@ $link	    = new mysqli($heroku_svr, $heroku_usr, $heroku_pwd, $heroku_sch);
 
 if (!$link) {
 	die('Could not connect: ' . mysqli_error());
+	$db_access = 'DB access absolutely not successful'
+}
+else
+{
+	$db_access = 'DB access successful'
 }
 
 //Webmaster Email
