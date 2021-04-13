@@ -49,15 +49,8 @@ if (isset($_SESSION['username'])) {
 else {
 //Otherwise, we display a link to log in and to Sign up
 ?>
-<div class="content">
-	<form action="sign_up.php" method="post">
-		<input type="submit" value="Sign up" />
-	</form>
-	<form action="login.php" method="post">
-		<input type="submit" value="Log in" />
-	</form>
-</div>
-
+<a href="sign_up.php">Sign up</a><br />
+<a href="connexion.php">Log in</a>
 <?php
 }
 ?>
