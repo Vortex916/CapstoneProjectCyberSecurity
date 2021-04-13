@@ -22,14 +22,15 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 	echo '<script type="text/javascript">alert("Entered isset()")</script>';
 
 	//We remove slashes depending on the configuration
-	if(get_magic_quotes_gpc())
-	{
-		$_POST['username']  = stripslashes($_POST['username']);
-		$_POST['password']  = stripslashes($_POST['password']);
-		$_POST['passverif'] = stripslashes($_POST['passverif']);
-		$_POST['email']  	= stripslashes($_POST['email']);
-		$_POST['avatar']	= stripslashes($_POST['avatar']);
-	}
+	//if(get_magic_quotes_gpc())
+	//{
+	$_POST['username']  = stripslashes($_POST['username']);
+	$_POST['password']  = stripslashes($_POST['password']);
+	$_POST['passverif'] = stripslashes($_POST['passverif']);
+	$_POST['email']  	= stripslashes($_POST['email']);
+	$_POST['avatar']	= stripslashes($_POST['avatar']);
+	//}
+	
 	//We check if the two passwords are identical
 	$errors = [];
 	if($_POST['password'] == $_POST['passverif'])
