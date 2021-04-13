@@ -100,6 +100,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 }
 else
 {
+	<div class="message">Error during signup.<br />
 	$form = true;
 }
 if ($form) {
