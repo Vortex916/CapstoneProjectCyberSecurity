@@ -40,6 +40,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 		//We check if the choosen password is strong enough.
 		if(checkPassword($_POST['password'], $errors))
 		{
+			echo '<script type="text/javascript">alert("Entered checkPassword()")</script>';
 			//We check if the email form is valid
 			if(preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email']))
 			{
