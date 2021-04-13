@@ -25,11 +25,11 @@ $db_access = 'DB access not successful';
 
 if (!$link) {
 	die('Could not connect: ' . mysqli_error());
-	$db_access = 'DB access absolutely not successful'
+	$db_access = 'DB access absolutely not successful';
 }
 else
 {
-	$db_access = 'DB access successful'
+	$db_access = 'DB access successful';
 }
 
 //Webmaster Email
