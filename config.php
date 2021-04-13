@@ -9,21 +9,28 @@ can work correctly.
 ******************************************************/
 
 //Access to Heroku DataBase. Account data hardcoded.
-$heroku_svr = 'us-cdbr-iron-east-01.cleardb.net:3306'; // Server's URL
-$heroku_usr = 'bcb94ff664a17f';						// Root user.
-$heroku_pwd = 'c4780c9e';							  // Password.
-$heroku_sch = 'heroku_f71fa6cda1bf9f5';				// Schema.
+$heroku_svr = 'eu-cdbr-west-01.cleardb.com'; // Server's URL
+$heroku_usr = 'be733191673c07';						// Root user.
+$heroku_pwd = '9c890bcf';							  // Password.
+$heroku_sch = 'heroku_e0c315f03c29448';				// Schema.
 $link	    = new mysqli($heroku_svr, $heroku_usr, $heroku_pwd, $heroku_sch);
+
+//$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+//$server = $url["host"];
+//$username = $url["user"];
+//$password = $url["pass"];
+//$db = substr($url["path"], 1);
+//$link = new mysqli($server, $username, $password, $db);
 
 if (!$link) {
 	die('Could not connect: ' . mysqli_error());
 }
 
 //Webmaster Email
-$mail_webmaster = 'knewaz@gmail.com';
+$mail_webmaster = 'vortex916@yahoo.de';
 
 //Top site root URL
-$url_root = 'https://fast-scrubland-99567.herokuapp.com/';
+$url_root = 'https://capstone-cyber-security.herokuapp.com/';
 
 /******************************************************
 -----------------Optional Configuration----------------
