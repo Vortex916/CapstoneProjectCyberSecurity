@@ -100,8 +100,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 }
 else
 {
-	<div class="message">Error during signup.<br />
 	$form = true;
+	$message = 'Basic Error!';
 }
 if ($form) {
 	//We display a message if necessary
