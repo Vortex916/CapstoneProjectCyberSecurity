@@ -69,7 +69,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				{
 					echo '<script type="text/javascript">alert("row_cnt is 0")</script>';
 					//We count the number of users to give an ID to this one
-					$id = 1
+					$id = 1;
 					if ($result = mysqli_query($link, 'select id from users')) {
 						/* determine number of rows result set */
 						$dn2 = mysqli_num_rows($result);
