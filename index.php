@@ -21,7 +21,7 @@ include('config.php');
 if(isset($_SESSION['username'])) 
 {
 	echo ' '.htmlentities($_SESSION['username'], ENT_QUOTES, 'UTF-8');
-	echo '<br>'
+	echo '<br>';
 }
 ?>
 
