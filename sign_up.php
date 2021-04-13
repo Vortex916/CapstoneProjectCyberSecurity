@@ -19,11 +19,8 @@ $message = 'Did not enter if isset() yet.';
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
 {
-	echo '<script type="text/javascript">';
-	echo 'alert("Entered isset()")';
-	echo '</script>';
+	echo '<script type="text/javascript">alert("Entered isset()")</script>';
 
-	$message = 'Entered isset().';
 	//We remove slashes depending on the configuration
 	if(get_magic_quotes_gpc())
 	{
@@ -37,6 +34,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 	$errors = [];
 	if($_POST['password'] == $_POST['passverif'])
 	{
+		echo '<script type="text/javascript">alert("Entered isset() part 2")</script>';
+		
 		//We check if the choosen password is strong enough.
 		if(checkPassword($_POST['password'], $errors))
 		{
