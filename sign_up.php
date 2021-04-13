@@ -12,7 +12,7 @@ include('config.php');
 	</head>
 	<body>
 		<div class="header">
-			 <h1>Welcome</h1>
+			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
 		</div>
 <?php
 //We check if the form has been sent
