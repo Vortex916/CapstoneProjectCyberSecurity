@@ -39,28 +39,23 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 	{		
 		//We check if the choosen password is strong enough.
 		if(checkPassword($_POST['password'], $errors))
-		{
-			echo '<script type="text/javascript">alert("Entered checkPassword()")</script>';
-			
+		{		
 			//We check if the email form is valid
 			if(preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email']))
-			{
-				echo '<script type="text/javascript">alert("Entered preg_match()")</script>';
-				
+			{			
 				//We protect the variables
 				$username = mysqli_real_escape_string($link, $_POST['username']);
 				$password = mysqli_real_escape_string($link, $_POST['password']);
 				$email	  = mysqli_real_escape_string($link, $_POST['email']);
 				$avatar   = mysqli_real_escape_string($link, $_POST['avatar']);				
-				echo '<script type="text/javascript">alert("Finished mysqli_real_escape_string()")</script>';
-				
-				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.
-				echo '<script type="text/javascript">alert("Finished salt()")</script>';
-				
+				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.				
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
-				echo '<script type="text/javascript">alert("Finished hash()")</script>';
 				
 				//We check if there is no other user using the same username
+				if ($link -> connect_errno) 
+				{
+					echo '<script type="text/javascript">alert("SQL connection error")</script>';
+				}
 				$dn = mysqli_num_rows(mysqli_query($link, 'select id from users where username="'.$username.'"'));
 				echo '<script type="text/javascript">alert("Finished mysqli_num_rows()")</script>';
 				
