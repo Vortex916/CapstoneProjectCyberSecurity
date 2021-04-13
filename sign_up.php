@@ -61,7 +61,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					echo '<script type="text/javascript">alert("No SQL connection error")</script>';
 				}
 				
-				$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"')
+				$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"');
 				echo '<script type="text/javascript">alert("Finished query")</script>';
 				$dn = mysqli_num_rows($query_result);
 				echo '<script type="text/javascript">alert("Finished mysqli_num_rows()")</script>';
