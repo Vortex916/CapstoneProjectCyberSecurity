@@ -43,7 +43,7 @@ if (isset($_SESSION['username'])) {
 
 <a href="edit_infos.php">Edit my personnal information</a><br>
 <a href="list_pm.php">My personnal messages (<?php echo $nb_new_pm; ?> unread)</a><br>
-<a href="connexion.php">Logout</a>
+<a href="login.php">Logout</a>
 <?php
 }
 else {
@@ -53,7 +53,7 @@ else {
 	<form action="sign_up.php" method="post">
 		<input type="submit" value="Sign up" />
 	</form>
-	<form action="connexion.php" method="post">
+	<form action="login.php" method="post">
 		<input type="submit" value="Log in" />
 	</form>
 </div>

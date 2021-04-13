@@ -60,7 +60,7 @@ if (isset($_SESSION['username'])) {
 								unset($_SESSION['username'], $_SESSION['userid']);
 ?>
 		<div class="message">Your informations have successfuly been updated. You need to log again.<br />
-		<a href="connexion.php">Log in</a></div>
+		<a href="login.php">Log in</a></div>
 <?php
 							}
 							else {
