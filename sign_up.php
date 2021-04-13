@@ -21,6 +21,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 {
 	echo '<script type="text/javascript">alert("Entered isset()")</script>';
 
+	// TODO: get_magic_quotes_gpc() schuetzt vor SQL Injektion, aber veraltet und von neuerem PHP nicht mehr unterstuetzt -> crash
+	// --> durch modernere Variante ersetzen
 	//We remove slashes depending on the configuration
 	//if(get_magic_quotes_gpc())
 	//{

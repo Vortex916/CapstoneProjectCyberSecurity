@@ -27,11 +27,11 @@ if (isset($_SESSION['username'])) {
 		$orecip   = $_POST['recip'];
 		$omessage = $_POST['message'];
 		//We remove slashes depending on the configuration
-		if (get_magic_quotes_gpc()) {
-			$otitle   = stripslashes($otitle);
-			$orecip   = stripslashes($orecip);
-			$omessage = stripslashes($omessage);
-		}
+		#if (get_magic_quotes_gpc()) {
+		$otitle   = stripslashes($otitle);
+		$orecip   = stripslashes($orecip);
+		$omessage = stripslashes($omessage);
+		#}
 		//We check if all the fields are filled
 		if ($_POST['title'] != '' and $_POST['recip'] != '' and $_POST['message'] != '') {
 			//We protect the variables

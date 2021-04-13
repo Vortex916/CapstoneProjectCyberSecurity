@@ -32,17 +32,17 @@ else
 	if(isset($_POST['username'], $_POST['password']))
 	{
 		//We remove slashes depending on the configuration
-		if(get_magic_quotes_gpc())
-		{
-			$ousername = stripslashes($_POST['username']);
-			$username  = mysqli_real_escape_string($link, stripslashes($_POST['username']));
-			$password  = stripslashes($_POST['password']);
-		}
-		else
-		{
-			$username = mysqli_real_escape_string($link, $_POST['username']);
-			$password = $_POST['password'];
-		}
+		//if(get_magic_quotes_gpc())
+		//{
+		//$ousername = stripslashes($_POST['username']);
+		//$username  = mysqli_real_escape_string($link, stripslashes($_POST['username']));
+		//$password  = stripslashes($_POST['password']);
+		//}
+		//else
+		//{
+		$username = mysqli_real_escape_string($link, $_POST['username']);
+		$password = $_POST['password'];
+		//}
 		//We get the password of the user
 		$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
 		$dn  = mysqli_fetch_array($req);

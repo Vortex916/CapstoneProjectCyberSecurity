@@ -45,7 +45,8 @@ if (isset($_SESSION['username'])) {
 				if (isset($_POST['message']) and $_POST['message'] != '') {
 					$message = $_POST['message'];
 					//We remove slashes depending on the configuration
-					if (get_magic_quotes_gpc()) $message = stripslashes($message);
+					#if (get_magic_quotes_gpc()) 
+					$message = stripslashes($message);
 
 					//We protect the variables
 					$message = mysqli_real_escape_string($link, nl2br(htmlentities($message, ENT_QUOTES, 'UTF-8')));					
