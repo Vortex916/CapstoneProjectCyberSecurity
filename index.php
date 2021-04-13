@@ -50,7 +50,7 @@ else {
 //Otherwise, we display a link to log in and to Sign up
 ?>
 <a href="sign_up.php">Sign up</a><br />
-<a href="connexion.php">Log in</a>
+<a href="login.php">Log in</a>
 <?php
 }
 ?>
