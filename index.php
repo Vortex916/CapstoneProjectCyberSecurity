@@ -25,7 +25,7 @@ if(isset($_SESSION['username']))
 }
 ?>
 
-Welcome on the Cybersecurity Capstone Project (University of Maryland/Coursera) page.
+Welcome to the Cybersecurity Capstone Project (University of Maryland/Coursera) page.
 <br>
 <br>
 
@@ -49,7 +49,11 @@ if (isset($_SESSION['username'])) {
 else {
 //Otherwise, we display a link to log in and to Sign up
 ?>
-<button onclick="window.location.href = 'sign_up.php';">Sign up</button><br>
+<div class="content">
+	<form action="sign_up.php" method="post">
+		<input type="submit" value="Sign up" />
+	</form>
+</div>
 <button onclick="window.location.href = 'connexion.php';">Log in</button><br>
 <?php
 }
