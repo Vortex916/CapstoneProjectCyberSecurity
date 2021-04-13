@@ -12,7 +12,7 @@ include('config.php');
     </head>
     <body>
     	<div class="header">
-        	<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
+			<a href="<?php echo $url_home; ?>" alt="Members Area"</a> 
 	    </div>
         <div class="content">
 <?php
