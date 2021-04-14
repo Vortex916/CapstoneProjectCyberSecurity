@@ -84,10 +84,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				if ($result != FALSE) {
 					/* determine number of rows result set */
 					$row_cnt = mysqli_num_rows($result);
-					
-					echo "<script type=\"text/javascript\">alert(\"Row count: " . $row_cnt . "\")</script>";
-					
-					/* close result set */
 					mysqli_free_result($result);
 				}
 				else
@@ -117,12 +113,13 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 					
+					echo '<script type="text/javascript">alert("Entering data into database.")</script>';
 					if($result = $link->query('insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
 					{
+						echo '<script type="text/javascript">alert("Entered data into database.")</script>';
 						//We dont display the form
 						$form = false;
 						mysqli_free_result($result);
-						echo "<script type=\"text/javascript\">alert(\"Registration complete!\")</script>";
 ?>
 		<div class="message">You have successfuly been signed up. You can log in.<br />
 		<a href="connexion.php">Log in</a></div>
