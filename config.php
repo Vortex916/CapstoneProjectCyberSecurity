@@ -1,55 +1,25 @@
 <?php
-//We start sessions
 session_start();
 
-/******************************************************
-------------------Required Configuration---------------
-Please edit the following variables so the members area
-can work correctly.
-******************************************************/
-
-//Access to Heroku DataBase. Account data hardcoded.
-//$heroku_svr = 'eu-cdbr-west-01.cleardb.com'; // Server's URL
-//$heroku_usr = 'be733191673c07';						// Root user.
-//$heroku_pwd = '9c890bcf';							  // Password.
-//$heroku_sch = 'heroku_e0c315f03c29448';				// Schema.
-//$link	    = new mysqli($heroku_svr, $heroku_usr, $heroku_pwd, $heroku_sch);
-$db_access = 'DB access not successful';
-
+//Access to ClearDB DataBase. CLEARDB_DATABASE_URL is an environment variable set in Heroku project.
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 $server = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
-$db = substr($url["path"], 1);
-$link = new mysqli($server, $username, $password, $db);
+$database = substr($url["path"], 1);
+$link = new mysqli($server, $username, $password, $database);
 
-//if (!$link) {
-//	die('Could not connect: ' . mysqli_error());
-//	$db_access = 'DB access absolutely not successful';
-//}
-//else
-//{
-//	$db_access = 'DB access successful';
-//}
-
-if (mysqli_connect_errno())
+// check connection to database
+if ($mysqli -> connect_errno)
 {
-  $db_access = "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  exit();
+  $db_access = "Failed to connect to MySQL: " . $link -> connect_error;
 }
 else
 {
 	$db_access = 'DB access successful';
 }
-  
-//Webmaster Email
-$mail_webmaster = 'vortex916@yahoo.de';
-
-//Top site root URL
-$url_root = 'https://capstone-cyber-security.herokuapp.com/';
-
-/******************************************************
------------------Optional Configuration----------------
-******************************************************/
 
 //Home page file name
 $url_home = 'index.php';
