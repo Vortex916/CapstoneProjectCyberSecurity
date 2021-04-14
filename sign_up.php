@@ -102,9 +102,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				
 				if($row_cnt == 0)
 				{
-					echo '<script type="text/javascript">alert("row_cnt is 0")</script>';
 					//We count the number of users to give an ID to this one
-					$id = 1;
 					if ($result = $link->query('select id from users')) 
 					{
 						/* determine number of rows result set */
