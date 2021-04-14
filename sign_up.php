@@ -29,7 +29,7 @@ $sql_table = "CREATE TABLE users (
 //) ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
 //Check if table users exists in database
-//$exists = mysql_query("select 1 from users");
+$exists = mysql_query("select 1 from users");
 //if($exists !== FALSE)
 //{
 //    echo '<script type="text/javascript">alert("Table users exists in database.")</script>';
