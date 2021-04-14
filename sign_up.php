@@ -15,15 +15,16 @@ include('config.php');
 			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
 		</div>
 <?php
-$sql_table = "CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `avatar` text NOT NULL,
-  `signup_date` int(10) NOT NULL,
-  `salt` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+
+$sql_table = "CREATE TABLE users (
+  id bigint(20) NOT NULL,
+  username varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  avatar text NOT NULL,
+  signup_date int(10) NOT NULL,
+  salt varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8\;";
 
 //Check if table users exists in database
 $exists = mysql_query("select 1 from users");
