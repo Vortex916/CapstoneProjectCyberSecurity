@@ -62,7 +62,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				}
 				else
 				{
-					echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . ")</script>";
+					echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 				}
 
 				//$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"');
@@ -85,7 +85,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					else
 					{
 						// show last error
-						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . ")</script>";
+						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 
 					//$dn2 = mysqli_num_rows(mysqli_query($link, 'select id from users'));
@@ -107,7 +107,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						//Otherwise, we say that an error occured
 						$form	= true;
 						$message = 'An error occurred while signing up.';
-						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . ")</script>";
+						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 				}
 				else
