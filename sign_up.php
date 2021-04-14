@@ -15,12 +15,39 @@ include('config.php');
 			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
 		</div>
 <?php
+$sql_table = "CREATE TABLE `users` (
+  `id` bigint(20) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `avatar` text NOT NULL,
+  `signup_date` int(10) NOT NULL,
+  `salt` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+
+//Check if table users exists in database
+$exists = mysql_query("select 1 from users");
+if($exists !== FALSE)
+{
+    echo '<script type="text/javascript">alert("Table users exists in database.")</script>';
+}
+else
+{
+    echo '<script type="text/javascript">alert("Table users does not exist in database, creating it.")</script>';
+    if ($link->query($sql_table) === TRUE) 
+    {
+		echo '<script type="text/javascript">alert("Table users created successfully.")</script>';
+    } 
+	else 
+	{
+		echo "<script type=\"text/javascript\">alert(\"Error creating table: " . $link->error . "\")</script>";
+	}
+}
+
 $message = 'Did not enter if isset() yet.';
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
 {
-	echo '<script type="text/javascript">alert("Entered isset()")</script>';
-
 	// TODO: get_magic_quotes_gpc() schuetzt vor SQL Injektion, aber veraltet und von neuerem PHP nicht mehr unterstuetzt -> crash
 	// --> durch modernere Variante ersetzen
 	//We remove slashes depending on the configuration
