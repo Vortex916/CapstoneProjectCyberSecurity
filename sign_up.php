@@ -115,8 +115,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						echo '<script type="text/javascript">alert("Entered data into database.")</script>';
 						//We dont display the form
 						$form = false;
-						mysqli_free_result($result);
 						echo "<script type=\"text/javascript\">alert(\"form: " . $form . "\")</script>";
+						//mysqli_free_result($result);
 						
 						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
 						echo "<a href=\"connexion.php\">Log in</a></div>";						
@@ -163,6 +163,7 @@ else
 {
 	$form = true;
 }
+
 if ($form) 
 {
 	//We display a message if necessary
