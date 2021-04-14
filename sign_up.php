@@ -116,16 +116,13 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						// show last error
 						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
-
-					//$dn2 = mysqli_num_rows(mysqli_query($link, 'select id from users'));
-					//$id = $dn2 + 1;
-					//We save the informations to the database
 					
 					if($result = $link->query('insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
 					{
 						//We dont display the form
 						$form = false;
 						mysqli_free_result($result);
+						echo "<script type=\"text/javascript\">alert(\"Registration complete!\")</script>";
 ?>
 		<div class="message">You have successfuly been signed up. You can log in.<br />
 		<a href="connexion.php">Log in</a></div>
