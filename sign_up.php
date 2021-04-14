@@ -47,6 +47,7 @@ else
 	}
 }
 
+$message = 'No problems.';
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
 {
@@ -90,11 +91,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				{
 					echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 				}
-
-				//$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"');
-				//echo '<script type="text/javascript">alert("Finished query")</script>';
-				//$dn = mysqli_num_rows($query_result);
-				//echo '<script type="text/javascript">alert("Finished mysqli_num_rows()")</script>';
 				
 				if($row_cnt == 0)
 				{
@@ -123,7 +119,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 
 						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
 						echo "<a href=\"connexion.php\">Log in</a></div>";
-
+						echo "<script type=\"text/javascript\">alert(\"form: " . $form . "\")</script>";
 					}
 					else
 					{
@@ -167,7 +163,8 @@ else
 {
 	$form = true;
 }
-if ($form) {
+if ($form) 
+{
 	//We display a message if necessary
 	if(isset($message)) echo '<div class="message">'.$message.'</div>';
 
