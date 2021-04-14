@@ -25,7 +25,7 @@ $sql_table = "CREATE TABLE users (
   avatar text NOT NULL,
   signup_date int(10) NOT NULL,
   salt varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8\;";
+) ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
 //Check if table users exists in database
 $exists = mysql_query("select 1 from users");
