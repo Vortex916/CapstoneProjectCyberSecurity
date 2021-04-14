@@ -16,6 +16,7 @@ include('config.php');
 		</div>
 <?php
 
+// see informations.txt
 $sql_table = "CREATE TABLE users (
   id bigint(20) NOT NULL,
   username varchar(255) NOT NULL,
