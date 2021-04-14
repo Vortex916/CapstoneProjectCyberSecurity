@@ -62,7 +62,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				}
 				else
 				{
-					echo '<script type="text/javascript">alert("SQL query returned $result")</script>';
+					echo '<script type="text/javascript">alert("SQL query returned' . $result . '")</script>';
+					echo $link->error;
 				}
 
 				//$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"');
