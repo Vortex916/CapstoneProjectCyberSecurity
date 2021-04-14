@@ -29,23 +29,23 @@ $sql_table = "CREATE TABLE users (
 //) ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
 //Check if table users exists in database
-$exists = mysql_query("select 1 from users");
-//if($exists !== FALSE)
-//{
-//    echo '<script type="text/javascript">alert("Table users exists in database.")</script>';
-//}
-//else
-//{
-//    echo '<script type="text/javascript">alert("Table users does not exist in database, creating it.")</script>';
-//    if ($link->query($sql_table) === TRUE) 
-//    {
-//		echo '<script type="text/javascript">alert("Table users created successfully.")</script>';
-//    } 
-//	else 
-//	{
-//		echo "<script type=\"text/javascript\">alert(\"Error creating table: " . $link->error . "\")</script>";
-//	}
-//}
+$exists = $link->query("select 1 from users");
+if($exists !== FALSE)
+{
+    echo '<script type="text/javascript">alert("Table users exists in database.")</script>';
+}
+else
+{
+    echo '<script type="text/javascript">alert("Table users does not exist in database, creating it.")</script>';
+    if ($link->query($sql_table) === TRUE) 
+    {
+		echo '<script type="text/javascript">alert("Table users created successfully.")</script>';
+    } 
+	else 
+	{
+		echo "<script type=\"text/javascript\">alert(\"Error creating table: " . $link->error . "\")</script>";
+	}
+}
 
 $message = 'Did not enter if isset() yet.';
 //We check if the form has been sent
