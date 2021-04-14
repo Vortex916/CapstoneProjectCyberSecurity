@@ -9,19 +9,19 @@ can work correctly.
 ******************************************************/
 
 //Access to Heroku DataBase. Account data hardcoded.
-$heroku_svr = 'eu-cdbr-west-01.cleardb.com'; // Server's URL
-$heroku_usr = 'be733191673c07';						// Root user.
-$heroku_pwd = '9c890bcf';							  // Password.
-$heroku_sch = 'heroku_e0c315f03c29448';				// Schema.
-$link	    = new mysqli($heroku_svr, $heroku_usr, $heroku_pwd, $heroku_sch);
+//$heroku_svr = 'eu-cdbr-west-01.cleardb.com'; // Server's URL
+//$heroku_usr = 'be733191673c07';						// Root user.
+//$heroku_pwd = '9c890bcf';							  // Password.
+//$heroku_sch = 'heroku_e0c315f03c29448';				// Schema.
+//$link	    = new mysqli($heroku_svr, $heroku_usr, $heroku_pwd, $heroku_sch);
 $db_access = 'DB access not successful';
 
-//$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-//$server = $url["host"];
-//$username = $url["user"];
-//$password = $url["pass"];
-//$db = substr($url["path"], 1);
-//$link = new mysqli($server, $username, $password, $db);
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+$link = new mysqli($server, $username, $password, $db);
 
 //if (!$link) {
 //	die('Could not connect: ' . mysqli_error());
