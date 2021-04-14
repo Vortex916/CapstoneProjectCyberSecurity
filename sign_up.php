@@ -62,7 +62,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				}
 				else
 				{
-					echo '<script type="text/javascript">alert("SQL query returned' . $result . '")</script>';
+					echo '<script type="text/javascript">alert("SQL query returned' . $result . ' blabla")</script>';
+					// show last error
 					echo $link->error;
 				}
 
@@ -82,6 +83,11 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						/* close result set */
 						mysqli_free_result($result);
 						$id = $dn2 + 1;
+					}
+					else
+					{
+						// show last error
+						echo $link->error;
 					}
 
 					//$dn2 = mysqli_num_rows(mysqli_query($link, 'select id from users'));
@@ -104,6 +110,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						$form	= true;
 						$message = 'An error occurred while signing up.';
 						echo '<script type="text/javascript">alert("SQL query returned $result")</script>';
+						// show last error
+						echo $link->error;
 					}
 				}
 				else
