@@ -52,7 +52,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
 				$row_cnt = 0;
-				$result = $link->query('select id from users where username="'.$username.'"')
+				$result = $link->query('select id from users where username="'.$username.'"');
 				if ($result != FALSE) {
 					echo '<script type="text/javascript">alert("Determining row count now")</script>';
 					/* determine number of rows result set */
