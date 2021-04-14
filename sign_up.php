@@ -32,22 +32,21 @@ $sql_table = "CREATE TABLE users (
 $exists = $link->query("select 1 from users");
 if($exists !== FALSE)
 {
-    echo '<script type="text/javascript">alert("Table users exists in database.")</script>';
+    //echo '<script type="text/javascript">alert("Table users exists in database.")</script>';
 }
 else
 {
-    echo '<script type="text/javascript">alert("Table users does not exist in database, creating it.")</script>';
+    //echo '<script type="text/javascript">alert("Table users does not exist in database, creating it.")</script>';
     if ($link->query($sql_table) === TRUE) 
     {
-		echo '<script type="text/javascript">alert("Table users created successfully.")</script>';
+		//echo '<script type="text/javascript">alert("Table users created successfully.")</script>';
     } 
 	else 
 	{
-		echo "<script type=\"text/javascript\">alert(\"Error creating table: " . $link->error . "\")</script>";
+		//echo "<script type=\"text/javascript\">alert(\"Error creating table: " . $link->error . "\")</script>";
 	}
 }
 
-$message = 'Did not enter if isset() yet.';
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
 {
@@ -81,12 +80,13 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.				
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
-				$row_cnt = 0;
 				$result = $link->query('select id from users where username="'.$username.'"');
 				if ($result != FALSE) {
-					echo '<script type="text/javascript">alert("Determining row count now")</script>';
 					/* determine number of rows result set */
 					$row_cnt = mysqli_num_rows($result);
+					
+					echo "<script type=\"text/javascript\">alert(\"Row count: " . $row_cnt . "\")</script>";
+					
 					/* close result set */
 					mysqli_free_result($result);
 				}
@@ -105,7 +105,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					echo '<script type="text/javascript">alert("row_cnt is 0")</script>';
 					//We count the number of users to give an ID to this one
 					$id = 1;
-					if ($result = mysqli_query($link, 'select id from users')) {
+					if ($result = $link->query('select id from users')) 
+					{
 						/* determine number of rows result set */
 						$dn2 = mysqli_num_rows($result);
 						/* close result set */
@@ -122,7 +123,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					//$id = $dn2 + 1;
 					//We save the informations to the database
 					
-					if($result = mysqli_query($link, 'insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
+					if($result = $link->query('insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
 					{
 						//We dont display the form
 						$form = false;
