@@ -120,10 +120,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						//We dont display the form
 						$form = false;
 						mysqli_free_result($result);
-?>
-		<div class="message">You have successfuly been signed up. You can log in.<br />
-		<a href="connexion.php">Log in</a></div>
-<?php
+
+						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
+						echo "<a href=\"connexion.php\">Log in</a></div>";
+
 					}
 					else
 					{
