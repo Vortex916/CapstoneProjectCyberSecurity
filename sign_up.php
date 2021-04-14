@@ -116,10 +116,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						//We dont display the form
 						$form = false;
 						mysqli_free_result($result);
-
-						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
-						echo "<a href=\"connexion.php\">Log in</a></div>";
 						echo "<script type=\"text/javascript\">alert(\"form: " . $form . "\")</script>";
+						
+						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
+						echo "<a href=\"connexion.php\">Log in</a></div>";						
 					}
 					else
 					{
