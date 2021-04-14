@@ -62,7 +62,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				}
 				else
 				{
-					echo '<script type="text/javascript">alert("SQL query returned FALSE")</script>';
+					echo '<script type="text/javascript">alert("SQL query returned $result")</script>';
 				}
 
 				//$query_result = mysqli_query($link, 'select id from users where username="'.$username.'"');
@@ -85,11 +85,13 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 
 					//$dn2 = mysqli_num_rows(mysqli_query($link, 'select id from users'));
 					//$id = $dn2 + 1;
-					//We save the informations to the databse
-					if(mysqli_query($link, 'insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
+					//We save the informations to the database
+					
+					if($result = mysqli_query($link, 'insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
 					{
 						//We dont display the form
 						$form = false;
+						mysqli_free_result($result);
 ?>
 		<div class="message">You have successfuly been signed up. You can log in.<br />
 		<a href="connexion.php">Log in</a></div>
@@ -100,6 +102,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						//Otherwise, we say that an error occured
 						$form	= true;
 						$message = 'An error occurred while signing up.';
+						echo '<script type="text/javascript">alert("SQL query returned $result")</script>';
 					}
 				}
 				else
