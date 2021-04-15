@@ -28,6 +28,26 @@ $url_home = 'index.php';
 $design = 'default';
 
 // Create tables in database if not existing yet
+// code for development: comment out if a table needs to be deleted
+$delete_users_table = "DROP TABLE users";
+if ($link->query($delete_messages_users) === TRUE) 
+{
+	echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
+} 
+else 
+{
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
+}
+
+$delete_messages_table = "DROP TABLE messages";
+if ($link->query($delete_messages_table) === TRUE) 
+{
+	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
+} 
+else 
+{
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
+}
 
 // users table
 $users_table = "CREATE TABLE users (
@@ -35,7 +55,6 @@ $users_table = "CREATE TABLE users (
   username varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
-  avatar text NOT NULL,
   signup_date int(10) NOT NULL,
   salt varchar(255) NOT NULL
 )";
@@ -66,7 +85,7 @@ $messages_table = "CREATE TABLE messages (
   timestamp int(10) NOT NULL,
   user1read varchar(3) NOT NULL,
   user2read varchar(3) NOT NULL,
-  tag text NOT NULL
+  tag varchar(255) NOT NULL,
 )";
 
 $exists = $link->query("select 1 from messages");
@@ -90,17 +109,6 @@ $messages_keys_table = "CREATE TABLE messagekeys (
   user2 bigint(20) NOT NULL,
   mskey varchar(255) NOT NULL
 )";
-
-// code for development: comment out if a table needs to be deleted
-// $delete_messages_table = "DROP TABLE messages";
-// if ($link->query($delete_messages_table) === TRUE) 
-// {
-// 	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
-// } 
-// else 
-// {
-// 	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
-// }
 
 $exists = $link->query("select 1 from messagekeys");
 if($exists == FALSE)

@@ -15,7 +15,7 @@
 //We get all rows of users
 
 echo "user<BR>";
-echo "id,username,password,e-mail,avatar,signup_date,salt<BR>";
+echo "id,username,password,e-mail,signup_date,salt<BR>";
 $req = mysqli_query($link, 'select * from users');
 
 while($dnn = mysqli_fetch_array($req))
@@ -24,7 +24,6 @@ while($dnn = mysqli_fetch_array($req))
 	echo htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities($dnn['password'], ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8').",";
-	echo htmlentities($dnn['avatar'], ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities(date("Y-m-d H:i:s", $dnn['signup_date']), ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities($dnn['salt'], ENT_QUOTES, 'UTF-8')."<BR>";
 }

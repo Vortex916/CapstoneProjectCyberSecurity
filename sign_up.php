@@ -17,7 +17,7 @@ include('config.php');
 <?php
 
 //We check if the form has been sent
-if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
+if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email']) and $_POST['username'] != '')
 {
 	// TODO: get_magic_quotes_gpc() schuetzt vor SQL Injektion, aber veraltet und von neuerem PHP nicht mehr unterstuetzt -> crash
 	// --> durch modernere Variante ersetzen
@@ -28,7 +28,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 	$_POST['password']  = stripslashes($_POST['password']);
 	$_POST['passverif'] = stripslashes($_POST['passverif']);
 	$_POST['email']  	= stripslashes($_POST['email']);
-	$_POST['avatar']	= stripslashes($_POST['avatar']);
 	//}
 	
 	//We check if the two passwords are identical
@@ -44,8 +43,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				//We protect the variables
 				$username = mysqli_real_escape_string($link, $_POST['username']);
 				$password = mysqli_real_escape_string($link, $_POST['password']);
-				$email	  = mysqli_real_escape_string($link, $_POST['email']);
-				$avatar   = mysqli_real_escape_string($link, $_POST['avatar']);				
+				$email	  = mysqli_real_escape_string($link, $_POST['email']);				
 				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.				
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
@@ -77,7 +75,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 					
-					if($result = $link->query('insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
+					if($result = $link->query('insert into users(id, username, password, email, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.time().'","'.$salt.'")'))
 					{
 						//We dont display the form
 						$form = false;
@@ -143,7 +141,6 @@ if ($form)
 					<label for="password">Password<span class="small">(8 characters min.)</span></label><input type="password" name="password" /><br />
 					<label for="passverif">Password<span class="small">(verification)</span></label><input type="password" name="passverif" /><br />
 					<label for="email">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
-					<label for="avatar">Avatar<span class="small">(optional)</span></label><input type="text" name="avatar" value="<?php if(isset($_POST['avatar'])){echo htmlentities($_POST['avatar'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
 					<input type="submit" value="Sign up" />
 				</div>
 			</form>

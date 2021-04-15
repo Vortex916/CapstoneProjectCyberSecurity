@@ -19,14 +19,13 @@ include('config.php');
 //We check if the user is logged
 if (isset($_SESSION['username'])) {
 	//We check if the form has been sent
-	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar'])) {
+	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'])) {
 		//We remove slashes depending on the configuration
 		//if (get_magic_quotes_gpc()) {
 		$_POST['username']  = stripslashes($_POST['username']);
 		$_POST['password']  = stripslashes($_POST['password']);
 		$_POST['passverif'] = stripslashes($_POST['passverif']);
 		$_POST['email']	    = stripslashes($_POST['email']);
-		$_POST['avatar']	= stripslashes($_POST['avatar']);
 		$_POST['confirm']   = stripslashes($_POST['confirm']);
 		//}
 		//We check if the two passwords are identical
@@ -41,7 +40,6 @@ if (isset($_SESSION['username'])) {
 					$username = mysqli_real_escape_string($link, $_POST['username']);
 					$password = mysqli_real_escape_string($link, $_POST['password']);
 					$email	= mysqli_real_escape_string($link, $_POST['email']);
-					$avatar   = mysqli_real_escape_string($link, $_POST['avatar']);
 					$confirm  = mysqli_real_escape_string($link, $_POST['confirm']);
 					//We check if there is no other user using the same username
 					$dn = mysqli_fetch_array(mysqli_query($link, 'select count(*) as nb from users where username="'.$username.'"'));
@@ -53,7 +51,8 @@ if (isset($_SESSION['username'])) {
 						$oldpassw = hash("sha512", $dn['salt'].$confirm);  // Hash confirm with the salt to match database.
 						//We edit the user informations
 						if ($dn['password'] == $oldpassw) {
-							if(mysqli_query($link, 'update users set username="'.$username.'", password="'.$password.'", email="'.$email.'", avatar="'.$avatar.'" where id="'.mysqli_real_escape_string($link, $_SESSION['userid']).'"')) { 
+							if(mysqli_query($link, 'update users set username="'.$username.'", password="'.$password.'", email="'.$email.'" where id="'.mysqli_real_escape_string($link, $_SESSION['userid']).'"')) 
+							{ 
 								//We dont display the form
 								$form = false;
 								//We delete the old sessions so the user need to log again
@@ -109,16 +108,14 @@ if (isset($_SESSION['username'])) {
 			$password  = '';
 			$passverif = '';
 			$email	   = htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');
-			$avatar	   = htmlentities($_POST['avatar'], ENT_QUOTES, 'UTF-8');
 		}
 		else {
 			//otherwise, we display the values of the database
-			$dnn	   = mysqli_fetch_array(mysqli_query($link, 'select username,password,email,avatar from users where username="'.$_SESSION['username'].'"'));
+			$dnn	   = mysqli_fetch_array(mysqli_query($link, 'select username,password,email from users where username="'.$_SESSION['username'].'"'));
 			$username  = htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8');
 			$password  = '';
 			$passverif = '';
 			$email	   = htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8');
-			$avatar	   = htmlentities($dnn['avatar'], ENT_QUOTES, 'UTF-8');
 		}
 		//We display the form
 ?>
@@ -130,7 +127,6 @@ if (isset($_SESSION['username'])) {
 					<label for="password">New Password<span class="small">(8 characters min.)</span></label><input type="password" name="password" id="password" value="" /><br />
 					<label for="passverif">New Password<span class="small">(verification)</span></label><input type="password" name="passverif" id="passverif" value="" /><br />
 					<label for="email">Email</label><input type="text" name="email" id="email" value="<?php echo $email; ?>" /><br />
-					<label for="avatar">Avatar<span class="small">(optional)</span></label><input type="text" name="avatar" id="avatar" value="<?php echo $avatar; ?>" /><br />
 					<label for="confirm">Old Password<span class="small"></span></label><input type="password" name="confirm" id="confirm" value="" /><br />
 					<input type="submit" value="Send" />
 				</div>

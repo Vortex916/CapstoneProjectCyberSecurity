@@ -39,7 +39,7 @@ if (isset($_SESSION['username'])) {
 					$user_partic = 1;
 				}
 				//We get the list of the messages
-				$req2 = mysqli_query($link, 'select messages.timestamp, messages.message, users.id as userid, users.username, users.avatar, messages.user1, messages.user2, messages.tag from messages, users where messages.id="'.$id.'" and users.id=messages.user1 order by messages.id2');
+				$req2 = mysqli_query($link, 'select messages.timestamp, messages.message, users.id as userid, users.username, messages.user1, messages.user2, messages.tag from messages, users where messages.id="'.$id.'" and users.id=messages.user1 order by messages.id2');
 
 				//We check if the form has been sent
 				if (isset($_POST['message']) and $_POST['message'] != '') {
@@ -111,7 +111,6 @@ if (isset($_SESSION['username'])) {
 ?>
 				<tr>
 					<td class="author center">
-<?php					if ($dn2['avatar'] != '') echo '<img src="'.htmlentities($dn2['avatar']).'" alt="Image Perso" style="max-width:100px;max-height:100px;" />'; ?>
 				<br /><a href="profile.php?id=<?php echo $dn2['userid']; ?>"><?php echo $dn2['username']; ?></a></td>
 					<td class="left"><div class="date">Sent: <?php echo date('m/d/Y H:i:s' ,$dn2['timestamp']); ?></div>
 							<?php echo $decrypted; ?></td>
