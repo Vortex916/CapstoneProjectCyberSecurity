@@ -11,7 +11,7 @@ include('config.php');
 	</head>
 	<body>
 		<div class="header">
-			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
+			<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
 		</div>
 
 <?php
@@ -39,7 +39,7 @@ if (isset($_SESSION['username'])) {
 			$recip   = mysqli_real_escape_string($link, $orecip);
 			$message = mysqli_real_escape_string($link, nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8')));
 			//We check if the recipient exists
-			$dn1 = mysqli_fetch_array(mysqli_query($link, 'select count(id) as recip, id as recipid, (select count(*) from pm) as npm from users where username="'.$recip.'"'));
+			$dn1 = mysqli_fetch_array(mysqli_query($link, 'select count(id) as recip, id as recipid, (select count(*) from messages) as npm from users where username="'.$recip.'"'));
 			if ($dn1['recip'] == 1) {
 				//We check if the recipient is not the actual user
 				if ($dn1['recipid'] != $_SESSION['userid']) {
@@ -56,7 +56,7 @@ if (isset($_SESSION['username'])) {
 						$ciphertext_raw = openssl_encrypt($message, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv, $tag);
 						$hmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
 						$ciphertext = base64_encode($iv.$hmac.$ciphertext_raw);    //store $cipher, $iv, and $tag for decryption later
-						if (mysqli_query($link, 'insert into pm (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag)values("'.$id.'", "1", "'.$title.'", "'.$_SESSION['userid'].'", "'.$dn1['recipid'].'", "'.$ciphertext.'", "'.time().'", "yes", "no", "'.$tag.'")')) {
+						if (mysqli_query($link, 'insert into messages (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag)values("'.$id.'", "1", "'.$title.'", "'.$_SESSION['userid'].'", "'.$dn1['recipid'].'", "'.$ciphertext.'", "'.time().'", "yes", "no", "'.$tag.'")')) {
 ?>
 		<div class="message">The message has successfully been sent.<br />
 		<a href="list_pm.php">List of my personnal messages</a></div>

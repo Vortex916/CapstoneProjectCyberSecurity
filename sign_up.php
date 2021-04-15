@@ -12,40 +12,9 @@ include('config.php');
 	</head>
 	<body>
 		<div class="header">
-			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
+			<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
 		</div>
 <?php
-
-// see informations.txt
-$sql_table = "CREATE TABLE users (
-  id bigint(20) NOT NULL,
-  username varchar(255) NOT NULL,
-  password varchar(255) NOT NULL,
-  email varchar(255) NOT NULL,
-  avatar text NOT NULL,
-  signup_date int(10) NOT NULL,
-  salt varchar(255) NOT NULL
-)";
-//) ENGINE=MyISAM DEFAULT CHARSET=utf8";
-
-//Check if table users exists in database
-$exists = $link->query("select 1 from users");
-if($exists !== FALSE)
-{
-    //echo '<script type="text/javascript">alert("Table users exists in database.")</script>';
-}
-else
-{
-    //echo '<script type="text/javascript">alert("Table users does not exist in database, creating it.")</script>';
-    if ($link->query($sql_table) === TRUE) 
-    {
-		//echo '<script type="text/javascript">alert("Table users created successfully.")</script>';
-    } 
-	else 
-	{
-		//echo "<script type=\"text/javascript\">alert(\"Error creating table: " . $link->error . "\")</script>";
-	}
-}
 
 $message = 'No problems.';
 //We check if the form has been sent
@@ -109,13 +78,12 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 					
-					echo '<script type="text/javascript">alert("Entering data into database.")</script>';
 					if($result = $link->query('insert into users(id, username, password, email, avatar, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$avatar.'", "'.time().'","'.$salt.'")'))
 					{
-						echo '<script type="text/javascript">alert("Entered data into database.")</script>';
 						//We dont display the form
 						$form = false;
-						echo "<script type=\"text/javascript\">alert(\"form: " . $form . "\")</script>";
+						
+						// TODO: if executed, program crashes
 						//mysqli_free_result($result);
 						
 						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";

@@ -27,6 +27,88 @@ $url_home = 'index.php';
 //Design Name
 $design = 'default';
 
+//Create required database tables if not existing
+// for deleting table:
+// DROP TABLE users;
+
+// Create tables in database if not existing yet
+
+// users table
+$users_table = "CREATE TABLE users (
+  id bigint(20) NOT NULL,
+  username varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  avatar text NOT NULL,
+  signup_date int(10) NOT NULL,
+  salt varchar(255) NOT NULL
+)";
+
+$exists = $link->query("select 1 from users");
+if($exists == FALSE)
+{
+	echo '<script type="text/javascript">alert("Table users does not exist in database, creating it.")</script>';
+
+    if ($link->query($users_table) === TRUE) 
+    {
+		echo '<script type="text/javascript">alert("Table users created successfully.")</script>';
+    } 
+	else 
+	{
+		echo "<script type=\"text/javascript\">alert(\"Error creating table users: " . $link->error . "\")</script>";
+	}
+}
+
+// messages table
+$messages_table = "CREATE TABLE messages (
+  id bigint(20) NOT NULL,
+  id2 int(11) NOT NULL,
+  title varchar(256) NOT NULL,
+  user1 bigint(20) NOT NULL,
+  user2 bigint(20) NOT NULL,
+  message text NOT NULL,
+  timestamp int(10) NOT NULL,
+  user1read varchar(3) NOT NULL,
+  user2read varchar(3) NOT NULL
+)";
+
+$exists = $link->query("select 1 from messages");
+if($exists == FALSE)
+{
+	echo '<script type="text/javascript">alert("Table messages does not exist in database, creating it.")</script>';
+
+    if ($link->query($messages_table) === TRUE) 
+    {
+		echo '<script type="text/javascript">alert("Table messages created successfully.")</script>';
+    } 
+	else 
+	{
+		echo "<script type=\"text/javascript\">alert(\"Error creating table messages: " . $link->error . "\")</script>";
+	}
+}
+
+// message keys table
+$messages_keys_table = "CREATE TABLE messagekeys (
+  user1 bigint(20) NOT NULL,
+  user2 bigint(20) NOT NULL,
+  mskey varchar(255) NOT NULL
+)";
+
+$exists = $link->query("select 1 from messagekeys");
+if($exists == FALSE)
+{
+	echo '<script type="text/javascript">alert("Table messagekeys does not exist in database, creating it.")</script>';
+
+    if ($link->query($messages_keys_table) === TRUE) 
+    {
+		echo '<script type="text/javascript">alert("Table messagekeys created successfully.")</script>';
+    } 
+	else 
+	{
+		echo "<script type=\"text/javascript\">alert(\"Error creating table messagekeys: " . $link->error . "\")</script>";
+	}
+}
+
 // checkPassword: Check password strength. Returns true if it is Ok.
 // $pwd receives the password to test.
 // $errors returns the non-compliant items of the provided password

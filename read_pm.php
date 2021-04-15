@@ -11,7 +11,7 @@ include('config.php');
 	</head>
 	<body>
 		<div class="header">
-			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
+			<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
 		</div>
 
 <?php
@@ -21,7 +21,7 @@ if (isset($_SESSION['username'])) {
 	if (isset($_GET['id'])) {
 		$id = intval($_GET['id']);
 		//We get the title and the narrators of the discussion
-		$req1 = mysqli_query($link, 'select title, user1, user2 from pm where id="'.$id.'" and id2="1"');
+		$req1 = mysqli_query($link, 'select title, user1, user2 from messages where id="'.$id.'" and id2="1"');
 		$dn1  = mysqli_fetch_array($req1);
 		//We check if the discussion exists
 		if (mysqli_num_rows($req1) == 1) {
@@ -30,16 +30,16 @@ if (isset($_SESSION['username'])) {
 				//The discussion will be placed in read messages
 				if($dn1['user1'] == $_SESSION['userid']) {
 					$u2 = $dn1['user2'];
-					mysqli_query($link, 'update pm set user1read="yes" where id="'.$id.'" and id2="1"');
+					mysqli_query($link, 'update messages set user1read="yes" where id="'.$id.'" and id2="1"');
 					$user_partic = 2;
 				}
 				else {
 					$u2 = $dn1['user1'];
-					mysqli_query($link, 'update pm set user2read="yes" where id="'.$id.'" and id2="1"');
+					mysqli_query($link, 'update messages set user2read="yes" where id="'.$id.'" and id2="1"');
 					$user_partic = 1;
 				}
 				//We get the list of the messages
-				$req2 = mysqli_query($link, 'select pm.timestamp, pm.message, users.id as userid, users.username, users.avatar, pm.user1, pm.user2, pm.tag from pm, users where pm.id="'.$id.'" and users.id=pm.user1 order by pm.id2');
+				$req2 = mysqli_query($link, 'select messages.timestamp, messages.message, users.id as userid, users.username, users.avatar, messages.user1, messages.user2, messages.tag from messages, users where messages.id="'.$id.'" and users.id=messages.user1 order by messages.id2');
 
 				//We check if the form has been sent
 				if (isset($_POST['message']) and $_POST['message'] != '') {
@@ -63,8 +63,8 @@ if (isset($_SESSION['username'])) {
 						$hmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
 						$ciphertext = base64_encode($iv.$hmac.$ciphertext_raw);    //store $cipher, $iv, and $tag for decryption later
 						//We send the message and we change the status of the discussion to unread for the recipient
-						if (mysqli_query($link, 'insert into pm (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag)values("'.$id.'", "'.(intval(mysqli_num_rows($req2))+1).'", "", "'.$_SESSION['userid'].'", "", "'.$ciphertext.'", "'.time().'", "", "", "'.$tag.'")')) {
-							if (mysqli_query($link, 'update pm set user'.$user_partic.'read="yes" where id="'.$id.'" and id2="1"')) {
+						if (mysqli_query($link, 'insert into messages (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag)values("'.$id.'", "'.(intval(mysqli_num_rows($req2))+1).'", "", "'.$_SESSION['userid'].'", "", "'.$ciphertext.'", "'.time().'", "", "", "'.$tag.'")')) {
+							if (mysqli_query($link, 'update messages set user'.$user_partic.'read="yes" where id="'.$id.'" and id2="1"')) {
 ?>
 								<div class="message">Your message has successfully been sent.<br />
 								<a href="read_pm.php?id=<?php echo $id; ?>">Go to the discussion</a></div>

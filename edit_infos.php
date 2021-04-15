@@ -12,7 +12,7 @@ include('config.php');
 	</head>
 	<body>
 		<div class="header">
-			<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
+			<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
 		</div>
 
 <?php
@@ -21,14 +21,14 @@ if (isset($_SESSION['username'])) {
 	//We check if the form has been sent
 	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar'])) {
 		//We remove slashes depending on the configuration
-		if (get_magic_quotes_gpc()) {
-			$_POST['username']  = stripslashes($_POST['username']);
-			$_POST['password']  = stripslashes($_POST['password']);
-			$_POST['passverif'] = stripslashes($_POST['passverif']);
-			$_POST['email']	    = stripslashes($_POST['email']);
-			$_POST['avatar']	= stripslashes($_POST['avatar']);
-			$_POST['confirm']   = stripslashes($_POST['confirm']);
-		}
+		//if (get_magic_quotes_gpc()) {
+		$_POST['username']  = stripslashes($_POST['username']);
+		$_POST['password']  = stripslashes($_POST['password']);
+		$_POST['passverif'] = stripslashes($_POST['passverif']);
+		$_POST['email']	    = stripslashes($_POST['email']);
+		$_POST['avatar']	= stripslashes($_POST['avatar']);
+		$_POST['confirm']   = stripslashes($_POST['confirm']);
+		//}
 		//We check if the two passwords are identical
 
 		$errors = [];

@@ -10,7 +10,7 @@ include('config.php');
     </head>
     <body>
     	<div class="header">
-        	<a href="<?php echo $url_home; ?>"><img src="<?php echo $design; ?>/images/logo.png" alt="Members Area" /></a>
+        	<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
 	    </div>
         <div class="content">
 <?php
@@ -19,8 +19,8 @@ if(isset($_SESSION['username']))
 {
 //We list his messages in a table
 //Two queries are executes, one for the unread messages and another for read messages
-$req1 = mysqli_query($link, 'select m1.id, m1.title, m1.timestamp, count(m2.id) as reps, users.id as userid, users.username from pm as m1, pm as m2,users where ((m1.user1="'.$_SESSION['userid'].'" and m1.user1read="no" and users.id=m1.user2) or (m1.user2="'.$_SESSION['userid'].'" and m1.user2read="no" and users.id=m1.user1)) and m1.id2="1" and m2.id=m1.id group by m1.id order by m1.id desc');
-$req2 = mysqli_query($link, 'select m1.id, m1.title, m1.timestamp, count(m2.id) as reps, users.id as userid, users.username from pm as m1, pm as m2,users where ((m1.user1="'.$_SESSION['userid'].'" and m1.user1read="yes" and users.id=m1.user2) or (m1.user2="'.$_SESSION['userid'].'" and m1.user2read="yes" and users.id=m1.user1)) and m1.id2="1" and m2.id=m1.id group by m1.id order by m1.id desc');
+$req1 = mysqli_query($link, 'select m1.id, m1.title, m1.timestamp, count(m2.id) as reps, users.id as userid, users.username from messages as m1, messages as m2,users where ((m1.user1="'.$_SESSION['userid'].'" and m1.user1read="no" and users.id=m1.user2) or (m1.user2="'.$_SESSION['userid'].'" and m1.user2read="no" and users.id=m1.user1)) and m1.id2="1" and m2.id=m1.id group by m1.id order by m1.id desc');
+$req2 = mysqli_query($link, 'select m1.id, m1.title, m1.timestamp, count(m2.id) as reps, users.id as userid, users.username from messages as m1, messages as m2,users where ((m1.user1="'.$_SESSION['userid'].'" and m1.user1read="yes" and users.id=m1.user2) or (m1.user2="'.$_SESSION['userid'].'" and m1.user2read="yes" and users.id=m1.user1)) and m1.id2="1" and m2.id=m1.id group by m1.id order by m1.id desc');
 ?>
 This is the list of your messages:<br />
 <a href="new_pm.php" class="link_new_pm">New PM</a><br />

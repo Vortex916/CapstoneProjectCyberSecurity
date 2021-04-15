@@ -31,9 +31,9 @@ while($dnn = mysqli_fetch_array($req))
 
 //Users
 //We get all rows of users
-echo "<BR>pm<BR>";
+echo "<BR>messages<BR>";
 echo "id,id2,title,user1,user2,message,timestamp,user1read,user2read,tag<BR>";
-$req = mysqli_query($link, 'select * from pm');
+$req = mysqli_query($link, 'select * from messages');
 
 while($dnn = mysqli_fetch_array($req))
 {
