@@ -33,6 +33,16 @@ $design = 'default';
 
 // Create tables in database if not existing yet
 
+delete_messages_table = "DROP TABLE messages_table";
+if ($link->query($delete_messages_table) === TRUE) 
+{
+	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
+} 
+else 
+{
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
+}
+
 // users table
 $users_table = "CREATE TABLE users (
   id bigint(20) NOT NULL,
@@ -69,7 +79,8 @@ $messages_table = "CREATE TABLE messages (
   message text NOT NULL,
   timestamp int(10) NOT NULL,
   user1read varchar(3) NOT NULL,
-  user2read varchar(3) NOT NULL
+  user2read varchar(3) NOT NULL,
+  tag text NOT NULL,
 )";
 
 $exists = $link->query("select 1 from messages");
