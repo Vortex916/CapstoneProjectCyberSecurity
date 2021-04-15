@@ -59,8 +59,7 @@ if (isset($_SESSION['username'])) {
 								//We delete the old sessions so the user need to log again
 								unset($_SESSION['username'], $_SESSION['userid']);
 ?>
-		<div class="message">Your informations have successfuly been updated. You need to log again.<br />
-		<a href="connexion.php">Log in</a></div>
+		<div class="message">Your informations have successfuly been updated. You need to login again.<br />
 <?php
 							}
 							else {
@@ -104,9 +103,6 @@ if (isset($_SESSION['username'])) {
 	else $form = true;
 
 	if ($form) {
-		//We display a message if necessary
-		if(isset($message)) echo '<strong>'.$message.'</strong>';
-
 		//If the form has already been sent, we display the same values
 		if (isset($_POST['username'],$_POST['password'],$_POST['email'])) {
 			$username  = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
@@ -142,6 +138,8 @@ if (isset($_SESSION['username'])) {
 		</div>
 
 <?php
+		//We display a message if necessary
+		if(isset($message)) echo '</br><strong>'.$message.'</strong>';
 	}
 }
 else {

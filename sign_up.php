@@ -133,9 +133,6 @@ else
 
 if ($form) 
 {
-	//We display a message if necessary
-	if(isset($message)) echo '<br /><div class="message">'.$message.'</div>';
-
 	//We display the form again
 ?>
 		<div class="content">
@@ -152,6 +149,11 @@ if ($form)
 			</form>
 		</div>
 <?php
+	//We display a message if necessary
+	if(isset($message))
+	{
+		echo '<br><div class="message">'.$message.'</div>';
+	}
 }
 ?>
 		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
