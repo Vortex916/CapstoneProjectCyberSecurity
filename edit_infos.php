@@ -121,11 +121,12 @@ if (isset($_SESSION['username'])) {
 ?>
 		<div class="content">
 			<form action="edit_infos.php" method="post">
-				You can edit your information:<br />
+				You can change your stored user data here:<br />
+				<p style="font-size:14px;">(Password requires 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
 				<div class="center">
 					<label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo $username; ?>" readonly/><br />
-					<label for="password">New Password<span class="small">(8 characters min.)</span></label><input type="password" name="password" id="password" value="" /><br />
-					<label for="passverif">New Password<span class="small">(verification)</span></label><input type="password" name="passverif" id="passverif" value="" /><br />
+					<label for="password">New Password</label><input type="password" name="password" id="password" value="" /><br />
+					<label for="passverif">Repeat New Password</label><input type="password" name="passverif" id="passverif" value="" /><br />
 					<label for="email">Email</label><input type="text" name="email" id="email" value="<?php echo $email; ?>" /><br />
 					<label for="confirm">Old Password<span class="small"></span></label><input type="password" name="confirm" id="confirm" value="" /><br />
 					<input type="submit" value="Send" />
