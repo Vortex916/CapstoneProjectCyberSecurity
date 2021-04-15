@@ -62,5 +62,6 @@ while($dnn = mysqli_fetch_array($req))
 	echo htmlentities($dnn['mskey'], ENT_QUOTES, 'UTF-8')."<BR>";
 }
 ?>
+		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
 	</body>
 </html>

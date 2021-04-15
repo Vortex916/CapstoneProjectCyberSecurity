@@ -15,6 +15,10 @@
   max-width: 75%;
   margin: 1em auto 2em;
 }
+.jumbotron a {
+  color: blue;
+  text-decoration: underline;
+}
 .jumbotron h1 {
   font-size: 40px;
 }

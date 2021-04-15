@@ -16,7 +16,6 @@ include('config.php');
 		</div>
 <?php
 
-$message = 'No problems.';
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
 {
@@ -155,8 +154,6 @@ if ($form)
 <?php
 }
 ?>
-		<div class="foot"><a href="<?php echo $url_home; ?>">Go Home</a></div>
-		<br>
-		Log: <?php echo $message; ?><br />
+		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
 	</body>
 </html>

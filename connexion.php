@@ -55,7 +55,7 @@ else
 			$_SESSION['username'] = $_POST['username'];
 			$_SESSION['userid'] = $dn['id'];
 ?>
-<div class="message">You have successfuly been logged. You can access to your member area.<br />
+<div class="message">You have successfuly been logged in. You can access to your member area.<br />
 <a href="<?php echo $url_home; ?>">Home</a></div>
 <?php
 		}
@@ -74,7 +74,7 @@ else
 ?>
 <div class="content">
     <form action="connexion.php" method="post">
-        Please type your IDs to log in:<br />
+        Please type your username and password to log in:<br />
         <div class="center">
             <label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
             <label for="password">Password</label><input type="password" name="password" id="password" /><br />
@@ -86,6 +86,6 @@ else
 	}
 }
 ?>
-		<div class="foot"><a href="<?php echo $url_home; ?>">Go Home</a></div>
+		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
 	</body>
 </html>

@@ -97,6 +97,6 @@ else
 }
 ?>
 		</div>
-		<div class="foot"><a href="<?php echo $url_home; ?>">Go Home</a></div>
+		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
 	</body>
 </html>

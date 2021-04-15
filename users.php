@@ -15,7 +15,7 @@ include('config.php');
 			<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
 		</div>
 		<div class="content">
-This is the list of members:
+This is the list of all registered users:
 			<table>
 				<tr>
 					<th>Id</th>
@@ -40,6 +40,6 @@ while ($dnn = mysqli_fetch_array($req)) {
 ?>
 			</table>
 		</div>
-		<div class="foot"><a href="<?php echo $url_home; ?>">Go Home</a></div>
+		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
 	</body>
 </html>
