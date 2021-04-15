@@ -134,7 +134,7 @@ if ($form)
 	//We display the form again
 ?>
 		<div class="content">
-			<form action="sign_up.php" method="post">
+			<form action="register.php" method="post">
 				Please fill the following form to sign up:<br />
 				<p style="font-size:14px;">(Password requires 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
 				<div class="center">
@@ -142,7 +142,7 @@ if ($form)
 					<label for="password">Password</label><input type="password" name="password" /><br />
 					<label for="passverif">Repeat Password</label><input type="password" name="passverif" /><br />
 					<label for="email">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
-					<input type="submit" value="Login" />
+					<input type="submit" value="Register" />
 				</div>
 			</form>
 		</div>
