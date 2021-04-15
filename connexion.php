@@ -59,7 +59,7 @@ else
 		else {
 			//Otherwise, we say the password is incorrect.
 			$form    = true;
-			$message = 'The username or password is incorrect.';
+			$message = 'The entered username is not registered or the password does not fit to the registered username.';
 		}
 	}
 	else $form = true;
@@ -75,8 +75,8 @@ else
 		<br />
         <div class="center">
             <label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
-            <label for="password">Password</label><input type="password" name="password" id="password" /><br />
-            <input type="submit" value="Log in" />
+            <label for="password">Password</label><input type="password" name="password" id="password" /><br /><br />
+            <input type="submit" value="Login" />
 		</div>
     </form>
 </div>

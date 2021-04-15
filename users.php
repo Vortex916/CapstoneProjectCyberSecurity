@@ -18,9 +18,9 @@ include('config.php');
 This is the list of all registered users:
 			<table>
 				<tr>
-					<th>Id</th>
-					<th>Username</th>
-					<th>Email</th>
+					<th style="text-align:left">Id</th>
+					<th style="text-align:left">Username</th>
+					<th style="text-align:left">Email</th>
 				</tr>
 
 <?php

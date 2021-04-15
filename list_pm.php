@@ -28,9 +28,9 @@ This is the list of your messages:<br />
 <table>
 	<tr>
     	<th class="title_cell">Title</th>
-        <th>Nb. Replies</th>
-        <th>Participant</th>
-        <th>Date of creation</th>
+        <th style="text-align:left">Nb. Replies</th>
+        <th style="text-align:left">Participant</th>
+        <th style="text-align:left">Date of creation</th>
     </tr>
 <?php
 //We display the list of unread messages
@@ -61,9 +61,9 @@ if(intval(mysqli_num_rows($req1))==0)
 <table>
 	<tr>
     	<th class="title_cell">Title</th>
-        <th>Nb. Replies</th>
-        <th>Participant</th>
-        <th>Date or creation</th>
+        <th style="text-align:left">Nb. Replies</th>
+        <th style="text-align:left">Participant</th>
+        <th style="text-align:left">Date or creation</th>
     </tr>
 <?php
 //We display the list of read messages
