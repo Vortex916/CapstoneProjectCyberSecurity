@@ -134,7 +134,7 @@ else
 if ($form) 
 {
 	//We display a message if necessary
-	if(isset($message)) echo '<div class="message">'.$message.'</div>';
+	if(isset($message)) echo '<br /><div class="message">'.$message.'</div>';
 
 	//We display the form again
 ?>

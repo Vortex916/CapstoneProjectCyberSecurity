@@ -139,6 +139,6 @@ if (isset($_SESSION['username'])) {
 }
 else echo '<div class="message">You must be logged to access this page.</div>';
 ?>
-		<div class="foot"><a href="list_pm.php">Go to my personnal messages</a></div>
+		<div class="foot"><a href="list_pm.php">Go to my personal messages</a></div>
 	</body>
 </html>

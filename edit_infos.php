@@ -8,7 +8,7 @@ include('config.php');
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link href="<?php echo $design; ?>/style.css" rel="stylesheet" title="Style" />
-		<title>Edit my personnal information</title>
+		<title>Edit my personal information</title>
 	</head>
 	<body>
 		<div class="header">

@@ -61,8 +61,6 @@ if (isset($_SESSION['username'])) {
 						{
 ?>
 		<div class="message">The message has successfully been sent.<br />
-		<a href="list_pm.php">List of my personnal messages</a></div>
-
 <?php
 							$form = false;
 						}
@@ -100,7 +98,7 @@ if (isset($_SESSION['username'])) {
 }
 else echo '<div class="message">You must be logged to access this page.</div>';
 ?>
-		<div class="foot"><a href="list_pm.php">Go to my personnal messages</a></div>
+		<div class="foot"><a href="list_pm.php">Go to my personal messages</a></div>
 		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
 	</body>
 </html>
