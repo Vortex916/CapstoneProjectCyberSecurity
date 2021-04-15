@@ -39,9 +39,9 @@ while($dn1 = mysqli_fetch_array($req1))
 ?>
 	<tr>
     	<td class="left"><a href="read_pm.php?id=<?php echo $dn1['id']; ?>"><?php echo htmlentities($dn1['title'], ENT_QUOTES, 'UTF-8'); ?></a></td>
-    	<td><?php echo $dn1['reps']-1; ?></td>
-    	<td><a href="profile.php?id=<?php echo $dn1['userid']; ?>"><?php echo htmlentities($dn1['username'], ENT_QUOTES, 'UTF-8'); ?></a></td>
-    	<td><?php echo date('Y/m/d H:i:s' ,$dn1['timestamp']); ?></td>
+    	<td style="text-align:left"><?php echo $dn1['reps']-1; ?></td>
+    	<td style="text-align:left"><a href="profile.php?id=<?php echo $dn1['userid']; ?>"><?php echo htmlentities($dn1['username'], ENT_QUOTES, 'UTF-8'); ?></a></td>
+    	<td style="text-align:left"><?php echo date('Y/m/d H:i:s' ,$dn1['timestamp']); ?></td>
     </tr>
 <?php
 }
@@ -72,9 +72,9 @@ while($dn2 = mysqli_fetch_array($req2))
 ?>
 	<tr>
     	<td class="left"><a href="read_pm.php?id=<?php echo $dn2['id']; ?>"><?php echo htmlentities($dn2['title'], ENT_QUOTES, 'UTF-8'); ?></a></td>
-    	<td><?php echo $dn2['reps']-1; ?></td>
-    	<td><a href="profile.php?id=<?php echo $dn2['userid']; ?>"><?php echo htmlentities($dn2['username'], ENT_QUOTES, 'UTF-8'); ?></a></td>
-    	<td><?php echo date('Y/m/d H:i:s' ,$dn2['timestamp']); ?></td>
+    	<td style="text-align:left"><?php echo $dn2['reps']-1; ?></td>
+    	<td style="text-align:left"><a href="profile.php?id=<?php echo $dn2['userid']; ?>"><?php echo htmlentities($dn2['username'], ENT_QUOTES, 'UTF-8'); ?></a></td>
+    	<td style="text-align:left"><?php echo date('Y/m/d H:i:s' ,$dn2['timestamp']); ?></td>
     </tr>
 <?php
 }

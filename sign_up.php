@@ -136,10 +136,11 @@ if ($form)
 		<div class="content">
 			<form action="sign_up.php" method="post">
 				Please fill the following form to sign up:<br />
+				<p style="font-size:8px;">(Password requirements: 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
 				<div class="center">
 					<label for="username">Username</label><input type="text" name="username" value="<?php if(isset($_POST['username'])){echo htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
-					<label for="password">Password<span class="small">(8 characters min.)</span></label><input type="password" name="password" /><br />
-					<label for="passverif">Password<span class="small">(verification)</span></label><input type="password" name="passverif" /><br />
+					<label for="password">Password</label><input type="password" name="password" /><br />
+					<label for="passverif">Repeat Password</label><input type="password" name="passverif" /><br />
 					<label for="email">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
 					<input type="submit" value="Login" />
 				</div>
