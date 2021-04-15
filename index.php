@@ -22,7 +22,7 @@ include('config.php');
 <?php
 if(isset($_SESSION['username'])) 
 {
-	echo 'Hello ' .htmlentities($_SESSION['username'], ENT_QUOTES, 'UTF-8') . ', you are successfully logged in.';
+	echo 'Hello <b>' .htmlentities($_SESSION['username'], ENT_QUOTES, 'UTF-8') . '</b>, you are successfully logged in.';
 	}
 ?>
 

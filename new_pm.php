@@ -67,7 +67,7 @@ if (isset($_SESSION['username'])) {
 							$form = false;
 						}
 						else 
-							$error = 'An error occurred while sending the message';//Otherwise, we say that an error occured
+							$error = "A database error occurred when trying to send the message: {$link->error}";//Otherwise, we say that an error occured
 					}
 					else $error = 'Error while sending the message.';//Otherwise, we say the user cannot send a message to himself
 				}
@@ -88,7 +88,7 @@ if (isset($_SESSION['username'])) {
 		<div class="content">
 			<h1>New Personal Message</h1>
 			<form action="new_pm.php" method="post">
-				<br />Please fill the following form to send a personnal message:<br /><br />
+				<br />Please fill the following fields to send a new message:<br /><br />
 				<label for="title">Title</label><input type="text" value="<?php echo htmlentities($otitle, ENT_QUOTES, 'UTF-8'); ?>" id="title" name="title" /><br />
 				<label for="recip">Recipient<span class="small">(Username)</span></label><input type="text" value="<?php echo htmlentities($orecip, ENT_QUOTES, 'UTF-8'); ?>" id="recip" name="recip" /><br />
 				<label for="message">Message</label><textarea cols="40" rows="5" id="message" name="message"><?php echo htmlentities($omessage, ENT_QUOTES, 'UTF-8'); ?></textarea><br />
