@@ -54,6 +54,7 @@ else {
 <br/>
 <a href="sign_up.php">Register</a><br/>
 <a href="connexion.php">Log in</a>
+
 <?php
 }
 ?>
