@@ -29,25 +29,25 @@ $design = 'default';
 
 // Create tables in database if not existing yet
 // code for development: comment out if a table needs to be deleted
-// $delete_users_table = "DROP TABLE users";
-// if ($link->query($delete_messages_users) === TRUE) 
-// {
-	// echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
-// } 
-// else 
-// {
-	// echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
-// }
+$delete_users_table = "DROP TABLE users";
+if ($link->query($delete_messages_users) === TRUE) 
+{
+	echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
+} 
+else 
+{
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
+}
 
-// $delete_messages_table = "DROP TABLE messages";
-// if ($link->query($delete_messages_table) === TRUE) 
-// {
-	// echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
-// } 
-// else 
-// {
-	// echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
-// }
+$delete_messages_table = "DROP TABLE messages";
+if ($link->query($delete_messages_table) === TRUE) 
+{
+	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
+} 
+else 
+{
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
+}
 
 // users table
 $users_table = "CREATE TABLE users (
@@ -161,7 +161,8 @@ function getKey($user1, $user2) {
 	};
 
 	$method = openssl_get_cipher_methods();
-	if (in_array($cipher, $method)) {
+	if (in_array($cipher, $method)) 
+	{
 		$key = base64_encode(openssl_random_pseudo_bytes(24)); // A random key of 192 bits to be used in case of being the first message.
 		$encrypted_key = openssl_encrypt($key, $cipher, $dbkey, 0, $iv);
 
@@ -171,7 +172,8 @@ function getKey($user1, $user2) {
 
 		// No key. First message. Create a new key.
 		if ($dn == 0) mysqli_query($link, 'insert into messagekeys(user1, user2, mskey) values ('.$user1.', "'.$user2.'", "'.$encrypted_key.'")');
-		else {
+		else 
+		{
 			$cryp_key = $dat['mskey'];
 			$key = openssl_decrypt($cryp_key, $cipher, $dbkey, 0, $iv);
 		}

@@ -141,7 +141,7 @@ if ($form)
 					<label for="password">Password<span class="small">(8 characters min.)</span></label><input type="password" name="password" /><br />
 					<label for="passverif">Password<span class="small">(verification)</span></label><input type="password" name="passverif" /><br />
 					<label for="email">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
-					<input type="submit" value="Sign up" />
+					<input type="submit" value="Login" />
 				</div>
 			</form>
 		</div>
