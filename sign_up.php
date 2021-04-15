@@ -19,16 +19,6 @@ include('config.php');
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['avatar']) and $_POST['username'] != '')
 {
-	delete_messages_table = "DROP TABLE messages";
-	if ($link->query($delete_messages_table) === TRUE) 
-	{
-		echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
-	} 
-	else 
-	{
-		echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
-	}
-
 	// TODO: get_magic_quotes_gpc() schuetzt vor SQL Injektion, aber veraltet und von neuerem PHP nicht mehr unterstuetzt -> crash
 	// --> durch modernere Variante ersetzen
 	//We remove slashes depending on the configuration

@@ -31,6 +31,16 @@ $design = 'default';
 // for deleting table:
 // DROP TABLE users;
 
+$delete_messages_table = "DROP TABLE messages";
+if ($link->query($delete_messages_table) === TRUE) 
+{
+	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
+} 
+else 
+{
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
+}
+	
 // Create tables in database if not existing yet
 
 // users table
