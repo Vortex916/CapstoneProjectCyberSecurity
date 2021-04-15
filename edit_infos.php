@@ -19,23 +19,19 @@ include('config.php');
 //We check if the user is logged
 if (isset($_SESSION['username'])) {
 	//We check if the form has been sent
-	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'])) {
-		//We remove slashes depending on the configuration
-		//if (get_magic_quotes_gpc()) {
-		$_POST['username']  = stripslashes($_POST['username']);
-		$_POST['password']  = stripslashes($_POST['password']);
-		$_POST['passverif'] = stripslashes($_POST['passverif']);
-		$_POST['email']	    = stripslashes($_POST['email']);
-		$_POST['confirm']   = stripslashes($_POST['confirm']);
-		//}
-		//We check if the two passwords are identical
+	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'])) 
+	{
 
 		$errors = [];
-		if ($_POST['password'] == $_POST['passverif']) {
+		//We check if the two passwords are identical
+		if ($_POST['password'] == $_POST['passverif']) 
+		{
 			//We check if the choosen password is strong enough.
-			if (checkPassword($_POST['password'], $errors)) {
+			if (checkPassword($_POST['password'], $errors)) 
+			{
 				//We check if the email form is valid
-				if (preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email'])) {
+				if (preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email'])) 
+				{
 					//We protect the variables
 					$username = mysqli_real_escape_string($link, $_POST['username']);
 					$password = mysqli_real_escape_string($link, $_POST['password']);
@@ -44,13 +40,15 @@ if (isset($_SESSION['username'])) {
 					//We check if there is no other user using the same username
 					$dn = mysqli_fetch_array(mysqli_query($link, 'select count(*) as nb from users where username="'.$username.'"'));
 					//We check if the username changed and if it is available
-					if ($dn['nb'] == 0 or $_POST['username'] == $_SESSION['username']) {
+					if ($dn['nb'] == 0 or $_POST['username'] == $_SESSION['username']) 
+					{
 						$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
 						$dn  = mysqli_fetch_array($req);
 						$password = hash("sha512", $dn['salt'].$password); // Hash password with the salt to update database.
 						$oldpassw = hash("sha512", $dn['salt'].$confirm);  // Hash confirm with the salt to match database.
 						//We edit the user informations
-						if ($dn['password'] == $oldpassw) {
+						if ($dn['password'] == $oldpassw) 
+						{
 							if(mysqli_query($link, 'update users set username="'.$username.'", password="'.$password.'", email="'.$email.'" where id="'.mysqli_real_escape_string($link, $_SESSION['userid']).'"')) 
 							{ 
 								//We dont display the form
@@ -61,31 +59,36 @@ if (isset($_SESSION['username'])) {
 		<div class="message">Your informations have successfuly been updated. You need to login again.<br />
 <?php
 							}
-							else {
+							else 
+							{
 								//Otherwise, we say that an error occured
 								$form	= true;
 								$message = 'An error occurred while updating your informations.';
 							}
 						}
-						else {
+						else 
+						{
 							//Otherwise, we say the password is incorrect.
 							$form	= true;
 							$message = 'The username or password is incorrect.';
 						}
 					}
-					else {
+					else 
+					{
 						//Otherwise, we say the username is not available
 						$form	= true;
 						$message = 'The username you want to use is not available, please choose another one.';
 					}
 				}
-				else {
+				else 
+				{
 					//Otherwise, we say the email is not valid
 					$form	= true;
 					$message = 'The email you entered is not valid.';
 				}
 			}
-			else {
+			else 
+			{
 				//Otherwise, we say the password is too weak
 				$form	= true;
 				$message = '';
@@ -101,15 +104,18 @@ if (isset($_SESSION['username'])) {
 	}
 	else $form = true;
 
-	if ($form) {
+	if ($form) 
+	{
 		//If the form has already been sent, we display the same values
-		if (isset($_POST['username'],$_POST['password'],$_POST['email'])) {
+		if (isset($_POST['username'],$_POST['password'],$_POST['email'])) 
+		{
 			$username  = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
 			$password  = '';
 			$passverif = '';
 			$email	   = htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');
 		}
-		else {
+		else 
+		{
 			//otherwise, we display the values of the database
 			$dnn	   = mysqli_fetch_array(mysqli_query($link, 'select username,password,email from users where username="'.$_SESSION['username'].'"'));
 			$username  = htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8');

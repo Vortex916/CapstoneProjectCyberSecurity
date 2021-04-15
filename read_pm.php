@@ -16,24 +16,30 @@ include('config.php');
 
 <?php
 //We check if the user is logged
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username'])) 
+{
 	//We check if the ID of the discussion is defined
-	if (isset($_GET['id'])) {
+	if (isset($_GET['id'])) 
+	{
 		$id = intval($_GET['id']);
 		//We get the title and the narrators of the discussion
 		$req1 = mysqli_query($link, 'select title, user1, user2 from messages where id="'.$id.'" and id2="1"');
 		$dn1  = mysqli_fetch_array($req1);
 		//We check if the discussion exists
-		if (mysqli_num_rows($req1) == 1) {
+		if (mysqli_num_rows($req1) == 1) 
+		{
 			//We check if the user have the right to read this discussion
-			if ($dn1['user1'] == $_SESSION['userid'] or $dn1['user2'] == $_SESSION['userid']) {
+			if ($dn1['user1'] == $_SESSION['userid'] or $dn1['user2'] == $_SESSION['userid']) 
+			{
 				//The discussion will be placed in read messages
-				if($dn1['user1'] == $_SESSION['userid']) {
+				if($dn1['user1'] == $_SESSION['userid']) 
+				{
 					$u2 = $dn1['user2'];
 					mysqli_query($link, 'update messages set user1read="yes" where id="'.$id.'" and id2="1"');
 					$user_partic = 2;
 				}
-				else {
+				else 
+				{
 					$u2 = $dn1['user1'];
 					mysqli_query($link, 'update messages set user2read="yes" where id="'.$id.'" and id2="1"');
 					$user_partic = 1;
@@ -42,11 +48,9 @@ if (isset($_SESSION['username'])) {
 				$req2 = mysqli_query($link, 'select messages.timestamp, messages.message, users.id as userid, users.username, messages.user1, messages.user2, messages.tag from messages, users where messages.id="'.$id.'" and users.id=messages.user1 order by messages.id2');
 
 				//We check if the form has been sent
-				if (isset($_POST['message']) and $_POST['message'] != '') {
+				if (isset($_POST['message']) and $_POST['message'] != '') 
+				{
 					$message = $_POST['message'];
-					//We remove slashes depending on the configuration
-					#if (get_magic_quotes_gpc()) 
-					$message = stripslashes($message);
 
 					//We protect the variables
 					$message = mysqli_real_escape_string($link, nl2br(htmlentities($message, ENT_QUOTES, 'UTF-8')));					
@@ -57,34 +61,41 @@ if (isset($_SESSION['username'])) {
 					$key    = getKey($_SESSION['userid'], $u2);
 					$tag    = null;
 					$method = openssl_get_cipher_methods();
-					if (in_array($cipher, $method)) {
+					if (in_array($cipher, $method)) 
+					{
 						$iv = openssl_random_pseudo_bytes($ivlen);
 						$ciphertext_raw = openssl_encrypt($message, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv, $tag);
 						$hmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
 						$ciphertext = base64_encode($iv.$hmac.$ciphertext_raw);    //store $cipher, $iv, and $tag for decryption later
 						//We send the message and we change the status of the discussion to unread for the recipient
-						if (mysqli_query($link, 'insert into messages (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag)values("'.$id.'", "'.(intval(mysqli_num_rows($req2))+1).'", "", "'.$_SESSION['userid'].'", "", "'.$ciphertext.'", "'.time().'", "", "", "'.$tag.'")')) {
-							if (mysqli_query($link, 'update messages set user'.$user_partic.'read="yes" where id="'.$id.'" and id2="1"')) {
+						if (mysqli_query($link, 'insert into messages (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag)values("'.$id.'", "'.(intval(mysqli_num_rows($req2))+1).'", "", "'.$_SESSION['userid'].'", "", "'.$ciphertext.'", "'.time().'", "", "", "'.$tag.'")')) 
+						{
+							if (mysqli_query($link, 'update messages set user'.$user_partic.'read="yes" where id="'.$id.'" and id2="1"')) 
+							{
 ?>
 								<div class="message">Your message has successfully been sent.<br />
 								<a href="read_pm.php?id=<?php echo $id; ?>">Go to the discussion</a></div>
 <?php						}
-							else { ?>
+							else 
+							{ ?>
 								<div class="message">An error occurred while updating message status.<br />
 								<a href="read_pm.php?id=<?php echo $id; ?>">Go to the discussion</a></div>
 <?php						}
 						}
-						else { ?>
+						else 
+						{ ?>
 								<div class="message">An error occurred in message sending.<br />
 								<a href="read_pm.php?id=<?php echo $id; ?>">Go to the discussion</a></div>
 <?php					}
 					}
-					else { ?>
+					else 
+					{ ?>
 							<div class="message">Encryption method not supportted.<br />
 							<a href="read_pm.php?id=<?php echo $id; ?>">Go to the discussion</a></div>
 <?php				}
 				}
-				else {
+				else 
+				{
 				//We display the messages ?>
 		<div class="content">
 			<h1><?php echo $dn1['title']; ?></h1>
@@ -93,12 +104,14 @@ if (isset($_SESSION['username'])) {
 					<th class="author">User</th>
 					<th>Message</th>
 				</tr>
-<?php				while ($dn2 = mysqli_fetch_array($req2)) {
+<?php				while ($dn2 = mysqli_fetch_array($req2)) 
+					{
 						$cipher = "aes-128-gcm";
 						$ivlen  = openssl_cipher_iv_length($cipher);
 						$key    = getKey($_SESSION['userid'], $u2);
 						$method = openssl_get_cipher_methods();
-						if (in_array($cipher, $method)) {
+						if (in_array($cipher, $method)) 
+						{
 							$c    = base64_decode($dn2['message']);
 							$iv   = substr($c, 0, $ivlen);
 							$hmac = substr($c, $ivlen, $sha2len=32);

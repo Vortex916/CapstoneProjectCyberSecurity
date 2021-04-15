@@ -19,17 +19,6 @@ include('config.php');
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email']) and $_POST['username'] != '')
 {
-	// TODO: get_magic_quotes_gpc() schuetzt vor SQL Injektion, aber veraltet und von neuerem PHP nicht mehr unterstuetzt -> crash
-	// --> durch modernere Variante ersetzen
-	//We remove slashes depending on the configuration
-	//if(get_magic_quotes_gpc())
-	//{
-	$_POST['username']  = stripslashes($_POST['username']);
-	$_POST['password']  = stripslashes($_POST['password']);
-	$_POST['passverif'] = stripslashes($_POST['passverif']);
-	$_POST['email']  	= stripslashes($_POST['email']);
-	//}
-	
 	//We check if the two passwords are identical
 	$errors = [];
 	if($_POST['password'] == $_POST['passverif'])

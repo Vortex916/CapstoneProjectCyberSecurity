@@ -27,7 +27,7 @@ This is the list of your messages:<br />
 <h3>Unread Messages(<?php echo intval(mysqli_num_rows($req1)); ?>):</h3>
 <table>
 	<tr>
-    	<th class="title_cell">Title</th>
+    	<th class="title_cell" style="text-align:left">Title</th>
         <th style="text-align:left">Nb. Replies</th>
         <th style="text-align:left">Participant</th>
         <th style="text-align:left">Date of creation</th>
@@ -60,7 +60,7 @@ if(intval(mysqli_num_rows($req1))==0)
 <h3>Read Messages(<?php echo intval(mysqli_num_rows($req2)); ?>):</h3>
 <table>
 	<tr>
-    	<th class="title_cell">Title</th>
+    	<th class="title_cell" style="text-align:left">Title</th>
         <th style="text-align:left">Nb. Replies</th>
         <th style="text-align:left">Participant</th>
         <th style="text-align:left">Date or creation</th>

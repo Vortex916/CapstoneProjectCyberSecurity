@@ -30,22 +30,14 @@ else
 	//We check if the form has been sent
 	if(isset($_POST['username'], $_POST['password']))
 	{
-		//We remove slashes depending on the configuration
-		//if(get_magic_quotes_gpc())
-		//{
-		//$ousername = stripslashes($_POST['username']);
-		//$username  = mysqli_real_escape_string($link, stripslashes($_POST['username']));
-		//$password  = stripslashes($_POST['password']);
-		//}
-		//else
-		//{
 		$username = mysqli_real_escape_string($link, $_POST['username']);
 		$password = $_POST['password'];
-		//}
+
 		//We get the password of the user
 		$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
 		$dn  = mysqli_fetch_array($req);
 		$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
+		
 		//We compare the submited password and the real one, and we check if the user exists
 		if ($dn['password'] == $password and mysqli_num_rows($req)>0) 
 		{
@@ -65,7 +57,9 @@ else
 		}
 	}
 	else $form = true;
-	if($form) {
+	
+	if($form) 
+	{
 		//We display a message if necessary
 		if(isset($message)) echo '<div class="message">'.$message.'</div>';
 

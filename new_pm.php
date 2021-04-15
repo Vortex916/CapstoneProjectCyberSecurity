@@ -26,21 +26,18 @@ if (isset($_SESSION['username'])) {
 		$otitle   = $_POST['title'];
 		$orecip   = $_POST['recip'];
 		$omessage = $_POST['message'];
-		//We remove slashes depending on the configuration
-		#if (get_magic_quotes_gpc()) {
-		$otitle   = stripslashes($otitle);
-		$orecip   = stripslashes($orecip);
-		$omessage = stripslashes($omessage);
-		#}
+
 		//We check if all the fields are filled
-		if ($_POST['title'] != '' and $_POST['recip'] != '' and $_POST['message'] != '') {
+		if ($_POST['title'] != '' and $_POST['recip'] != '' and $_POST['message'] != '') 
+		{
 			//We protect the variables
 			$title   = mysqli_real_escape_string($link, $otitle);
 			$recip   = mysqli_real_escape_string($link, $orecip);
 			$message = mysqli_real_escape_string($link, nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8')));
 			//We check if the recipient exists
 			$dn1 = mysqli_fetch_array($link->query('select count(id) as recip, id as recipid, (select count(*) from messages) as npm from users where username="'.$recip.'"'));
-			if ($dn1['recip'] == 1) {
+			if ($dn1['recip'] == 1) 
+			{
 				//We check if the recipient is not the actual user
 				if ($dn1['recipid'] != $_SESSION['userid']) {
 					$id = $dn1['npm']+1;
@@ -77,7 +74,8 @@ if (isset($_SESSION['username'])) {
 	}
 	elseif (isset($_GET['recip'])) $orecip = $_GET['recip'];//We get the username for the recipient if available
 
-	if ($form) {
+	if ($form) 
+	{
 		//We display a message if necessary
 		if (isset($error)) echo '<div class="message">'.$error.'</div>';
 
