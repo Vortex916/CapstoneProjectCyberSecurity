@@ -33,7 +33,7 @@ $design = 'default';
 
 // Create tables in database if not existing yet
 
-delete_messages_table = "DROP TABLE messages_table";
+delete_messages_table = "DROP TABLE messages";
 if ($link->query($delete_messages_table) === TRUE) 
 {
 	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
