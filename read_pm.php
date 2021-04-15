@@ -11,7 +11,7 @@ include('config.php');
 	</head>
 	<body>
 		<div class="header">
-			<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
+			<h1>Cybersecurity Capstone Project</h1>
 		</div>
 
 <?php

@@ -12,7 +12,7 @@ include('config.php');
 	</head>
 	<body>
 		<div class="header">
-			<h1><a href="<?php echo $url_home;?>">Cybersecurity Capstone Project</a></h1>
+			<h1>Cybersecurity Capstone Project</h1>
 		</div>
 <?php
 
@@ -84,7 +84,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						//mysqli_free_result($result);
 						
 						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
-						echo "<a href=\"connexion.php\">Log in</a></div>";						
+						echo "<a href=\"access.php\">Login</a></div>";						
 					}
 					else
 					{
