@@ -23,7 +23,7 @@ include('config.php');
 if(isset($_SESSION['username'])) 
 {
 	echo 'Hello <b>' .htmlentities($_SESSION['username'], ENT_QUOTES, 'UTF-8') . '</b>, you are successfully logged in.';
-	}
+}
 ?>
 
 <br />
@@ -39,7 +39,6 @@ if (isset($_SESSION['username']))
 	$nb_new_pm = $nb_new_pm['nb_new_pm'];
 	//We display the links
 ?>
-
 <br />
 <a href="list_pm.php">Read/Send Messages (<?php echo $nb_new_pm; ?> new messages)</a><br />
 <a href="users.php">Show list of registered users</a><br />
@@ -48,13 +47,13 @@ if (isset($_SESSION['username']))
 <a href="connexion.php">Logout</a>
 <?php
 }
-else {
+else 
+{
 //Otherwise, we display a link to log in and to Sign up
 ?>
 <br/>
 <a href="sign_up.php">Register</a><br/>
 <a href="connexion.php">Log in</a>
-
 <?php
 }
 ?>

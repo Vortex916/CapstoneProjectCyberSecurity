@@ -9,6 +9,8 @@ $password = $url["pass"];
 $database = substr($url["path"], 1);
 $link = new mysqli($server, $username, $password, $database);
 
+echo '<script type="text/javascript">alert("Checking database connection.")</script>';
+
 // check connection to database
 if ($mysqli -> connect_errno)
 {
@@ -26,6 +28,8 @@ $url_home = 'index.php';
 
 //Design Name
 $design = 'default';
+
+echo '<script type="text/javascript">alert("Deleting users and messages.")</script>';
 
 // Create tables in database if not existing yet
 // code for development: comment out if a table needs to be deleted
@@ -48,6 +52,8 @@ else
 {
 	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
 }
+
+echo '<script type="text/javascript">alert("Creating users.")</script>';
 
 // users table
 $users_table = "CREATE TABLE users (
