@@ -141,7 +141,7 @@ if (isset($_SESSION['username'])) {
 else {
 ?>
 		<div class="message">To access this page, you must login.<br />
-		<a href="connexion.php">Log in</a></div>
+		<a href="login.php">Login</a></div>
 
 <?php
 }

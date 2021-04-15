@@ -44,7 +44,7 @@ if (isset($_SESSION['username']))
 <a href="users.php">Show list of registered users</a><br />
 <a href="edit_infos.php">Edit profile information</a><br />
 <br />
-<a href="connexion.php">Logout</a>
+<a href="access.php">Logout</a>
 <?php
 }
 else 
@@ -52,8 +52,8 @@ else
 //Otherwise, we display a link to log in and to Sign up
 ?>
 <br/>
-<a href="sign_up.php">Register</a><br/>
-<a href="connexion.php">Log in</a>
+<a href="register.php">Register</a><br/>
+<a href="access.php">Log in</a>
 <?php
 }
 ?>
