@@ -22,7 +22,7 @@ include('config.php');
 <?php
 if(isset($_SESSION['username'])) 
 {
-	echo 'Hello '.htmlentities($_SESSION['username'], ENT_QUOTES, 'UTF-8');
+	echo 'Hello ' .htmlentities($_SESSION['username'], ENT_QUOTES, 'UTF-8') . ', you are successfully logged in.';
 	}
 ?>
 
@@ -42,8 +42,9 @@ if (isset($_SESSION['username']))
 
 <br />
 <a href="list_pm.php">Read/Send Messages (<?php echo $nb_new_pm; ?> new messages)</a><br />
-<a href="users.php">Show list of registered users</a>.<br />
+<a href="users.php">Show list of registered users</a><br />
 <a href="edit_infos.php">Edit profile information</a><br />
+<br />
 <a href="connexion.php">Logout</a>
 <?php
 }

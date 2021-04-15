@@ -43,7 +43,7 @@ This user joined the website on <?php echo date('Y/m/d',$dnn['signup_date']); ?>
 //We add a link to send a pm to the user
 		if (isset($_SESSION['username']))
 ?>
-<br /><a href="new_pm.php?recip=<?php echo urlencode($dnn['username']); ?>" class="big">Send a PM to "<?php echo htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8'); ?>"</a>
+<br /><a href="new_pm.php?recip=<?php echo urlencode($dnn['username']); ?>" class="big">Send a private message to "<?php echo htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8'); ?>"</a>
 <?php
 	}
 	else echo 'This user dont exists.';

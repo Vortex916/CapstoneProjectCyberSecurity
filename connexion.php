@@ -21,8 +21,7 @@ if(isset($_SESSION['username']))
 	//We log him out by deleting the username and userid sessions
 	unset($_SESSION['username'], $_SESSION['userid']);
 ?>
-<div class="message">You have successfuly been loged out.<br />
-<a href="<?php echo $url_home; ?>">Home</a></div>
+<div class="message">You have successfuly been logged out.<br />
 <?php
 }
 else
@@ -54,9 +53,7 @@ else
 			//We save the user name in the session username and the user Id in the session userid
 			$_SESSION['username'] = $_POST['username'];
 			$_SESSION['userid'] = $dn['id'];
-?>
-<div class="message">Login successfull.<br />
-<?php
+			// go to start page
 			header('Location: index.php');
 		}
 		else {
