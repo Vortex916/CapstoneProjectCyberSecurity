@@ -27,20 +27,6 @@ $url_home = 'index.php';
 //Design Name
 $design = 'default';
 
-//Create required database tables if not existing
-// for deleting table:
-// DROP TABLE users;
-
-$delete_messages_table = "DROP TABLE messages";
-if ($link->query($delete_messages_table) === TRUE) 
-{
-	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
-} 
-else 
-{
-	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
-}
-	
 // Create tables in database if not existing yet
 
 // users table
@@ -80,7 +66,7 @@ $messages_table = "CREATE TABLE messages (
   timestamp int(10) NOT NULL,
   user1read varchar(3) NOT NULL,
   user2read varchar(3) NOT NULL,
-  tag text NOT NULL,
+  tag text NOT NULL
 )";
 
 $exists = $link->query("select 1 from messages");
@@ -104,6 +90,17 @@ $messages_keys_table = "CREATE TABLE messagekeys (
   user2 bigint(20) NOT NULL,
   mskey varchar(255) NOT NULL
 )";
+
+// code for development: comment out if a table needs to be deleted
+// $delete_messages_table = "DROP TABLE messages";
+// if ($link->query($delete_messages_table) === TRUE) 
+// {
+// 	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
+// } 
+// else 
+// {
+// 	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
+// }
 
 $exists = $link->query("select 1 from messagekeys");
 if($exists == FALSE)
