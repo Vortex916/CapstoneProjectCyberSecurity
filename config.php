@@ -85,7 +85,7 @@ $messages_table = "CREATE TABLE messages (
   timestamp int(10) NOT NULL,
   user1read varchar(3) NOT NULL,
   user2read varchar(3) NOT NULL,
-  tag varchar(255) NOT NULL,
+  tag varchar(255) NOT NULL
 )";
 
 $exists = $link->query("select 1 from messages");
