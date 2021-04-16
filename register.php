@@ -18,6 +18,8 @@ echo '<script type="text/javascript">alert("after include config.php")</script>'
 		</div>
 <?php
 
+$form=true
+
 //We check if the form has been sent
 echo '<script type="text/javascript">alert("before isset()")</script>';
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']) and $_POST['username'] != '')
@@ -147,6 +149,7 @@ else
 	$form = true;
 }
 
+echo '<script type="text/javascript">alert("before form")</script>';
 if ($form) 
 {
 	echo '<script type="text/javascript">alert("form()")</script>';
