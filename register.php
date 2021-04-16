@@ -131,8 +131,8 @@ if ($form)
 					<label for="email">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
 					<label for="password">Password</label><input type="password" name="password" /><br />
 					<label for="passverif">Repeat Password</label><input type="password" name="passverif" /><br /><br />
-					Answer the following questions, they are asked for in case you forget your password to setup a new password: 
-					<label for="maidenname">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					Answer the following questions, they are asked for in case you forget your password to setup a new password:<br /> 
+					<label for="maidenname" style="width: 300px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
 					<label for="maidennamerepeat">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br />
 					<label for="elemschool">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
 					<label for="elemschoolrepeat">Repeat: what elementary school did you attend?</label><input type="password" name="elemschoolrepeat" /><br />
