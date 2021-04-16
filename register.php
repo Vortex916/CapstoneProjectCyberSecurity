@@ -147,7 +147,7 @@ else
 
 if ($form) 
 {
-	echo "<script type=\"text/javascript\">alert(\"Entered form\")</script>";
+	echo '<script type="text/javascript">alert("form()")</script>';
 	//We display the form again
 ?>
 		<div class="content">
