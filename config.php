@@ -29,15 +29,15 @@ $design = 'default';
 
 // Create tables in database if not existing yet
 // code for development: comment out if a table needs to be deleted
-$delete_users_table = "DROP TABLE users";
-if ($link->query($delete_users_table) === TRUE) 
-{
-	echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
-} 
-else 
-{
-	echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
-}
+// $delete_users_table = "DROP TABLE users";
+// if ($link->query($delete_users_table) === TRUE) 
+// {
+	// echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
+// } 
+// else 
+// {
+	// echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
+// }
 
 // $delete_messages_table = "DROP TABLE messages";
 // if ($link->query($delete_messages_table) === TRUE) 
