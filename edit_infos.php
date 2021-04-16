@@ -19,9 +19,8 @@ include('config.php');
 //We check if the user is logged
 if (isset($_SESSION['username'])) {
 	//We check if the form has been sent
-	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'])) 
+	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']))
 	{
-
 		$errors = [];
 		//We check if the two passwords are identical
 		if ($_POST['password'] == $_POST['passverif']) 
@@ -36,6 +35,9 @@ if (isset($_SESSION['username'])) {
 					$username = mysqli_real_escape_string($link, $_POST['username']);
 					$password = mysqli_real_escape_string($link, $_POST['password']);
 					$email	= mysqli_real_escape_string($link, $_POST['email']);
+					$maidenname	= mysqli_real_escape_string($link, $_POST['maidenname']);
+					$elemschool	= mysqli_real_escape_string($link, $_POST['elemschool']);
+					$road	= mysqli_real_escape_string($link, $_POST['road']);
 					$confirm  = mysqli_real_escape_string($link, $_POST['confirm']);
 					//We check if there is no other user using the same username
 					$dn = mysqli_fetch_array(mysqli_query($link, 'select count(*) as nb from users where username="'.$username.'"'));
@@ -49,21 +51,37 @@ if (isset($_SESSION['username'])) {
 						//We edit the user informations
 						if ($dn['password'] == $oldpassw) 
 						{
-							if(mysqli_query($link, 'update users set username="'.$username.'", password="'.$password.'", email="'.$email.'" where id="'.mysqli_real_escape_string($link, $_SESSION['userid']).'"')) 
-							{ 
-								//We dont display the form
-								$form = false;
-								//We delete the old sessions so the user need to log again
-								unset($_SESSION['username'], $_SESSION['userid']);
+							//Check if the password recovery questions are valid
+							$password_recovery_valid = false;
+							if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
+							{
+								password_recovery_valid = true;
+							}
+							else
+							{
+								//Repeated answers to the password recovery questions are not always the same
+								$form	= true;
+								$message = 'The repeated answers to the password recovery questions are not always the same.';
+							}
+							
+							if ((password_recovery_valid == true)
+							{							
+								if(mysqli_query($link, 'update users set username="'.$username.'", password="'.$password.'", email="'.$email.'", maidenname="'.$maidenname.'", elemschool="'.$elemschool.'", road="'.$road.'" where id="'.mysqli_real_escape_string($link, $_SESSION['userid']).'"')) 
+								{ 
+									//We dont display the form
+									$form = false;
+									//We delete the old sessions so the user need to log again
+									unset($_SESSION['username'], $_SESSION['userid']);
 ?>
 		<div class="message">Your informations have successfuly been updated. You need to login again.<br />
 <?php
-							}
-							else 
-							{
-								//Otherwise, we say that an error occured
-								$form	= true;
-								$message = 'An error occurred while updating your informations.';
+								}
+								else 
+								{
+									//Otherwise, we say that an error occured
+									$form	= true;
+									$message = 'An error occurred while updating your informations.';
+								}
 							}
 						}
 						else 
@@ -131,10 +149,17 @@ if (isset($_SESSION['username'])) {
 				<p style="font-size:14px;">(Password requires 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
 				<div class="center">
 					<label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo $username; ?>" readonly/><br />
+					<label for="confirm">Old Password<span class="small"></span></label><input type="password" name="confirm" id="confirm" value="" /><br />
 					<label for="password">New Password</label><input type="password" name="password" id="password" value="" /><br />
 					<label for="passverif">Repeat New Password</label><input type="password" name="passverif" id="passverif" value="" /><br />
 					<label for="email">Email</label><input type="text" name="email" id="email" value="<?php echo $email; ?>" /><br />
-					<label for="confirm">Old Password<span class="small"></span></label><input type="password" name="confirm" id="confirm" value="" /><br />
+					<p style="text-align:left;text-decoration: underline;">Password recovery questions:</p><br />
+					<label for="maidenname" style="width: 400px;text-align:left;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					<label for="maidennamerepeat" style="width: 400px;text-align:left;">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br /><br />
+					<label for="elemschool" style="width: 400px;text-align:left;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
+					<label for="elemschoolrepeat" style="width: 400px;text-align:left;">Repeat: what elementary school did you attend?</label><input type="password" name="elemschoolrepeat" /><br /><br />
+					<label for="road" style="width: 400px;text-align:left;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />
+					<label for="roadrepeat" style="width: 400px;text-align:left;">Repeat: what is the name of the road you grew up on?</label><input type="password" name="roadrepeat" /><br /><br />
 					<input type="submit" value="Send" />
 				</div>
 			</form>

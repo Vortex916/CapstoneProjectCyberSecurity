@@ -29,15 +29,15 @@ $design = 'default';
 
 // Create tables in database if not existing yet
 // code for development: comment out if a table needs to be deleted
-// $delete_users_table = "DROP TABLE users";
-// if ($link->query($delete_users_table) === TRUE) 
-// {
-	// echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
-// } 
-// else 
-// {
-	// echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
-// }
+$delete_users_table = "DROP TABLE users";
+if ($link->query($delete_users_table) === TRUE) 
+{
+	echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
+} 
+else 
+{
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
+}
 
 // $delete_messages_table = "DROP TABLE messages";
 // if ($link->query($delete_messages_table) === TRUE) 
@@ -55,6 +55,9 @@ $users_table = "CREATE TABLE users (
   username varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
+  maidenname varchar(255) NOT NULL,
+  elemschool varchar(255) NOT NULL,
+  road varchar(255) NOT NULL,
   signup_date int(10) NOT NULL,
   salt varchar(255) NOT NULL
 )";
