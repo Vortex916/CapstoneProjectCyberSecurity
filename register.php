@@ -1,8 +1,6 @@
 <!-- Register a new user. -->
 <?php
-echo '<script type="text/javascript">alert("before include config.php")</script>';
 include('config.php');
-echo '<script type="text/javascript">alert("after include config.php")</script>';
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -18,14 +16,9 @@ echo '<script type="text/javascript">alert("after include config.php")</script>'
 		</div>
 <?php
 
-$form=true
-
 //We check if the form has been sent
-echo '<script type="text/javascript">alert("before isset()")</script>';
-if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']) and $_POST['username'] != '')
+if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email']) and $_POST['username'] != '')
 {
-	echo '<script type="text/javascript">alert("isset()")</script>';
-	
 	//We check if the two passwords are identical
 	$errors = [];
 	if($_POST['password'] == $_POST['passverif'])
@@ -35,22 +28,16 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 		{		
 			//We check if the email form is valid
 			if(preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email']))
-			{
-				echo "<script type=\"text/javascript\">alert(\"Entered preg_match()\")</script>";
-				
+			{			
 				//We protect the variables
 				$username = mysqli_real_escape_string($link, $_POST['username']);
 				$password = mysqli_real_escape_string($link, $_POST['password']);
-				$email	  = mysqli_real_escape_string($link, $_POST['email']);
-				$maidenname	= mysqli_real_escape_string($link, $_POST['maidenname']);
-				$elemschool	= mysqli_real_escape_string($link, $_POST['elemschool']);
-				$road	= mysqli_real_escape_string($link, $_POST['road']);				
+				$email	  = mysqli_real_escape_string($link, $_POST['email']);				
 				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.				
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
 				$result = $link->query('select id from users where username="'.$username.'"');
-				if ($result != FALSE) 
-				{
+				if ($result != FALSE) {
 					/* determine number of rows result set */
 					$row_cnt = mysqli_num_rows($result);
 					mysqli_free_result($result);
@@ -77,41 +64,23 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 					
-					//Check if the password recovery questions are valid
-					$password_recovery_valid = false;
-					echo "<script type=\"text/javascript\">alert(\"Reached password_recovery_valid\")</script>";
-					if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
+					if($result = $link->query('insert into users(id, username, password, email, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.time().'","'.$salt.'")'))
 					{
-						password_recovery_valid = true;
+						//We dont display the form
+						$form = false;
+						
+						// TODO: if executed, program crashes
+						//mysqli_free_result($result);
+						
+						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
+						echo "<a href=\"access.php\">Login</a></div>";						
 					}
 					else
 					{
-						//Repeated answers to the password recovery questions are not always the same
+						//Otherwise, we say that an error occured
 						$form	= true;
-						$message = 'The repeated answers to the password recovery questions are not always the same.';
-					}
-					
-					if (password_recovery_valid == true)
-					{
-						//Store entered user information into database
-						if(($result = $link->query('insert into users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$maidenname.'", "'.$elemschool.'", "'.$road.'", "'.$email.'", "'.time().'","'.$salt.'")')
-						{
-							//We dont display the form
-							$form = false;
-							
-							// TODO: if executed, program crashes
-							//mysqli_free_result($result);
-							
-							echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
-							echo "<a href=\"access.php\">Login</a></div>";						
-						}
-						else
-						{
-							//Otherwise, we say that an error occured
-							$form	= true;
-							$message = 'An error occurred while signing up.';
-							echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
-						}
+						$message = 'An error occurred while signing up.';
+						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 				}
 				else
@@ -149,10 +118,8 @@ else
 	$form = true;
 }
 
-echo '<script type="text/javascript">alert("before form")</script>';
 if ($form) 
 {
-	echo '<script type="text/javascript">alert("form()")</script>';
 	//We display the form again
 ?>
 		<div class="content">
