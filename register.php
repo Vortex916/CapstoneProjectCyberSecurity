@@ -41,7 +41,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
 				$result = $link->query('select id from users where username="'.$username.'"');
-				if ($result != FALSE) {
+				if ($result != FALSE) 
+				{
 					/* determine number of rows result set */
 					$row_cnt = mysqli_num_rows($result);
 					mysqli_free_result($result);
@@ -68,23 +69,40 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
 					}
 					
-					if($result = $link->query('insert into users(id, username, password, email, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.time().'","'.$salt.'")'))
+					//Check if the password recovery questions are valid
+					$password_recovery_valid = false;
+					echo "<script type=\"text/javascript\">alert(\"Reached password_recovery_valid\")</script>";
+					if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
 					{
-						//We dont display the form
-						$form = false;
-						
-						// TODO: if executed, program crashes
-						//mysqli_free_result($result);
-						
-						echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
-						echo "<a href=\"access.php\">Login</a></div>";						
+						$password_recovery_valid = true;
 					}
 					else
 					{
-						//Otherwise, we say that an error occured
+						//Repeated answers to the password recovery questions are not always the same
 						$form	= true;
-						$message = 'An error occurred while signing up.';
-						echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
+						$message = 'The repeated answers to the password recovery questions are not always the same.';
+					}
+					
+					if ($password_recovery_valid == true)
+					{					
+						if($result = $link->query('insert into users(id, username, password, email, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.time().'","'.$salt.'")'))
+						{
+							//We dont display the form
+							$form = false;
+							
+							// TODO: if executed, program crashes
+							//mysqli_free_result($result);
+							
+							echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
+							echo "<a href=\"access.php\">Login</a></div>";						
+						}
+						else
+						{
+							//Otherwise, we say that an error occured
+							$form	= true;
+							$message = 'An error occurred while signing up.';
+							echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
+						}
 					}
 				}
 				else
