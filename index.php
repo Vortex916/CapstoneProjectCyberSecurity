@@ -53,7 +53,7 @@ else
 ?>
 <br/>
 <a href="register.php">Register</a><br/>
-<a href="access.php">Log in</a>
+<a href="access.php">Login</a>
 <?php
 }
 ?>

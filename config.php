@@ -136,7 +136,7 @@ if($exists == FALSE)
 // $pwd receives the password to test.
 // $errors returns the non-compliant items of the provided password
 
-echo '<script type="text/javascript">alert("before isset()")</script>';
+echo '<script type="text/javascript">alert("before checkPassword()")</script>';
 function checkPassword($pwd, &$errors) {
 	$errors_init = $errors;
 
@@ -153,6 +153,7 @@ function checkPassword($pwd, &$errors) {
 // getKey: Set and retrieve password for message database encryption.
 // $user1 and $user2: users communicating each other.
 
+echo '<script type="text/javascript">alert("before getKey()")</script>';
 function getKey($user1, $user2) {
 	global $link;
 
@@ -189,4 +190,5 @@ function getKey($user1, $user2) {
 	}
 	else return false;
 }
+echo '<script type="text/javascript">alert("after getKEy()")</script>';
 ?>
