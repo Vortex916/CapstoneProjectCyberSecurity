@@ -2,8 +2,11 @@
 	include('config.php');
 ?>
 
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="<?php echo $design; ?>/style.css" rel="stylesheet" title="Style" />
 		<title>Database Dump</title>
 	</head>
 	<body>
@@ -15,7 +18,7 @@
 //We get all rows of users
 
 echo "user<BR>";
-echo "id,username,password,e-mail,signup_date,salt<BR>";
+echo "id,username,password,e-mail,maidenname,elemschool,road,signup_date,salt<BR>";
 $req = mysqli_query($link, 'select * from users');
 
 while($dnn = mysqli_fetch_array($req))
@@ -24,6 +27,9 @@ while($dnn = mysqli_fetch_array($req))
 	echo htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities($dnn['password'], ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8').",";
+	echo htmlentities($dnn['maidenname'], ENT_QUOTES, 'UTF-8').",";
+	echo htmlentities($dnn['elemschool'], ENT_QUOTES, 'UTF-8').",";	
+	echo htmlentities($dnn['road'], ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities(date("Y-m-d H:i:s", $dnn['signup_date']), ENT_QUOTES, 'UTF-8').",";
 	echo htmlentities($dnn['salt'], ENT_QUOTES, 'UTF-8')."<BR>";
 }
@@ -61,6 +67,6 @@ while($dnn = mysqli_fetch_array($req))
 	echo htmlentities($dnn['mskey'], ENT_QUOTES, 'UTF-8')."<BR>";
 }
 ?>
-		<div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
+		<br /><div class="foot"><a href="<?php echo $url_home; ?>">Go to start page</a></div>
 	</body>
 </html>
