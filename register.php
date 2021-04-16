@@ -33,7 +33,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				//We protect the variables
 				$username = mysqli_real_escape_string($link, $_POST['username']);
 				$password = mysqli_real_escape_string($link, $_POST['password']);
-				$email	  = mysqli_real_escape_string($link, $_POST['email']);				
+				$email	  = mysqli_real_escape_string($link, $_POST['email']);
+				$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
+				$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);				
+				$road	= mysqli_real_escape_string($link, $_POST['road']);					
 				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.				
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				

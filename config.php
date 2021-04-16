@@ -49,8 +49,6 @@ $design = 'default';
 	// echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
 // }
 
-echo '<script type="text/javascript">alert("users table")</script>';
-
 // users table
 $users_table = "CREATE TABLE users (
   id bigint(20) NOT NULL,
@@ -79,7 +77,6 @@ if($exists == FALSE)
 	}
 }
 
-echo '<script type="text/javascript">alert("messages table")</script>';
 // messages table
 $messages_table = "CREATE TABLE messages (
   id bigint(20) NOT NULL,
@@ -109,7 +106,6 @@ if($exists == FALSE)
 	}
 }
 
-echo '<script type="text/javascript">alert("messages keys table")</script>';
 // message keys table
 $messages_keys_table = "CREATE TABLE messagekeys (
   user1 bigint(20) NOT NULL,
@@ -136,7 +132,6 @@ if($exists == FALSE)
 // $pwd receives the password to test.
 // $errors returns the non-compliant items of the provided password
 
-echo '<script type="text/javascript">alert("before checkPassword()")</script>';
 function checkPassword($pwd, &$errors) {
 	$errors_init = $errors;
 
@@ -153,7 +148,6 @@ function checkPassword($pwd, &$errors) {
 // getKey: Set and retrieve password for message database encryption.
 // $user1 and $user2: users communicating each other.
 
-echo '<script type="text/javascript">alert("before getKey()")</script>';
 function getKey($user1, $user2) {
 	global $link;
 
@@ -190,5 +184,4 @@ function getKey($user1, $user2) {
 	}
 	else return false;
 }
-echo '<script type="text/javascript">alert("after getKEy()")</script>';
 ?>
