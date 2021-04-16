@@ -85,7 +85,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					
 					if ($password_recovery_valid == true)
 					{					
-						if($result = $link->query('insert into users(id, username, password, email, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.time().'","'.$salt.'")'))
+						if($result = $link->query('insert into users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$maidenname.'", "'.$elemschool.'", "'.$road.'", "'.time().'","'.$salt.'")'))
 						{
 							//We dont display the form
 							$form = false;
