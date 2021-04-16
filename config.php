@@ -49,6 +49,8 @@ $design = 'default';
 	// echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
 // }
 
+echo '<script type="text/javascript">alert("users table")</script>';
+
 // users table
 $users_table = "CREATE TABLE users (
   id bigint(20) NOT NULL,

@@ -17,9 +17,10 @@ include('config.php');
 <?php
 
 //We check if the form has been sent
+echo '<script type="text/javascript">alert("before isset()")</script>';
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']) and $_POST['username'] != '')
 {
-	echo "<script type=\"text/javascript\">alert(\"Entered isset()\")</script>";
+	echo '<script type="text/javascript">alert("isset()")</script>';
 	
 	//We check if the two passwords are identical
 	$errors = [];
