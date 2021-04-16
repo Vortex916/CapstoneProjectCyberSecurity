@@ -130,9 +130,9 @@ if ($form)
 					<p style="text-align:left">Enter user data:</p><br />
 					<label for="username">Username</label><input type="text" name="username" value="<?php if(isset($_POST['username'])){echo htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
 					<label for="email">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
-					<label for="password">Password</label><input type="password" name="password" /><br />
-					<p style="text-align:left">Answer the following questions, they are asked for in case you forget your password to setup a new one:</p><br />
+					<label for="password">Password</label><input type="password" name="password" /><br />					
 					<label for="passverif">Repeat Password</label><input type="password" name="passverif" /><br /><br />
+					<p style="text-align:left">Answer the following questions, they are asked for in case you forget your password to setup a new one:</p><br />
 					<label for="maidenname" style="width: 400px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
 					<label for="maidennamerepeat" style="width: 400px;">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br /><br />
 					<label for="elemschool" style="width: 400px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
