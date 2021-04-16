@@ -17,7 +17,6 @@ include('config.php');
 <?php
 
 //We check if the form has been sent
-//if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email']) and $_POST['username'] != '')
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']) and $_POST['username'] != '')
 {
 	//We check if the two passwords are identical
@@ -36,9 +35,14 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$email	  = mysqli_real_escape_string($link, $_POST['email']);
 				$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
 				$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);				
-				$road	= mysqli_real_escape_string($link, $_POST['road']);					
-				$salt	  = (string)rand(10000, 99999);	     //Generate a five digit salt.				
-				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
+				$road	= mysqli_real_escape_string($link, $_POST['road']);
+				//Generate a five digit salt.				
+				$salt	  = (string)rand(10000, 99999);
+				//Compute the hashes of salt concatenated to user data for sensitive information. 				
+				$password = hash("sha512", $salt.$password);
+				$maidenname = hash("sha512", $salt.$maidenname);
+				$elemschool = hash("sha512", $salt.$elemschool);
+				$road = hash("sha512", $salt.$road);
 				
 				$result = $link->query('select id from users where username="'.$username.'"');
 				if ($result != FALSE) 
@@ -71,7 +75,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					
 					//Check if the password recovery questions are valid
 					$password_recovery_valid = false;
-					echo "<script type=\"text/javascript\">alert(\"Reached password_recovery_valid\")</script>";
 					if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
 					{
 						$password_recovery_valid = true;
@@ -80,7 +83,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					{
 						//Repeated answers to the password recovery questions are not always the same
 						$form	= true;
-						$message = 'The repeated answers to the password recovery questions are not always the same.';
+						$message = 'The repeated answers to the password recovery questions are not always the same. Please try again and ensure the repeated answers are the same.';
 					}
 					
 					if ($password_recovery_valid == true)
