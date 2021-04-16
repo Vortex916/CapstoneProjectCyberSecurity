@@ -79,6 +79,7 @@ if($exists == FALSE)
 	}
 }
 
+echo '<script type="text/javascript">alert("messages table")</script>';
 // messages table
 $messages_table = "CREATE TABLE messages (
   id bigint(20) NOT NULL,
@@ -108,6 +109,7 @@ if($exists == FALSE)
 	}
 }
 
+echo '<script type="text/javascript">alert("messages keys table")</script>';
 // message keys table
 $messages_keys_table = "CREATE TABLE messagekeys (
   user1 bigint(20) NOT NULL,
@@ -134,6 +136,7 @@ if($exists == FALSE)
 // $pwd receives the password to test.
 // $errors returns the non-compliant items of the provided password
 
+echo '<script type="text/javascript">alert("before isset()")</script>';
 function checkPassword($pwd, &$errors) {
 	$errors_init = $errors;
 
