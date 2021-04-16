@@ -127,18 +127,18 @@ if ($form)
 				Please fill the following form to sign up:<br />
 				<p style="font-size:14px;color:Red;">(Password requires 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
 				<div class="center">
-					<p style="text-align:left">Enter user data:</p><br />
-					<label for="username">Username</label><input type="text" name="username" value="<?php if(isset($_POST['username'])){echo htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
-					<label for="email">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
-					<label for="password">Password</label><input type="password" name="password" /><br />					
-					<label for="passverif">Repeat Password</label><input type="password" name="passverif" /><br /><br />
-					<p style="text-align:left">Answer the following questions, they are asked for in case you forget your password to setup a new one:</p><br />
-					<label for="maidenname" style="width: 400px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
-					<label for="maidennamerepeat" style="width: 400px;">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br /><br />
-					<label for="elemschool" style="width: 400px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
-					<label for="elemschoolrepeat" style="width: 400px;">Repeat: what elementary school did you attend?</label><input type="password" name="elemschoolrepeat" /><br /><br />
-					<label for="road" style="width: 400px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />
-					<label for="roadrepeat" style="width: 400px;">Repeat: what is the name of the road you grew up on?</label><input type="password" name="roadrepeat" /><br /><br />					
+					<p style="text-align:left;text-decoration: underline;">Enter user data:</p><br />
+					<label for="username" style="text-align:left;">Username</label><input type="text" name="username" value="<?php if(isset($_POST['username'])){echo htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
+					<label for="email" style="text-align:left;">Email</label><input type="text" name="email" value="<?php if(isset($_POST['email'])){echo htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');} ?>" /><br />
+					<label for="password" style="text-align:left;">Password</label><input type="password" name="password" /><br />					
+					<label for="passverif" style="text-align:left;">Repeat Password</label><input type="password" name="passverif" /><br /><br />
+					<p style="text-align:left;text-decoration: underline;">Answer the following questions, they are asked for in case you forget your password to setup a new one:</p><br />
+					<label for="maidenname" style="width: 400px;text-align:left;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					<label for="maidennamerepeat" style="width: 400px;text-align:left;">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br /><br />
+					<label for="elemschool" style="width: 400px;text-align:left;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
+					<label for="elemschoolrepeat" style="width: 400px;text-align:left;">Repeat: what elementary school did you attend?</label><input type="password" name="elemschoolrepeat" /><br /><br />
+					<label for="road" style="width: 400px;text-align:left;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />
+					<label for="roadrepeat" style="width: 400px;text-align:left;">Repeat: what is the name of the road you grew up on?</label><input type="password" name="roadrepeat" /><br /><br />					
 					<input type="submit" value="Register" />
 				</div>
 			</form>
