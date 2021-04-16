@@ -133,12 +133,12 @@ if ($form)
 					<label for="password">Password</label><input type="password" name="password" /><br />
 					<label for="passverif">Repeat Password</label><input type="password" name="passverif" /><br /><br />
 					Answer the following questions, they are asked for in case you forget your password to setup a new one:<br /><br /> 
-					<label for="maidenname" style="width: 300px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
-					<label for="maidennamerepeat" style="width: 300px;">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br />
-					<label for="elemschool" style="width: 300px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
-					<label for="elemschoolrepeat" style="width: 300px;">Repeat: what elementary school did you attend?</label><input type="password" name="elemschoolrepeat" /><br />
-					<label for="road" style="width: 300px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />
-					<label for="roadrepeat" style="width: 300px;">Repeat: what is the name of the road you grew up on?</label><input type="password" name="roadrepeat" /><br />					
+					<label for="maidenname" style="width: 400px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					<label for="maidennamerepeat" style="width: 400px;">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br />
+					<label for="elemschool" style="width: 400px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
+					<label for="elemschoolrepeat" style="width: 400px;">Repeat: what elementary school did you attend?</label><input type="password" name="elemschoolrepeat" /><br />
+					<label for="road" style="width: 400px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />
+					<label for="roadrepeat" style="width: 400px;">Repeat: what is the name of the road you grew up on?</label><input type="password" name="roadrepeat" /><br />					
 					<input type="submit" value="Register" />
 				</div>
 			</form>
