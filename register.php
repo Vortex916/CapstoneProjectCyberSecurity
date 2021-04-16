@@ -16,11 +16,11 @@ include('config.php');
 		</div>
 <?php
 
-
-
 //We check if the form has been sent
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']) and $_POST['username'] != '')
 {
+	echo "<script type=\"text/javascript\">alert(\"Entered isset()\")</script>";
+	
 	//We check if the two passwords are identical
 	$errors = [];
 	if($_POST['password'] == $_POST['passverif'])
@@ -30,7 +30,9 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 		{		
 			//We check if the email form is valid
 			if(preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email']))
-			{			
+			{
+				echo "<script type=\"text/javascript\">alert(\"Entered preg_match()\")</script>";
+				
 				//We protect the variables
 				$username = mysqli_real_escape_string($link, $_POST['username']);
 				$password = mysqli_real_escape_string($link, $_POST['password']);
@@ -42,7 +44,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$password = hash("sha512", $salt.$password); //Compute the hash of salt concatenated to password.
 				
 				$result = $link->query('select id from users where username="'.$username.'"');
-				if ($result != FALSE) {
+				if ($result != FALSE) 
+				{
 					/* determine number of rows result set */
 					$row_cnt = mysqli_num_rows($result);
 					mysqli_free_result($result);
@@ -71,6 +74,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					
 					//Check if the password recovery questions are valid
 					$password_recovery_valid = false;
+					echo "<script type=\"text/javascript\">alert(\"Reached password_recovery_valid\")</script>";
 					if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
 					{
 						password_recovery_valid = true;
@@ -82,7 +86,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						$message = 'The repeated answers to the password recovery questions are not always the same.';
 					}
 					
-					if ((password_recovery_valid == true)
+					if (password_recovery_valid == true)
 					{
 						//Store entered user information into database
 						if(($result = $link->query('insert into users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$maidenname.'", "'.$elemschool.'", "'.$road.'", "'.$email.'", "'.time().'","'.$salt.'")')
