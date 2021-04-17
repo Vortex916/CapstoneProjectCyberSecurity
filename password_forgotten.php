@@ -71,8 +71,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 						//We dont display the form
 						$form = false;
 						
-						// TODO: check if no crash occurs here
-						mysqli_free_result($result);
+						// crash occurs if freed
+						// mysqli_free_result($result);
 						
 						echo "<div class=\"message\">Reset password successfully. You can login now using the new password.<br />";
 						echo "<a href=\"access.php\">Login</a></div>";						
