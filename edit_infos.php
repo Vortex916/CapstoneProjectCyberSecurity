@@ -40,15 +40,15 @@ if (isset($_SESSION['username']))
 					$road_input	        = $_POST['road'];
 					$confirm_input      = $_POST['confirm'];
 					
-					// echo "1";
-					// //We check if there is no other user using the same username
-					// $stmt = $link->prepare("SELECT count(*) as nb FROM users WHERE username=?"); // prepare sql statement for execution
-					// $stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
-					// $stmt->execute(); // executed prepared statement	
-					// $req = $stmt->get_result(); // get result of executed statement
-					// $dn = $req->fetch_array();
-					// $stmt->close();
-					// echo "1 ok";
+					echo "1";
+					//We check if there is no other user using the same username
+					$stmt = $link->prepare("SELECT count(*) as nb FROM users WHERE username=?"); // prepare sql statement for execution
+					$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
+					$stmt->execute(); // executed prepared statement	
+					$req = $stmt->get_result(); // get result of executed statement
+					$dn = $req->fetch_array();
+					$stmt->close();
+					echo "1 ok";
 					
 					// //We check if the username changed and if it is available
 					// echo "2";
@@ -159,7 +159,6 @@ if (isset($_SESSION['username']))
 		}
 		else 
 		{
-			echo "4";
 			//otherwise, we display the values of the database
 			$stmt = $link->prepare("SELECT username,password,email FROM users WHERE username=?"); // prepare sql statement for execution
 			$stmt->bind_param("s", $username_session); // bind variables to the parameter markers of the prepared statement
@@ -173,7 +172,6 @@ if (isset($_SESSION['username']))
 			$password_input  = '';
 			$passverif_input = '';
 			$email_input	 = htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8');
-			echo "4 ok";
 		}
 		//We display the form
 ?>
@@ -182,11 +180,11 @@ if (isset($_SESSION['username']))
 				You can change your stored user data here:<br />
 				<p style="font-size:14px;">(Password requires 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
 				<div class="center">
-					<label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo $username; ?>" readonly/><br />
+					<label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo $username_input; ?>" readonly/><br />
 					<label for="confirm">Old Password<span class="small"></span></label><input type="password" name="confirm" id="confirm" value="" /><br />
 					<label for="password">New Password</label><input type="password" name="password" id="password" value="" /><br />
 					<label for="passverif">Repeat New Password</label><input type="password" name="passverif" id="passverif" value="" /><br />
-					<label for="email">Email</label><input type="text" name="email" id="email" value="<?php echo $email; ?>" /><br />
+					<label for="email">Email</label><input type="text" name="email" id="email" value="<?php echo $email_input; ?>" /><br />
 					<p style="text-align:left;text-decoration: underline;">Password recovery questions:</p><br />
 					<label for="maidenname" style="width: 400px;text-align:left;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
 					<label for="maidennamerepeat" style="width: 400px;text-align:left;">Repeat: your mother's maiden name?</label><input type="password" name="maidennamerepeat" /><br /><br />
