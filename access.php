@@ -57,32 +57,22 @@ else
 		echo "prepare<br />";
 		$stmt = $link->prepare("SELECT password,id,salt FROM users WHERE username=?"); // prepare sql statement for execution
 		echo "bind<br />";
-		if ($stmt->bind_param("s", $username))
-		{
-			echo "bind_param successful<br />";
-		}
-		else
-		{
-			echo "bind_param not successful<br />";
-		}
-		
-		$stmt->execute();
-		echo "execute successful<br />";
-		
+		//if ($stmt->bind_param("s", $username))
+		//{
+		//	echo "bind_param successful<br />";
+		//}
+		//else
+		//{
+		//	echo "bind_param not successful<br />";
+		//}
+		$stmt->bind_param("s", $username);
+		$stmt->execute();	
 		$req = $stmt->get_result();
-		echo "get_result successful<br />";
 		$dn = $req->fetch_array();
-		echo "fetch_array successful<br />";
 		$stmt->close();
-		echo "close successful<br />";
-		
+	
 
-		//$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
-		//echo "query successful<br />";
-		//$dn  = mysqli_fetch_array($req);
-		//echo "fetch array successful<br />";
 		$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
-		echo "password successful<br />";
 		
 		//We compare the submited password and the real one, and we check if the user exists
 		if ($dn['password'] == $password and mysqli_num_rows($req)>0) 
