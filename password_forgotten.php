@@ -22,6 +22,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 	$errors = [];
 	
 	//Check if username is registered
+	$username = mysqli_real_escape_string($link, $_POST['username']);
 	$result = $link->query('select id from users where username="'.$username.'"');
 	if ($result != FALSE) 
 	{
