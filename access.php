@@ -57,13 +57,13 @@ else
 		{
 			//Otherwise, we say the password is incorrect.
 			$form = true;
-			if ($dn['password'] =! $password_input)
+			if (mysqli_num_rows($req) == 0)
 			{
-				$message = 'The entered password does not fit to the registered username. Click on link <a href="password_forgotten.php">Password forgotten?</a><br/> in case you forgot the password.';
+				$message = 'The entered username is not registered.';
 			}
 			else
 			{
-				$message = 'The entered username is not registered.';
+				$message = 'The entered password does not fit to the registered username. Click on link <a href="password_forgotten.php">Password forgotten?</a><br/> in case you forgot the password.';
 			}
 		}
 	}
