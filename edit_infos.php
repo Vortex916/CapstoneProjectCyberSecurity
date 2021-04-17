@@ -150,19 +150,21 @@ if (isset($_SESSION['username']))
 	if ($form) 
 	{
 		//If the form has already been sent, we display the same values
-		if (isset($_POST['username'],$_POST['password'],$_POST['email'])) {
+		if (isset($_POST['username'],$_POST['password'],$_POST['email'])) 
+		{
 			$username_input  = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
 			$password_input  = '';
 			$passverif_input = '';
-			$email_input	   = htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');
+			$email_input	 = htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');
 		}
-		else {
+		else 
+		{
 			//otherwise, we display the values of the database
-			$dnn	   = mysqli_fetch_array(mysqli_query($link, 'select username,password,email,avatar from users where username="'.$_SESSION['username'].'"'));
+			$dnn	         = mysqli_fetch_array($link->query('select username,password,email from users where username="'.$_SESSION['username'].'"'));
 			$username_input  = htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8');
 			$password_input  = '';
 			$passverif_input = '';
-			$email_input	   = htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8');
+			$email_input	 = htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8');
 		}
 		
 		//We display the form
