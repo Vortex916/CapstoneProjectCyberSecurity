@@ -40,7 +40,6 @@ else
 		$req = $stmt->get_result();
 		$dn = $req->fetch_array(MYSQLI_ASSOC);
   		$stmt->close();
-		echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $result . "\")</script>";
 
 		//$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
 		//$dn  = mysqli_fetch_array($req);
