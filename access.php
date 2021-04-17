@@ -39,11 +39,11 @@ else
 		/* bind parameters for markers */
 		if ($stmt->bind_param("s", $username_test))
 		{
-			echo "bind_param successful"
+			echo "bind_param successful";
 		}
 		else
 		{
-			echo "bind_param not successful"
+			echo "bind_param not successful";
 		}
 		$username_test = "Tester4";
 		
