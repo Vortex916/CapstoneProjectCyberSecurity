@@ -44,7 +44,12 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$elemschool = hash("sha512", $salt.$elemschool);
 				$road = hash("sha512", $salt.$road);
 				
-				$result = $link->query('select id from users where username="'.$username.'"');
+				$stmt = $link->prepare('SELECT id FROM users WHERE username=?');
+				$stmt->bindParam('s', $username);
+				$result = $stmt->execute(); // execute query
+  				$stmt->close();
+				
+				//$result = $link->query('select id from users where username="'.$username.'"');
 				if ($result != FALSE) 
 				{
 					/* determine number of rows result set */
