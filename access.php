@@ -81,8 +81,8 @@ else
 		//echo "query successful<br />";
 		//$dn  = mysqli_fetch_array($req);
 		//echo "fetch array successful<br />";
-		//$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
-		//echo "password successful<br />";
+		$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
+		echo "password successful<br />";
 		
 		//We compare the submited password and the real one, and we check if the user exists
 		if ($dn['password'] == $password and mysqli_num_rows($req)>0) 
