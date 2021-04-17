@@ -16,30 +16,37 @@ include('config.php');
 
 <?php
 //We check if the user is logged
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username'])) 
+{
 	$form     = true;
 	$otitle   = '';
 	$orecip   = '';
 	$omessage = '';
 	//We check if the form has been sent
-	if (isset($_POST['title'], $_POST['recip'], $_POST['message'])) {
+	if (isset($_POST['title'], $_POST['recip'], $_POST['message'])) 
+	{
 		$otitle   = $_POST['title'];
 		$orecip   = $_POST['recip'];
 		$omessage = $_POST['message'];
 
 		//We check if all the fields are filled
-		if ($_POST['title'] != '' and $_POST['recip'] != '' and $_POST['message'] != '') 
+		if ($otitle != '' and $orecip != '' and $omessage != '') 
 		{
-			//We protect the variables
-			$title   = mysqli_real_escape_string($link, $otitle);
-			$recip   = mysqli_real_escape_string($link, $orecip);
-			$message = mysqli_real_escape_string($link, nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8')));
+			$message = nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8'));
+			
 			//We check if the recipient exists
-			$dn1 = mysqli_fetch_array($link->query('select count(id) as recip, id as recipid, (select count(*) from messages) as npm from users where username="'.$recip.'"'));
+			$stmt = $link->prepare("SELECT count(id) as recip, id as recipid, (SELECT count(*) FROM messages) as npm FROM users WHERE username=?"); // prepare sql statement for execution
+			$stmt->bind_param("s", $orecip); // bind variables to the parameter markers of the prepared statement
+			$stmt->execute(); // executed prepared statement	
+			$req = $stmt->get_result(); // get result of executed statement
+			$dn1 = $req->fetch_array();
+			$stmt->close();
+		
 			if ($dn1['recip'] == 1) 
 			{
 				//We check if the recipient is not the actual user
-				if ($dn1['recipid'] != $_SESSION['userid']) {
+				if ($dn1['recipid'] != $_SESSION['userid']) 
+				{
 					$id = $dn1['npm']+1;
 					//We encrypt then send the message
 					$cipher = "aes-128-gcm";
@@ -54,7 +61,12 @@ if (isset($_SESSION['username'])) {
 						$ciphertext_raw = openssl_encrypt($message, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv, $tag);
 						$hmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
 						$ciphertext = base64_encode($iv.$hmac.$ciphertext_raw);    //store $cipher, $iv, and $tag for decryption later
-						if ($link->query('insert into messages (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag)values("'.$id.'", "1", "'.$title.'", "'.$_SESSION['userid'].'", "'.$dn1['recipid'].'", "'.$ciphertext.'", "'.time().'", "yes", "no", "'.$tag.'")')) 
+
+						$stmt = $link->prepare('INSERT INTO messages (id, id2, title, user1, user2, message, timestamp, user1read, user2read, tag) VALUES ("'.$id.'", "1", ?, "'.$_SESSION['userid'].'", "'.$dn1['recipid'].'", "'.$ciphertext.'", "'.time().'", "yes", "no", "'.$tag.'")'); // prepare sql statement for execution
+						$stmt->bind_param("s", $otitle); // bind variables to the parameter markers of the prepared statement
+						$result = $stmt->execute(); // executed prepared statement	
+						$stmt->close();						
+						if ($result) 
 						{
 ?>
 		<div class="message">The message has successfully been sent.<br />
