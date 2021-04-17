@@ -30,52 +30,20 @@ else
 	//We check if the form has been sent
 	if(isset($_POST['username'], $_POST['password']))
 	{
-		$username = mysqli_real_escape_string($link, $_POST['username']);
-		$password = mysqli_real_escape_string($link, $_POST['password']);
-
-		// /* create a prepared statement */
-		// $stmt = $link->prepare("SELECT id FROM users WHERE username=?");
-
-		// /* bind parameters for markers */
-		// if ($stmt->bind_param("s", $username_test))
-		// {
-			// echo "bind_param successful<br />";
-		// }
-		// else
-		// {
-			// echo "bind_param not successful<br />";
-		// }
-		// $username_test = "Tester4";
-		
-		// /* execute query */
-		// $stmt->execute();
-		// echo "execute successful<br />";
-		// $stmt->close();
-		// echo "close successful<br />";
+		$username_input = $_POST['username'];
+		$password_input = $_POST['password'];
 		
 		//We get the password of the user
-		echo "prepare<br />";
 		$stmt = $link->prepare("SELECT password,id,salt FROM users WHERE username=?"); // prepare sql statement for execution
-		echo "bind<br />";
-		//if ($stmt->bind_param("s", $username))
-		//{
-		//	echo "bind_param successful<br />";
-		//}
-		//else
-		//{
-		//	echo "bind_param not successful<br />";
-		//}
-		$stmt->bind_param("s", $username);
-		$stmt->execute();	
-		$req = $stmt->get_result();
+		$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
+		$stmt->execute(); // executed prepared statement	
+		$req = $stmt->get_result(); // get result of executed statement
 		$dn = $req->fetch_array();
 		$stmt->close();
-	
-
-		$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
+		$password = hash("sha512", $dn['salt'].$password_input); // Hash with the salt to match database.
 		
 		//We compare the submited password and the real one, and we check if the user exists
-		if ($dn['password'] == $password and mysqli_num_rows($req)>0) 
+		if ($dn['password'] == $password_input and mysqli_num_rows($req)>0) 
 		{
 			//If the password is good, we dont show the form
 			$form = false;

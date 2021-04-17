@@ -30,12 +30,12 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 			if(preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email']))
 			{			
 				//We protect the variables
-				$username = mysqli_real_escape_string($link, $_POST['username']);
-				$password = mysqli_real_escape_string($link, $_POST['password']);
-				$email	  = mysqli_real_escape_string($link, $_POST['email']);
-				$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
-				$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);				
-				$road	= mysqli_real_escape_string($link, $_POST['road']);
+				$username = $_POST['username'];
+				$password = $_POST['password'];
+				$email	  = $_POST['email'];
+				$maidenname = $_POST['maidenname'];
+				$elemschool = $_POST['elemschool'];				
+				$road	= $_POST['road'];
 				//Generate a five digit salt.				
 				$salt	  = (string)rand(10000, 99999);
 				//Compute the hashes of salt concatenated to user data for sensitive information. 				
@@ -45,13 +45,12 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$road = hash("sha512", $salt.$road);
 				
 				$stmt = $link->prepare('SELECT id FROM users WHERE username=?');
-				$stmt->bindParam('s', $username);
+				$stmt->bind_param('s', $username);
 				$stmt->execute(); // execute query
 				$result = $stmt->get_result();				
   				$stmt->close();
 				echo "<script type=\"text/javascript\">alert(\"result: " . $result . "\")</script>";
 				
-				//$result = $link->query('select id from users where username="'.$username.'"');
 				if ($result != FALSE) 
 				{
 					/* determine number of rows result set */
