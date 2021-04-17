@@ -22,11 +22,25 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 	$errors = [];
 	
 	//Check if username is registered
-	$result = $link->query('SELECT id FROM users WHERE username="'.$username.'"');
-	$row_cnt = mysqli_num_rows($result);
-	mysqli_free_result($result);
+	$result = $link->query('select id from users where username="'.$username.'"');
+	if ($result != FALSE) 
+	{
+		/* determine number of rows result set */
+		$row_cnt = mysqli_num_rows($result);
+		mysqli_free_result($result);
+	}
+	else
+	{
+		echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $link->error . "\")</script>";
+	}
 	
-	if($row_cnt == 1)
+	if($row_cnt == 0)
+	{
+		//Entered user does not exist in database
+		$form	= true;
+		$message = 'The entered username is not registered, no new password can be set.';
+	}
+	else
 	{
 		$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
 		$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);
@@ -93,12 +107,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 			$message = 'One or more of the security questions have not been answered correctly.';
 		}		
 	}
-	else
-	{
-		//Entered user does not exist in database
-		$form	= true;
-		$message = 'The entered username is not registered, no new password can be set.';
-	}
 }
 else
 {
@@ -113,12 +121,12 @@ if ($form)
 				Please enter the username and answer the security questions to set a new password for the user:<br />
 				<br />
 				<div class="center">
-					<label for="username" style="width: 400px;">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
-					<label for="maidenname" style="width: 400px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
-					<label for="elemschool" style="width: 400px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
-					<label for="road" style="width: 400px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
-					<label for="password" style="width: 400px;">New Password</label><input type="password" name="password" id="password" /><br />
-					<label for="passverif" style="width: 400px;">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
+					<label for="username" style="width: 350px;">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
+					<label for="maidenname" style="width: 350px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					<label for="elemschool" style="width: 350px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
+					<label for="road" style="width: 350px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
+					<label for="password" style="width: 350px;">New Password</label><input type="password" name="password" id="password" /><br />
+					<label for="passverif" style="width: 350px;">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
 					<input type="submit" value="Reset Password" />
 				</div>
 			</form>
