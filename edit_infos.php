@@ -37,7 +37,7 @@ if (isset($_SESSION['username']))
 					$email_input	    = $_POST['email'];
 					$maidenname_input	= $_POST['maidenname'];
 					$elemschool_input	= $_POST['elemschool'];
-					$road_input	        = $_POST['road']);
+					$road_input	        = $_POST['road'];
 					$confirm_input      = $_POST['confirm'];
 					
 					echo "1";
