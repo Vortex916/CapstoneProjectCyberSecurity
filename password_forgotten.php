@@ -77,13 +77,15 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 					$new_password = hash("sha512", $user_data['salt'].$new_password);
 					
 					//Store new password in database
-					if($result = $link->query('UPDATE users SET password="'.$new_password.'" WHERE username="'.$username.'"'))
+					$stmt = $link->prepare("UPDATE users SET password=? WHERE username=?"); // prepare sql statement for execution
+					$stmt->bind_param("ss", $new_password, $username); // bind variables to the parameter markers of the prepared statement
+					$result = $stmt->execute(); // executed prepared statement		
+					$stmt->close();
+					
+					if($result)
 					{
 						//We dont display the form
 						$form = false;
-						
-						// crash occurs if freed
-						// mysqli_free_result($result);
 						
 						echo "<div class=\"message\">Reset password successfully. You can login now using the new password.<br />";
 						echo "<a href=\"access.php\">Login</a></div>";						
@@ -133,7 +135,7 @@ if ($form)
 				Please enter the username and answer the security questions to set a new password for the user:<br />
 				<br />
 				<div class="center">
-					<label for="username" style="width: 350px;">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
+					<label for="username" style="width: 350px;">Username</label><input type="text" name="username" id="username" /><br />
 					<label for="maidenname" style="width: 350px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
 					<label for="elemschool" style="width: 350px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
 					<label for="road" style="width: 350px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
