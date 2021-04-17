@@ -73,7 +73,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 				//We check if the choosen password is strong enough.
 				if(checkPassword($_POST['password'], $errors))
 				{
-					$new_password = mysqli_real_escape_string($link, $_POST['password']);
+					$new_password = $_POST['password'];
 					$new_password = hash("sha512", $user_data['salt'].$new_password);
 					
 					//Store new password in database
