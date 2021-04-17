@@ -37,7 +37,7 @@ else
 		echo '<script type="text/javascript">alert("prepare")</script>';
 		$stmt = $link->prepare('SELECT password,id,salt FROM users WHERE username=?'); // prepare sql statement for execution
 		echo '<script type="text/javascript">alert("bind")</script>';
-		$stmt->bindParam('s', $username); // bind variables to prepared statement as parameters
+		$stmt->bindParam("s", $username); // bind variables to prepared statement as parameters
 		echo '<script type="text/javascript">alert("execute")</script>';
 		$stmt->execute(); // execute prepared statement
 		echo '<script type="text/javascript">alert("get result")</script>';
