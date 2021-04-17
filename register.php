@@ -55,14 +55,13 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$result = $stmt->get_result(); // get result of executed statement
 				//$dn = $req->fetch_array();
 				$stmt->close();
-		
-				echo "show message";
-				echo "<script type=\"text/javascript\">alert(\"result: " . $result . "\")</script>";
 				
 				if ($result != FALSE) 
 				{
 					/* determine number of rows result set */
+					echo "num rows";
 					$row_cnt = mysqli_num_rows($result);
+					echo "free result";
 					mysqli_free_result($result);
 				}
 				else
