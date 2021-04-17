@@ -35,15 +35,17 @@ else
 
 		//We get the password of the user
 		//echo '<script type="text/javascript">alert("prepare")</script>';
-		$stmt = $link->prepare("select password,id,salt from users where username=?"); // prepare sql statement for execution
+		$stmt = $link->prepare("select password,id,salt from users where username=:username"); // prepare sql statement for execution
 		//echo '<script type="text/javascript">alert("bind")</script>';
 		if ($stmt == true)
-		{
+		{			
 			echo '<script type="text/javascript">alert("successful, bindparam now")</script>';
-			$stmt->bindParam('s', $username_test); // bind variables to prepared statement as parameters
-			$username_test = "Tester4";
-			$stmt->execute();
+			$stmt->bindParam(':username', $username);
+			//$result = $stmt->bindParam('s', $username_test); // bind variables to prepared statement as parameters
+			//$username_test = $username;
 			echo '<script type="text/javascript">alert("successful")</script>';
+			$stmt->execute();
+			
 		}
 		else
 		{

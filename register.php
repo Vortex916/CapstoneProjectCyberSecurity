@@ -46,9 +46,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				
 				$stmt = $link->prepare('SELECT id FROM users WHERE username=?');
 				$stmt->bindParam('s', $username);
-				$result = $stmt->execute(); // execute query
+				$stmt->execute(); // execute query
+				$result = $stmt->get_result();				
   				$stmt->close();
-				echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $result . "\")</script>";
+				echo "<script type=\"text/javascript\">alert(\"result: " . $result . "\")</script>";
 				
 				//$result = $link->query('select id from users where username="'.$username.'"');
 				if ($result != FALSE) 
