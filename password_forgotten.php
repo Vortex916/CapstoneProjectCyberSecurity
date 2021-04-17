@@ -22,7 +22,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 	$errors = [];
 	//Check if username is registered
 	$username = mysqli_real_escape_string($link, $_POST['username']);
-	$user_exists = mysqli_query($link, 'SELECT 1 FROM users WHERE username="'.$username.'"');
+	$user_exists = mysqli_query($link, 'SELECT *FROM users WHERE username="'.$username.'"');
 	if ($user_exists)
 	{
 		$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
@@ -110,12 +110,12 @@ if ($form)
 				Please enter the username and answer the security questions to set a new password for the user:<br />
 				<br />
 				<div class="center">
-					<label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
-					<label for="maidenname">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
-					<label for="elemschool">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
-					<label for="road">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
-					<label for="password">New Password</label><input type="password" name="password" id="password" /><br /><br />
-					<label for="passverif">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
+					<label for="username" style="width: 400px;">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
+					<label for="maidenname style="width: 400px;"">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					<label for="elemschool style="width: 400px;"">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
+					<label for="road style="width: 400px;"">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
+					<label for="password style="width: 400px;"">New Password</label><input type="password" name="password" id="password" /><br /><br />
+					<label for="passverif style="width: 400px;"">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
 					<input type="submit" value="Reset Password" />
 				</div>
 			</form>
