@@ -22,14 +22,14 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 	$errors = [];
 	//Check if username is registered
 	$username = mysqli_real_escape_string($link, $_POST['username']);
-	$user_exists = mysqli_query($link, 'select 1 from users where username="'.$username.'"');
+	$user_exists = mysqli_query($link, 'SELECT 1 FROM users WHERE username="'.$username.'"');
 	if ($user_exists == true)
 	{
 		$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
 		$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);
 		$road	    = mysqli_real_escape_string($link, $_POST['road']);
 
-		$get_user_data = mysqli_query($link, 'select maidenname,elemschool,road,salt from users where username="'.$username.'"');
+		$get_user_data = mysqli_query($link, 'SELECT maidenname,elemschool,road,salt FROM users WHERE username="'.$username.'"');
 		$user_data = mysqli_fetch_array($get_user_data);
 		$maidenname = hash("sha512", $user_data['salt'].$maidenname); // Hash with the salt to match database.
 		$elemschool = hash("sha512", $user_data['salt'].$elemschool); // Hash with the salt to match database.
@@ -54,7 +54,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 						$form = false;
 						
 						// TODO: check if no crash occurs here
-						//mysqli_free_result($result);
+						mysqli_free_result($result);
 						
 						echo "<div class=\"message\">Reset password successfully. You can login now using the new password.<br />";
 						echo "<a href=\"access.php\">Login</a></div>";						
