@@ -23,7 +23,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 	//Check if username is registered
 	$username = mysqli_real_escape_string($link, $_POST['username']);
 	$user_exists = mysqli_query($link, 'SELECT 1 FROM users WHERE username="'.$username.'"');
-	if ($user_exists == true)
+	if ($user_exists)
 	{
 		$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
 		$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);
