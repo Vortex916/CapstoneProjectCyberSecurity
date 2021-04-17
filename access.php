@@ -34,11 +34,11 @@ else
 		$password = mysqli_real_escape_string($link, $_POST['password']);
 
 		//We get the password of the user
-		$stmt = $link->prepare('SELECT password,id,salt FROM users WHERE username=?');
-		$stmt->bindParam('s', $username);
-		$stmt->execute();
+		$stmt = $link->prepare('SELECT password,id,salt FROM users WHERE username=?'); // prepare sql statement for execution
+		$stmt->bindParam('s', $username); // bind variables to prepared statement as parameters
+		$stmt->execute(); // execute prepared statement
 		$req = $stmt->get_result();
-		$dn = $req->fetch_array(MYSQLI_ASSOC);
+		$dn = $req->fetch_array();
   		$stmt->close();
 
 		//$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
