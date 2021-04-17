@@ -68,29 +68,21 @@ else
 		
 		$stmt->execute();
 		echo "execute successful<br />";
+		
+		$req = $stmt->get_result();
+		echo "get_result successful<br />";
+		$dn = $req->fetch_array();
+		echo "fetch_array successful<br />";
 		$stmt->close();
 		echo "close successful<br />";
 		
-		// }
-		// else
-		// {
-			// echo '<script type="text/javascript">alert("link prepare not successful")</script>';
-		// }
-		//echo '<script type="text/javascript">alert("execute")</script>';
-		//$stmt->execute(); // execute prepared statement
-		//echo '<script type="text/javascript">alert("get result")</script>';
-		//$req = $stmt->get_result();
-		//echo '<script type="text/javascript">alert("fetch array")</script>';
-		//$dn = $req->fetch_array();
-		//echo '<script type="text/javascript">alert("close")</script>';
-  		//$stmt->close();
 
-		$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
-		echo "query successful<br />";
-		$dn  = mysqli_fetch_array($req);
-		echo "fetch array successful<br />";
-		$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
-		echo "password successful<br />";
+		//$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
+		//echo "query successful<br />";
+		//$dn  = mysqli_fetch_array($req);
+		//echo "fetch array successful<br />";
+		//$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
+		//echo "password successful<br />";
 		
 		//We compare the submited password and the real one, and we check if the user exists
 		if ($dn['password'] == $password and mysqli_num_rows($req)>0) 
