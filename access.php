@@ -56,8 +56,15 @@ else
 		else 
 		{
 			//Otherwise, we say the password is incorrect.
-			$form    = true;
-			$message = 'The entered username is not registered or the password does not fit to the registered username. Click on link <a href="password_forgotten.php">Password forgotten?</a><br/> in case you forgot the password.';
+			$form = true;
+			if ($dn['password'] =! $password_input)
+			{
+				$message = 'The entered password does not fit to the registered username. Click on link <a href="password_forgotten.php">Password forgotten?</a><br/> in case you forgot the password.';
+			}
+			else
+			{
+				$message = 'The entered username is not registered.';
+			}
 		}
 	}
 	else $form = true;
