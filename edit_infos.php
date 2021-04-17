@@ -77,32 +77,30 @@ if (isset($_SESSION['username']))
 								$message = 'The repeated answers to the password recovery questions are not always the same.';
 							}
 							
-							if ((password_recovery_valid == true)
+							if (password_recovery_valid == true)
 							{
-								echo "3";
-								// //$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id=?"); // prepare sql statement for execution
-								// //$stmt->bind_param("ssssssi", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $id); // bind variables to the parameter markers of the prepared statement
-								// //$id = $_SESSION['userid'];
-								// //$result = $stmt->execute(); // executed prepared statement	
-								// //$stmt->close();
-								// $result = false;
-								// echo "3 ok";
-	                            // if ($result)
-								// { 
-									// //We dont display the form
-									// $form = false;
-									// //We delete the old session, so the user needs to login again
-									// unset($_SESSION['username'], $_SESSION['userid']);
+								$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id=?"); // prepare sql statement for execution
+								$stmt->bind_param("ssssssi", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $id); // bind variables to the parameter markers of the prepared statement
+								$id = $_SESSION['userid'];
+								$result = $stmt->execute(); // executed prepared statement	
+								$stmt->close();
+
+	                            if ($result)
+								{ 
+									//We dont display the form
+									$form = false;
+									//We delete the old session, so the user needs to login again
+									unset($_SESSION['username'], $_SESSION['userid']);
  ?>
-<!--		 <div class="message">Your informations have successfuly been updated. You need to login again.<br /> -->
+		 <div class="message">Your informations have successfuly been updated. You need to login again.<br />
  <?php
-								// }
-								// else 
-								// {
-									// //Otherwise, we say that an error occured
-									// $form	= true;
-									// $message = 'An error occurred while trying to update your informations in the database.';
-								// }
+								}
+								else 
+								{
+									//Otherwise, we say that an error occured
+									$form	= true;
+									$message = 'An error occurred while trying to update your informations in the database.';
+								}
 							}
 						}
 						else 
