@@ -159,14 +159,22 @@ if (isset($_SESSION['username']))
 		}
 		else 
 		{
+			echo "4";
 			//otherwise, we display the values of the database
-			$dnn	         = mysqli_fetch_array($link->query('select username,password,email from users where username="'.$_SESSION['username'].'"'));
+			$stmt = $link->prepare("SELECT username,password,email FROM users WHERE username=?"); // prepare sql statement for execution
+			$stmt->bind_param("s", $username_session); // bind variables to the parameter markers of the prepared statement
+			$username_session = $_SESSION['username'];
+			$stmt->execute(); // executed prepared statement	
+			$req = $stmt->get_result(); // get result of executed statement		
+			$dnn = $req->fetch_array();
+			$stmt->close();
+						
 			$username_input  = htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8');
 			$password_input  = '';
 			$passverif_input = '';
 			$email_input	 = htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8');
+			echo "4 ok";
 		}
-		
 		//We display the form
 ?>
 		<div class="content">
