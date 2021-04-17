@@ -68,7 +68,7 @@ if (isset($_SESSION['username']))
 							$password_recovery_valid = false;
 							if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
 							{
-								password_recovery_valid = true;
+								$password_recovery_valid = true;
 							}
 							else
 							{
@@ -77,14 +77,14 @@ if (isset($_SESSION['username']))
 								$message = 'The repeated answers to the password recovery questions are not always the same.';
 							}
 							
-							if (password_recovery_valid == true)
+							if ($password_recovery_valid == true)
 							{
-								//$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id="'.$_SESSION['userid'].'""); // prepare sql statement for execution
-								//$stmt->bind_param("ssssss", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input); // bind variables to the parameter markers of the prepared statement
+								$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id="'.$_SESSION['userid'].'""); // prepare sql statement for execution
+								$stmt->bind_param("ssssss", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input); // bind variables to the parameter markers of the prepared statement
 								//$id = $_SESSION['userid'];
-								//$result = $stmt->execute(); // executed prepared statement	
-								//$stmt->close();
-								$result = false;
+								$result = $stmt->execute(); // executed prepared statement	
+								$stmt->close();
+								//$result = false;
 	                            if ($result)
 								{ 
 									//We dont display the form
