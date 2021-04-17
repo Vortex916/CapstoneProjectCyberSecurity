@@ -28,6 +28,7 @@ if(isset($_SESSION['username']))
 
 <br />
 Welcome to the Coursera cyber security course capstone project.<br />
+Registered users can exchange messages on this site.<br />
 
 <?php
 //If the user is logged, we display links to edit his infos, to see his pms and to log out
