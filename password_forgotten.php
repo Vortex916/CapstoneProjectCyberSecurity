@@ -20,10 +20,13 @@ include('config.php');
 if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['maidenname'], $_POST['elemschool'], $_POST['road']))
 {
 	$errors = [];
+	
 	//Check if username is registered
-	$username = mysqli_real_escape_string($link, $_POST['username']);
-	$user_exists = mysqli_query($link, 'SELECT *FROM users WHERE username="'.$username.'"');
-	if ($user_exists)
+	$result = $link->query('SELECT id FROM users WHERE username="'.$username.'"');
+	$row_cnt = mysqli_num_rows($result);
+	mysqli_free_result($result);
+	
+	if($row_cnt == 1)
 	{
 		$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
 		$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);
@@ -114,7 +117,7 @@ if ($form)
 					<label for="maidenname" style="width: 400px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
 					<label for="elemschool" style="width: 400px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
 					<label for="road" style="width: 400px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
-					<label for="password" style="width: 400px;">New Password</label><input type="password" name="password" id="password" /><br /><br />
+					<label for="password" style="width: 400px;">New Password</label><input type="password" name="password" id="password" /><br />
 					<label for="passverif" style="width: 400px;">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
 					<input type="submit" value="Reset Password" />
 				</div>
