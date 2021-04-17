@@ -17,7 +17,8 @@ include('config.php');
 
 <?php
 //We check if the user is logged
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username'])) 
+{
 	//We check if the form has been sent
 	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']))
 	{
@@ -31,23 +32,34 @@ if (isset($_SESSION['username'])) {
 				//We check if the email form is valid
 				if (preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email'])) 
 				{
-					//We protect the variables
-					$username = mysqli_real_escape_string($link, $_POST['username']);
-					$password = mysqli_real_escape_string($link, $_POST['password']);
-					$email	= mysqli_real_escape_string($link, $_POST['email']);
-					$maidenname	= mysqli_real_escape_string($link, $_POST['maidenname']);
-					$elemschool	= mysqli_real_escape_string($link, $_POST['elemschool']);
-					$road	= mysqli_real_escape_string($link, $_POST['road']);
-					$confirm  = mysqli_real_escape_string($link, $_POST['confirm']);
+					$username_input     = $_POST['username'];
+					$password_input     = $_POST['password'];
+					$email_input	    = $_POST['email'];
+					$maidenname_input	= $_POST['maidenname'];
+					$elemschool_input	= $_POST['elemschool'];
+					$road_input	        = $_POST['road'])
+					$confirm_input      = $_POST['confirm'];
+					
 					//We check if there is no other user using the same username
-					$dn = mysqli_fetch_array(mysqli_query($link, 'select count(*) as nb from users where username="'.$username.'"'));
+					$stmt = $link->prepare("SELECT count(*) as nb FROM users WHERE username=?"); // prepare sql statement for execution
+					$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
+					$stmt->execute(); // executed prepared statement	
+					$req = $stmt->get_result(); // get result of executed statement
+					$dn = $req->fetch_array();
+					$stmt->close();
+					
 					//We check if the username changed and if it is available
 					if ($dn['nb'] == 0 or $_POST['username'] == $_SESSION['username']) 
 					{
-						$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
-						$dn  = mysqli_fetch_array($req);
-						$password = hash("sha512", $dn['salt'].$password); // Hash password with the salt to update database.
-						$oldpassw = hash("sha512", $dn['salt'].$confirm);  // Hash confirm with the salt to match database.
+						$stmt = $link->prepare("SELECT password,id,salt FROM users WHERE username=?"); // prepare sql statement for execution
+						$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
+						$stmt->execute(); // executed prepared statement	
+						$req = $stmt->get_result(); // get result of executed statement
+						$dn = $req->fetch_array();
+						$stmt->close();
+					
+						$password_input = hash("sha512", $dn['salt'].$password_input); // Hash password with the salt to update database.
+						$oldpassw = hash("sha512", $dn['salt'].$confirm_input);  // Hash confirm with the salt to match database.
 						//We edit the user informations
 						if ($dn['password'] == $oldpassw) 
 						{
@@ -65,12 +77,18 @@ if (isset($_SESSION['username'])) {
 							}
 							
 							if ((password_recovery_valid == true)
-							{							
-								if(mysqli_query($link, 'update users set username="'.$username.'", password="'.$password.'", email="'.$email.'", maidenname="'.$maidenname.'", elemschool="'.$elemschool.'", road="'.$road.'" where id="'.mysqli_real_escape_string($link, $_SESSION['userid']).'"')) 
+							{
+								$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id=?"); // prepare sql statement for execution
+								$stmt->bind_param("ssssssi", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $id); // bind variables to the parameter markers of the prepared statement
+								$id = $_SESSION['userid'];
+								$result = $stmt->execute(); // executed prepared statement	
+								$stmt->close();
+								
+	                            if ($result)
 								{ 
 									//We dont display the form
 									$form = false;
-									//We delete the old sessions so the user need to log again
+									//We delete the old session, so the user needs to login again
 									unset($_SESSION['username'], $_SESSION['userid']);
 ?>
 		<div class="message">Your informations have successfuly been updated. You need to login again.<br />
@@ -80,7 +98,7 @@ if (isset($_SESSION['username'])) {
 								{
 									//Otherwise, we say that an error occured
 									$form	= true;
-									$message = 'An error occurred while updating your informations.';
+									$message = 'An error occurred while trying to update your informations in the database.';
 								}
 							}
 						}
@@ -127,19 +145,26 @@ if (isset($_SESSION['username'])) {
 		//If the form has already been sent, we display the same values
 		if (isset($_POST['username'],$_POST['password'],$_POST['email'])) 
 		{
-			$username  = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
-			$password  = '';
-			$passverif = '';
-			$email	   = htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');
+			$username_input  = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
+			$password_input  = '';
+			$passverif_input = '';
+			$email_input	 = htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');
 		}
 		else 
 		{
 			//otherwise, we display the values of the database
-			$dnn	   = mysqli_fetch_array(mysqli_query($link, 'select username,password,email from users where username="'.$_SESSION['username'].'"'));
-			$username  = htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8');
-			$password  = '';
-			$passverif = '';
-			$email	   = htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8');
+			$stmt = $link->prepare("SELECT username,password,email FROM users WHERE username?"); // prepare sql statement for execution
+			$stmt->bind_param("s", $username_session); // bind variables to the parameter markers of the prepared statement
+			$username_session = $_SESSION['username'];
+			$stmt->execute(); // executed prepared statement	
+			$req = $stmt->get_result(); // get result of executed statement
+			$stmt->close();
+			
+			$dnn = $req->fetch_array();
+			$username_input  = htmlentities($dnn['username'], ENT_QUOTES, 'UTF-8');
+			$password_input  = '';
+			$passverif_input = '';
+			$email_input	 = htmlentities($dnn['email'], ENT_QUOTES, 'UTF-8');
 		}
 		//We display the form
 ?>
