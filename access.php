@@ -34,15 +34,22 @@ else
 		$password = mysqli_real_escape_string($link, $_POST['password']);
 
 		//We get the password of the user
+		echo '<script type=\"text/javascript\">alert("prepare")</script>';
 		$stmt = $link->prepare('SELECT password,id,salt FROM users WHERE username=?'); // prepare sql statement for execution
+		echo '<script type=\"text/javascript\">alert("bind")</script>';
 		$stmt->bindParam('s', $username); // bind variables to prepared statement as parameters
+		echo '<script type=\"text/javascript\">alert("execute")</script>';
 		$stmt->execute(); // execute prepared statement
+		echo '<script type=\"text/javascript\">alert("get result")</script>';
 		$req = $stmt->get_result();
+		echo '<script type=\"text/javascript\">alert("fetch array")</script>';
 		$dn = $req->fetch_array();
+		echo '<script type=\"text/javascript\">alert("close")</script>';
   		$stmt->close();
 
 		//$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
 		//$dn  = mysqli_fetch_array($req);
+		echo '<script type=\"text/javascript\">alert("access salt")</script>';
 		$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
 		
 		//We compare the submited password and the real one, and we check if the user exists
