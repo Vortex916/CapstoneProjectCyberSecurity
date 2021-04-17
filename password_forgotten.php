@@ -111,11 +111,11 @@ if ($form)
 				<br />
 				<div class="center">
 					<label for="username" style="width: 400px;">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
-					<label for="maidenname style="width: 400px;"">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
-					<label for="elemschool style="width: 400px;"">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
-					<label for="road style="width: 400px;"">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
-					<label for="password style="width: 400px;"">New Password</label><input type="password" name="password" id="password" /><br /><br />
-					<label for="passverif style="width: 400px;"">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
+					<label for="maidenname" style="width: 400px;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					<label for="elemschool" style="width: 400px;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
+					<label for="road" style="width: 400px;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
+					<label for="password" style="width: 400px;">New Password</label><input type="password" name="password" id="password" /><br /><br />
+					<label for="passverif" style="width: 400px;">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
 					<input type="submit" value="Reset Password" />
 				</div>
 			</form>
