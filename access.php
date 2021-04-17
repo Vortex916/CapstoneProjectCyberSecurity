@@ -49,7 +49,8 @@ else
 		
 		/* execute query */
 		$stmt->execute();
-
+		echo "execute successful";
+		
 		//We get the password of the user
 		//echo '<script type="text/javascript">alert("prepare")</script>';
 		//$stmt = $link->prepare("select password,id,salt from users where username=?"); // prepare sql statement for execution
