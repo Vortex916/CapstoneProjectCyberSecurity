@@ -101,8 +101,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 						$stmt = $link->prepare("INSERT INTO users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // prepare sql statement for execution
 						$stmt->bind_param("isssssssi", $id, $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $time, $salt); // bind variables to the parameter markers of the prepared statement
 						$time = time();
-						$stmt->execute(); // executed prepared statement		
-						$result = $stmt->get_result(); // get result of executed statement
+						$result = $stmt->execute(); // executed prepared statement
 						$stmt->close();
 						if($result)
 						{
