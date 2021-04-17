@@ -106,7 +106,7 @@ if ($form)
 {
 	//We display the form again?>
 		<div class="content">
-			<form action="access.php" method="post">
+			<form action="password_forgotten.php" method="post">
 				Please enter the username and answer the security questions to set a new password for the user:<br />
 				<br />
 				<div class="center">
@@ -119,8 +119,6 @@ if ($form)
 					<input type="submit" value="Reset Password" />
 				</div>
 			</form>
-			
-			<br/><a href="password_recovery.php">Password forgotten?</a><br/>
 		</div>
 <?php
 	//We display a message if necessary
