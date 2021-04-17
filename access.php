@@ -41,7 +41,8 @@ else
 		{
 			echo '<script type="text/javascript">alert("successful, bindparam now")</script>';
 			$stmt->bindParam('s', $username_test); // bind variables to prepared statement as parameters
-			$username_test = $username;
+			$username_test = "Tester4";
+			echo '<script type="text/javascript">alert("successful")</script>';
 		}
 		else
 		{
