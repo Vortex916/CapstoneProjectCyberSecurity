@@ -29,26 +29,34 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 			//We check if the email form is valid
 			if(preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email']))
 			{			
-				//We protect the variables
-				$username = $_POST['username'];
-				$password = $_POST['password'];
-				$email	  = $_POST['email'];
-				$maidenname = $_POST['maidenname'];
-				$elemschool = $_POST['elemschool'];				
-				$road	= $_POST['road'];
+				$username_input = $_POST['username'];
+				$password_input = $_POST['password'];
+				$email_input	  = $_POST['email'];
+				$maidenname_input = $_POST['maidenname'];
+				$elemschool_input = $_POST['elemschool'];				
+				$road_input	= $_POST['road'];
+				
 				//Generate a five digit salt.				
 				$salt	  = (string)rand(10000, 99999);
+				
 				//Compute the hashes of salt concatenated to user data for sensitive information. 				
 				$password = hash("sha512", $salt.$password);
 				$maidenname = hash("sha512", $salt.$maidenname);
 				$elemschool = hash("sha512", $salt.$elemschool);
 				$road = hash("sha512", $salt.$road);
 				
-				$stmt = $link->prepare('SELECT id FROM users WHERE username=?');
-				$stmt->bind_param('s', $username);
-				$stmt->execute(); // execute query
-				$result = $stmt->get_result();				
-  				$stmt->close();
+				// Check if user exists already in database
+				echo "prepare"
+				$stmt = $link->prepare("SELECT id FROM users WHERE username=?"); // prepare sql statement for execution
+				echo "bind param"
+				$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
+				$stmt->execute(); // executed prepared statement
+				echo "result"				
+				$result = $stmt->get_result(); // get result of executed statement
+				//$dn = $req->fetch_array();
+				$stmt->close();
+		
+				echo "show message"
 				echo "<script type=\"text/javascript\">alert(\"result: " . $result . "\")</script>";
 				
 				if ($result != FALSE) 
