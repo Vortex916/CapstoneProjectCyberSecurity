@@ -33,14 +33,13 @@ else
 		$username = mysqli_real_escape_string($link, $_POST['username']);
 		$password = mysqli_real_escape_string($link, $_POST['password']);
 
-		$username_test = "Tester4";
-
 		/* create a prepared statement */
 		$stmt = $link->prepare("SELECT id FROM users WHERE username=?");
 
 		/* bind parameters for markers */
-		$stmt->bind_param("s", $username_test);
-
+		$stmt->bind_param("i", $username_test);
+		$username_test = "Tester4";
+		
 		/* execute query */
 		$stmt->execute();
 
