@@ -33,24 +33,34 @@ else
 		$username = mysqli_real_escape_string($link, $_POST['username']);
 		$password = mysqli_real_escape_string($link, $_POST['password']);
 
+		$username_test = "Tester4";
+
+		/* create a prepared statement */
+		$stmt = $link->prepare("SELECT id FROM users WHERE username=?");
+
+		/* bind parameters for markers */
+		$stmt->bind_param("s", $username_test);
+
+		/* execute query */
+		$stmt->execute();
+
 		//We get the password of the user
 		//echo '<script type="text/javascript">alert("prepare")</script>';
-		$stmt = $link->prepare("select password,id,salt from users where username=:username"); // prepare sql statement for execution
+		//$stmt = $link->prepare("select password,id,salt from users where username=?"); // prepare sql statement for execution
 		//echo '<script type="text/javascript">alert("bind")</script>';
-		if ($stmt == true)
-		{			
-			echo '<script type="text/javascript">alert("successful, bindparam now")</script>';
-			$stmt->bindParam(':username', $username);
-			//$result = $stmt->bindParam('s', $username_test); // bind variables to prepared statement as parameters
-			//$username_test = $username;
-			echo '<script type="text/javascript">alert("successful")</script>';
-			$stmt->execute();
+		// if ($stmt == true)
+		// {			
+			// echo '<script type="text/javascript">alert("successful, bindparam now")</script>';
+			// $result = $stmt->bindParam('s', $username); // bind variables to prepared statement as parameters
+			// //$username_test = $username;
+			// echo '<script type="text/javascript">alert("successful")</script>';
+			// $stmt->execute();
 			
-		}
-		else
-		{
-			echo '<script type="text/javascript">alert("link prepare not successful")</script>';
-		}
+		// }
+		// else
+		// {
+			// echo '<script type="text/javascript">alert("link prepare not successful")</script>';
+		// }
 		//echo '<script type="text/javascript">alert("execute")</script>';
 		//$stmt->execute(); // execute prepared statement
 		//echo '<script type="text/javascript">alert("get result")</script>';
