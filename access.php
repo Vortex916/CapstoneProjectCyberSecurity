@@ -40,7 +40,8 @@ else
 		if ($stmt == true)
 		{
 			echo '<script type="text/javascript">alert("successful, bindparam now")</script>';
-			$stmt->bindParam('s', $username); // bind variables to prepared statement as parameters
+			$stmt->bindParam('s', $username_test); // bind variables to prepared statement as parameters
+			$username_test = $username;
 		}
 		else
 		{
