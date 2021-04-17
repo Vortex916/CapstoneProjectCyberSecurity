@@ -159,7 +159,7 @@ if (isset($_SESSION['username']))
 		else 
 		{
 			//otherwise, we display the values of the database
-			$stmt = $link->prepare("SELECT username,password,email FROM users WHERE username?"); // prepare sql statement for execution
+			$stmt = $link->prepare("SELECT username,password,email FROM users WHERE username=?"); // prepare sql statement for execution
 			$stmt->bind_param("s", $username_session); // bind variables to the parameter markers of the prepared statement
 			$username_session = $_SESSION['username'];
 			$stmt->execute(); // executed prepared statement	
