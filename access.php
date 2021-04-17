@@ -40,7 +40,7 @@ else
 		$req = $stmt->get_result(); // get result of executed statement
 		$dn = $req->fetch_array();
 		$stmt->close();
-		$password = hash("sha512", $dn['salt'].$password_input); // Hash with the salt to match database.
+		$password_input = hash("sha512", $dn['salt'].$password_input); // Hash with the salt to match database.
 		
 		//We compare the submited password and the real one, and we check if the user exists
 		if ($dn['password'] == $password_input and mysqli_num_rows($req)>0) 

@@ -40,10 +40,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$salt	  = (string)rand(10000, 99999);
 				
 				//Compute the hashes of salt concatenated to user data for sensitive information. 				
-				$password = hash("sha512", $salt.$password);
-				$maidenname = hash("sha512", $salt.$maidenname);
-				$elemschool = hash("sha512", $salt.$elemschool);
-				$road = hash("sha512", $salt.$road);
+				$password_input = hash("sha512", $salt.$password_input);
+				$maidenname_input = hash("sha512", $salt.$maidenname_input);
+				$elemschool_input = hash("sha512", $salt.$elemschool_input);
+				$road_input = hash("sha512", $salt.$road_input);
 				
 				// Check if user exists already in database
 				echo "prepare";
@@ -101,7 +101,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					
 					if ($password_recovery_valid == true)
 					{					
-						if($result = $link->query('insert into users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) values ('.$id.', "'.$username.'", "'.$password.'", "'.$email.'", "'.$maidenname.'", "'.$elemschool.'", "'.$road.'", "'.time().'","'.$salt.'")'))
+						if($result = $link->query('insert into users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) values ('.$id.', "'.$username_input.'", "'.$password_input.'", "'.$email_input.'", "'.$maidenname_input.'", "'.$elemschool_input.'", "'.$road_input.'", "'.time().'","'.$salt.'")'))
 						{
 							//We dont display the form
 							$form = false;
