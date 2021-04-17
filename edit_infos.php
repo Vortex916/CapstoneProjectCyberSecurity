@@ -40,6 +40,7 @@ if (isset($_SESSION['username']))
 					$road_input	        = $_POST['road']);
 					$confirm_input      = $_POST['confirm'];
 					
+					echo "1"
 					//We check if there is no other user using the same username
 					$stmt = $link->prepare("SELECT count(*) as nb FROM users WHERE username=?"); // prepare sql statement for execution
 					$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
@@ -47,8 +48,10 @@ if (isset($_SESSION['username']))
 					$req = $stmt->get_result(); // get result of executed statement
 					$dn = $req->fetch_array();
 					$stmt->close();
+					echo "1 ok"
 					
 					//We check if the username changed and if it is available
+					echo "2"
 					if ($dn['nb'] == 0 or $_POST['username'] == $_SESSION['username']) 
 					{
 						$stmt = $link->prepare("SELECT password,id,salt FROM users WHERE username=?"); // prepare sql statement for execution
@@ -57,9 +60,11 @@ if (isset($_SESSION['username']))
 						$req = $stmt->get_result(); // get result of executed statement
 						$dn = $req->fetch_array();
 						$stmt->close();
-					
+						echo "2 ok"
+						
 						$password_input = hash("sha512", $dn['salt'].$password_input); // Hash password with the salt to update database.
 						$oldpassw = hash("sha512", $dn['salt'].$confirm_input);  // Hash confirm with the salt to match database.
+						
 						//We edit the user informations
 						if ($dn['password'] == $oldpassw) 
 						{
@@ -78,12 +83,13 @@ if (isset($_SESSION['username']))
 							
 							if ((password_recovery_valid == true)
 							{
+								echo "3"
 								$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id=?"); // prepare sql statement for execution
 								$stmt->bind_param("ssssssi", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $id); // bind variables to the parameter markers of the prepared statement
 								$id = $_SESSION['userid'];
 								$result = $stmt->execute(); // executed prepared statement	
 								$stmt->close();
-								
+								echo "3 ok"
 	                            if ($result)
 								{ 
 									//We dont display the form
