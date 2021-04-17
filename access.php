@@ -50,6 +50,8 @@ else
 		/* execute query */
 		$stmt->execute();
 		echo "execute successful<br />";
+		$stmt->close();
+		echo "close successful<br />";
 		
 		//We get the password of the user
 		//echo '<script type="text/javascript">alert("prepare")</script>';
