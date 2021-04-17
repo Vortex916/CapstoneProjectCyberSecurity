@@ -31,12 +31,19 @@ else
 	if(isset($_POST['username'], $_POST['password']))
 	{
 		$username = mysqli_real_escape_string($link, $_POST['username']);
-		//TODO: also use mysqli_real_escape_string() here?
-		$password = $_POST['password'];
+		$password = mysqli_real_escape_string($link, $_POST['password']);
 
 		//We get the password of the user
-		$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
-		$dn  = mysqli_fetch_array($req);
+		$stmt = $link->prepare('SELECT password,id,salt FROM users WHERE username=?');
+		$stmt->bindParam('s', $username);
+		$stmt->execute();
+		$req = $stmt->get_result();
+		$dn = $req->fetch_array(MYSQLI_ASSOC);
+  		$stmt->close();
+		echo "<script type=\"text/javascript\">alert(\"Last SQL query error: " . $result . "\")</script>";
+
+		//$req = mysqli_query($link, 'select password,id,salt from users where username="'.$username.'"');
+		//$dn  = mysqli_fetch_array($req);
 		$password = hash("sha512", $dn['salt'].$password); // Hash with the salt to match database.
 		
 		//We compare the submited password and the real one, and we check if the user exists
