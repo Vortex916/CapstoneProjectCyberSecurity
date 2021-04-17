@@ -33,11 +33,31 @@ else
 		$username = mysqli_real_escape_string($link, $_POST['username']);
 		$password = mysqli_real_escape_string($link, $_POST['password']);
 
-		/* create a prepared statement */
-		$stmt = $link->prepare("SELECT id FROM users WHERE username=?");
+		// /* create a prepared statement */
+		// $stmt = $link->prepare("SELECT id FROM users WHERE username=?");
 
-		/* bind parameters for markers */
-		if ($stmt->bind_param("s", $username_test))
+		// /* bind parameters for markers */
+		// if ($stmt->bind_param("s", $username_test))
+		// {
+			// echo "bind_param successful<br />";
+		// }
+		// else
+		// {
+			// echo "bind_param not successful<br />";
+		// }
+		// $username_test = "Tester4";
+		
+		// /* execute query */
+		// $stmt->execute();
+		// echo "execute successful<br />";
+		// $stmt->close();
+		// echo "close successful<br />";
+		
+		//We get the password of the user
+		echo "prepare<br />";
+		$stmt = $link->prepare("SELECT password,id,salt FROM users WHERE username=?"); // prepare sql statement for execution
+		echo "bind<br />";
+		if ($stmt->bind_param("s", $username))
 		{
 			echo "bind_param successful<br />";
 		}
@@ -45,26 +65,12 @@ else
 		{
 			echo "bind_param not successful<br />";
 		}
-		$username_test = "Tester4";
 		
-		/* execute query */
 		$stmt->execute();
 		echo "execute successful<br />";
 		$stmt->close();
 		echo "close successful<br />";
 		
-		//We get the password of the user
-		//echo '<script type="text/javascript">alert("prepare")</script>';
-		//$stmt = $link->prepare("select password,id,salt from users where username=?"); // prepare sql statement for execution
-		//echo '<script type="text/javascript">alert("bind")</script>';
-		// if ($stmt == true)
-		// {			
-			// echo '<script type="text/javascript">alert("successful, bindparam now")</script>';
-			// $result = $stmt->bindParam('s', $username); // bind variables to prepared statement as parameters
-			// //$username_test = $username;
-			// echo '<script type="text/javascript">alert("successful")</script>';
-			// $stmt->execute();
-			
 		// }
 		// else
 		// {
