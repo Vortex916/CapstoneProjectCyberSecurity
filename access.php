@@ -31,6 +31,7 @@ else
 	if(isset($_POST['username'], $_POST['password']))
 	{
 		$username = mysqli_real_escape_string($link, $_POST['username']);
+		//TODO: also use mysqli_real_escape_string() here?
 		$password = $_POST['password'];
 
 		//We get the password of the user
@@ -75,6 +76,8 @@ else
             <input type="submit" value="Login" />
 		</div>
     </form>
+	
+	<br/><a href="password_forgotten.php">Password forgotten?</a><br/>
 </div>
 <?php
 	}
