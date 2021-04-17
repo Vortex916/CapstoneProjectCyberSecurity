@@ -64,23 +64,22 @@ if (isset($_SESSION['username']))
 						//We edit the user informations
 						if ($dn['password'] == $oldpassw) 
 						{
-							echo "reached";
-							// //Check if the password recovery questions are valid
-							// $password_recovery_valid = false;
-							// if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
-							// {
-								// password_recovery_valid = true;
-							// }
-							// else
-							// {
-								// //Repeated answers to the password recovery questions are not always the same
-								// $form	= true;
-								// $message = 'The repeated answers to the password recovery questions are not always the same.';
-							// }
+							//Check if the password recovery questions are valid
+							$password_recovery_valid = false;
+							if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
+							{
+								password_recovery_valid = true;
+							}
+							else
+							{
+								//Repeated answers to the password recovery questions are not always the same
+								$form	= true;
+								$message = 'The repeated answers to the password recovery questions are not always the same.';
+							}
 							
-							// if ((password_recovery_valid == true)
-							// {
-								// echo "3";
+							if ((password_recovery_valid == true)
+							{
+								echo "3";
 								// //$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id=?"); // prepare sql statement for execution
 								// //$stmt->bind_param("ssssssi", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $id); // bind variables to the parameter markers of the prepared statement
 								// //$id = $_SESSION['userid'];
@@ -104,7 +103,7 @@ if (isset($_SESSION['username']))
 									// $form	= true;
 									// $message = 'An error occurred while trying to update your informations in the database.';
 								// }
-							// }
+							}
 						}
 						else 
 						{
