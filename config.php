@@ -49,14 +49,14 @@ else
 	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
 }
 
-$delete_messages_keys_table = "DROP TABLE messages_keys_table";
+$delete_messages_keys_table = "DROP TABLE messagekeys";
 if ($link->query($delete_messages_keys_table) === TRUE) 
 {
-	echo '<script type="text/javascript">alert("Table messages_keys_table deleted successfully.")</script>';
+	echo '<script type="text/javascript">alert("Table messagekeys deleted successfully.")</script>';
 } 
 else 
 {
-	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages_keys_table: " . $link->error . "\")</script>";
+	echo "<script type=\"text/javascript\">alert(\"Error deleting table messagekeys: " . $link->error . "\")</script>";
 }
 
 // users table
