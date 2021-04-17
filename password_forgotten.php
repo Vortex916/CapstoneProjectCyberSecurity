@@ -22,8 +22,14 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 	$errors = [];
 	
 	//Check if username is registered
-	$username = mysqli_real_escape_string($link, $_POST['username']);
-	$result = $link->query('select id from users where username="'.$username.'"');
+	$username = $_POST['username'];
+	
+	$stmt = $link->prepare("SELECT id FROM users WHERE username=?"); // prepare sql statement for execution
+	$stmt->bind_param("s", $username); // bind variables to the parameter markers of the prepared statement
+	$stmt->execute(); // executed prepared statement		
+	$result = $stmt->get_result(); // get result of executed statement
+	$stmt->close();
+	
 	if ($result != FALSE) 
 	{
 		/* determine number of rows result set */
@@ -43,12 +49,17 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 	}
 	else
 	{
-		$maidenname = mysqli_real_escape_string($link, $_POST['maidenname']);
-		$elemschool = mysqli_real_escape_string($link, $_POST['elemschool']);
-		$road	    = mysqli_real_escape_string($link, $_POST['road']);
+		$maidenname = $_POST['maidenname'];
+		$elemschool = $_POST['elemschool'];
+		$road	    = $_POST['road'];
 
-		$get_user_data = mysqli_query($link, 'SELECT maidenname,elemschool,road,salt FROM users WHERE username="'.$username.'"');
-		$user_data = mysqli_fetch_array($get_user_data);
+		$stmt = $link->prepare("SELECT maidenname,elemschool,road,salt FROM users WHERE username=?"); // prepare sql statement for execution
+		$stmt->bind_param("s", $username); // bind variables to the parameter markers of the prepared statement
+		$stmt->execute(); // executed prepared statement		
+		$result = $stmt->get_result(); // get result of executed statement
+		$stmt->close();
+		
+		$user_data = mysqli_fetch_array($result);
 		$maidenname = hash("sha512", $user_data['salt'].$maidenname); // Hash with the salt to match database.
 		$elemschool = hash("sha512", $user_data['salt'].$elemschool); // Hash with the salt to match database.
 		$road = hash("sha512", $user_data['salt'].$road); // Hash with the salt to match database.
