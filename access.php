@@ -37,7 +37,14 @@ else
 		$stmt = $link->prepare("SELECT id FROM users WHERE username=?");
 
 		/* bind parameters for markers */
-		$stmt->bind_param("i", $username_test);
+		if ($stmt->bind_param("s", $username_test))
+		{
+			echo "bind_param successful"
+		}
+		else
+		{
+			echo "bind_param not successful"
+		}
 		$username_test = "Tester4";
 		
 		/* execute query */
