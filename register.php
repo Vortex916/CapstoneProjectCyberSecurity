@@ -46,14 +46,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				$road_input = hash("sha512", $salt.$road_input);
 				
 				// Check if user exists already in database
-				echo "prepare";
 				$stmt = $link->prepare("SELECT id FROM users WHERE username=?"); // prepare sql statement for execution
-				echo "bind param";
 				$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
-				$stmt->execute(); // executed prepared statement
-				echo "result";				
+				$stmt->execute(); // executed prepared statement		
 				$result = $stmt->get_result(); // get result of executed statement
-				//$dn = $req->fetch_array();
 				$stmt->close();
 				
 				if ($result != FALSE) 
@@ -72,7 +68,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 				if($row_cnt == 0)
 				{
 					//We count the number of users to give an ID to this one
-					if ($result = $link->query('select id from users')) 
+					if ($result = $link->query('SELECT id FROM users')) 
 					{
 						/* determine number of rows result set */
 						$dn2 = mysqli_num_rows($result);
@@ -100,16 +96,20 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					}
 					
 					if ($password_recovery_valid == true)
-					{					
-						if($result = $link->query('insert into users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) values ('.$id.', "'.$username_input.'", "'.$password_input.'", "'.$email_input.'", "'.$maidenname_input.'", "'.$elemschool_input.'", "'.$road_input.'", "'.time().'","'.$salt.'")'))
+					{
+						// store user data in database
+						$stmt = $link->prepare("INSERT INTO users(id, username, password, email, maidenname, elemschool, road, signup_date, salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"); // prepare sql statement for execution
+						$stmt->bind_param("isssssssi", $id, $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $time, $salt); // bind variables to the parameter markers of the prepared statement
+						$time = time();
+						$stmt->execute(); // executed prepared statement		
+						$result = $stmt->get_result(); // get result of executed statement
+						$stmt->close();
+						if($result)
 						{
 							//We dont display the form
 							$form = false;
-							
-							// TODO: if executed, program crashes
-							//mysqli_free_result($result);
-							
-							echo "<div class=\"message\">You have successfuly been signed up. You can log in now.<br />";
+
+							echo "<div class=\"message\">You have successfuly been registered. You can log in now.<br />";
 							echo "<a href=\"access.php\">Login</a></div>";						
 						}
 						else
