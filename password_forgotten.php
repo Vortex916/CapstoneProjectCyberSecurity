@@ -111,11 +111,11 @@ if ($form)
 				<br />
 				<div class="center">
 					<label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo htmlentities($ousername, ENT_QUOTES, 'UTF-8'); ?>" /><br />
-					<label for="maidenname" style="width: 400px;text-align:left;">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
-					<label for="elemschool" style="width: 400px;text-align:left;">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
-					<label for="road" style="width: 400px;text-align:left;">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
+					<label for="maidenname">Your mother's maiden name?</label><input type="password" name="maidenname" /><br />
+					<label for="elemschool">What elementary school did you attend?</label><input type="password" name="elemschool" /><br />
+					<label for="road">What is the name of the road you grew up on?</label><input type="password" name="road" /><br />	
 					<label for="password">New Password</label><input type="password" name="password" id="password" /><br /><br />
-					<label for="passverif" style="text-align:left;">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
+					<label for="passverif">Repeat New Password</label><input type="password" name="passverif" /><br /><br />
 					<input type="submit" value="Reset Password" />
 				</div>
 			</form>
