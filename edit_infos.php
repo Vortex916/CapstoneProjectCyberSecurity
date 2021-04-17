@@ -84,11 +84,12 @@ if (isset($_SESSION['username']))
 							if ((password_recovery_valid == true)
 							{
 								echo "3";
-								$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id=?"); // prepare sql statement for execution
-								$stmt->bind_param("ssssssi", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $id); // bind variables to the parameter markers of the prepared statement
-								$id = $_SESSION['userid'];
-								$result = $stmt->execute(); // executed prepared statement	
-								$stmt->close();
+								//$stmt = $link->prepare("UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id=?"); // prepare sql statement for execution
+								//$stmt->bind_param("ssssssi", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input, $id); // bind variables to the parameter markers of the prepared statement
+								//$id = $_SESSION['userid'];
+								//$result = $stmt->execute(); // executed prepared statement	
+								//$stmt->close();
+								$result = false;
 								echo "3 ok";
 	                            if ($result)
 								{ 
