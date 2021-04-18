@@ -23,119 +23,128 @@ if (isset($_SESSION['username']))
 	if (isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['email'], $_POST['maidenname'], $_POST['maidennamerepeat'], $_POST['elemschool'], $_POST['elemschoolrepeat'], $_POST['road'], $_POST['roadrepeat']))
 	{
 		$errors = [];
-		//We check if the two passwords are identical
-		if ($_POST['password'] == $_POST['passverif']) 
-		{
-			//We check if the choosen password is strong enough.
-			if (checkPassword($_POST['password'], $errors)) 
+		if ($_POST['maidenname'] == '' or $_POST['maidennamerepeat'] == '' or $_POST['elemschool'] == '' or $_POST['elemschoolrepeat'] == '' or  $_POST['road'] == '' or $_POST['roadrepeat'] == '')
+		{	
+			//We check if the two passwords are identical
+			if ($_POST['password'] == $_POST['passverif']) 
 			{
-				//We check if the email form is valid
-				if (preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email'])) 
+				//We check if the choosen password is strong enough.
+				if (checkPassword($_POST['password'], $errors)) 
 				{
-					$username_input     = $_POST['username'];
-					$password_input     = $_POST['password'];
-					$email_input	    = $_POST['email'];
-					$maidenname_input	= $_POST['maidenname'];
-					$elemschool_input	= $_POST['elemschool'];
-					$road_input	        = $_POST['road'];
-					$confirm_input      = $_POST['confirm'];
-					
-					//We check if there is no other user using the same username
-					$stmt = $link->prepare("SELECT count(*) as nb FROM users WHERE username=?"); // prepare sql statement for execution
-					$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
-					$stmt->execute(); // executed prepared statement	
-					$req = $stmt->get_result(); // get result of executed statement
-					$dn = $req->fetch_array();
-					$stmt->close();
-					
-					//We check if the username changed and if it is available
-					if ($dn['nb'] == 0 or $_POST['username'] == $_SESSION['username']) 
+					//We check if the email form is valid
+					if (preg_match('#^(([a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+\.?)*[a-z0-9!\#$%&\\\'*+/=?^_`{|}~-]+)@(([a-z0-9-_]+\.?)*[a-z0-9-_]+)\.[a-z]{2,}$#i',$_POST['email'])) 
 					{
-						$stmt = $link->prepare("SELECT password,id,salt FROM users WHERE username=?"); // prepare sql statement for execution
+						$username_input     = $_POST['username'];
+						$password_input     = $_POST['password'];
+						$email_input	    = $_POST['email'];
+						$maidenname_input	= $_POST['maidenname'];
+						$elemschool_input	= $_POST['elemschool'];
+						$road_input	        = $_POST['road'];
+						$confirm_input      = $_POST['confirm'];
+						
+						//We check if there is no other user using the same username
+						$stmt = $link->prepare("SELECT count(*) as nb FROM users WHERE username=?"); // prepare sql statement for execution
 						$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
 						$stmt->execute(); // executed prepared statement	
 						$req = $stmt->get_result(); // get result of executed statement
 						$dn = $req->fetch_array();
 						$stmt->close();
 						
-						$password_input = hash("sha512", $dn['salt'].$password_input); // Hash password with the salt to update database.
-						$oldpassw = hash("sha512", $dn['salt'].$confirm_input);  // Hash confirm with the salt to match database.
-						
-						//We edit the user informations
-						if ($dn['password'] == $oldpassw) 
+						//We check if the username changed and if it is available
+						if ($dn['nb'] == 0 or $_POST['username'] == $_SESSION['username']) 
 						{
-							//Check if the password recovery questions are valid
-							$password_recovery_valid = false;
-							if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
-							{
-								$password_recovery_valid = true;
-							}
-							else
-							{
-								//Repeated answers to the password recovery questions are not always the same
-								$form	= true;
-								$message = 'The repeated answers to the password recovery questions are not always the same.';
-							}
+							$stmt = $link->prepare("SELECT password,id,salt FROM users WHERE username=?"); // prepare sql statement for execution
+							$stmt->bind_param("s", $username_input); // bind variables to the parameter markers of the prepared statement
+							$stmt->execute(); // executed prepared statement	
+							$req = $stmt->get_result(); // get result of executed statement
+							$dn = $req->fetch_array();
+							$stmt->close();
 							
-							if ($password_recovery_valid == true)
+							$password_input = hash("sha512", $dn['salt'].$password_input); // Hash password with the salt to update database.
+							$oldpassw = hash("sha512", $dn['salt'].$confirm_input);  // Hash confirm with the salt to match database.
+							
+							//We edit the user informations
+							if ($dn['password'] == $oldpassw) 
 							{
-								$stmt = $link->prepare('UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id="'.$_SESSION['userid'].'"'); // prepare sql statement for execution
-								$stmt->bind_param("ssssss", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input); // bind variables to the parameter markers of the prepared statement
-								$result = $stmt->execute(); // executed prepared statement	
-								$stmt->close();
-								
-	                            if ($result)
-								{ 
-									//We dont display the form
-									$form = false;
-									//We delete the old session, so the user needs to login again
-									unset($_SESSION['username'], $_SESSION['userid']);
- ?>
-		 <div class="message">Your informations have successfuly been updated. You need to login again.<br />
- <?php
-								}
-								else 
+								//Check if the password recovery questions are valid
+								$password_recovery_valid = false;
+								if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
 								{
-									//Otherwise, we say that an error occured
-									$form	= true;
-									$message = 'An error occurred while trying to update your informations in the database.';
+									$password_recovery_valid = true;
 								}
+								else
+								{
+									//Repeated answers to the password recovery questions are not always the same
+									$form	= true;
+									$message = 'The repeated answers to the password recovery questions are not always the same.';
+								}
+								
+								if ($password_recovery_valid == true)
+								{
+									$stmt = $link->prepare('UPDATE users SET username=?, password=?, email=?, maidenname=?, elemschool=?, road=? WHERE id="'.$_SESSION['userid'].'"'); // prepare sql statement for execution
+									$stmt->bind_param("ssssss", $username_input, $password_input, $email_input, $maidenname_input, $elemschool_input, $road_input); // bind variables to the parameter markers of the prepared statement
+									$result = $stmt->execute(); // executed prepared statement	
+									$stmt->close();
+									
+									if ($result)
+									{ 
+										//We dont display the form
+										$form = false;
+										//We delete the old session, so the user needs to login again
+										unset($_SESSION['username'], $_SESSION['userid']);
+	 ?>
+			 <div class="message">Your informations have successfuly been updated. You need to login again.<br />
+	 <?php
+									}
+									else 
+									{
+										//Otherwise, we say that an error occured
+										$form	= true;
+										$message = 'An error occurred while trying to update your informations in the database.';
+									}
+								}
+							}
+							else 
+							{
+								//Otherwise, we say the password is incorrect.
+								$form	= true;
+								$message = 'The username or password is incorrect.';
 							}
 						}
 						else 
 						{
-							//Otherwise, we say the password is incorrect.
+							//Otherwise, we say the username is not available
 							$form	= true;
-							$message = 'The username or password is incorrect.';
+							$message = 'The username you want to use is not available, please choose another one.';
 						}
 					}
 					else 
 					{
-						//Otherwise, we say the username is not available
+						//Otherwise, we say the email is not valid
 						$form	= true;
-						$message = 'The username you want to use is not available, please choose another one.';
+						$message = 'The email you entered is not valid.';
 					}
 				}
 				else 
 				{
-					//Otherwise, we say the email is not valid
+					//Otherwise, we say the password is too weak
 					$form	= true;
-					$message = 'The email you entered is not valid.';
+					$message = '';
+					foreach ($errors as $item) $message = $message.$item."<BR>";
 				}
 			}
-			else 
+			else
 			{
-				//Otherwise, we say the password is too weak
-				$form	= true;
-				$message = '';
-				foreach ($errors as $item) $message = $message.$item."<BR>";
+				//Otherwise, we say the passwords are not identical
+				$form	 = true;
+				$message = 'The passwords you entered are not identical.';
 			}
 		}
 		else
 		{
-			//Otherwise, we say the passwords are not identical
+			//Security questions are empty
 			$form	 = true;
-			$message = 'The passwords you entered are not identical.';
+			$message = 'One or more of the security questions are not answered, please answer them with words for security reasons.';		
 		}
 	}
 	else $form = true;
