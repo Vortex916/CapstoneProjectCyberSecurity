@@ -119,18 +119,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 			//A security question is not answered correctly
 			$form	= true;
 			$message = 'One or more of the security questions have not been answered correctly.';
-			if ($user_data['maidenname'] != $maidenname)
-			{
-				echo "maidenname not equal.";
-			}
-			if ($user_data['elemschool'] != $elemschool)
-			{
-				echo "elemschool not equal.";
-			}
-			if ($user_data['road'] != $road)
-			{
-				echo "road not equal.";
-			}
 		}		
 	}
 }

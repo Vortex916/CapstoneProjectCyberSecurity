@@ -71,6 +71,9 @@ if (isset($_SESSION['username']))
 								if (($_POST['maidenname'] == $_POST['maidennamerepeat']) and ($_POST['elemschool'] == $_POST['elemschoolrepeat']) and  ($_POST['road'] == $_POST['roadrepeat']))
 								{
 									$password_recovery_valid = true;
+									$maidenname_input	= hash("sha512", $dn['salt'].$maidenname_input);
+									$elemschool_input	= hash("sha512", $dn['salt'].$elemschool_input);
+									$road_input	        = hash("sha512", $dn['salt'].$road_input);
 								}
 								else
 								{
@@ -180,7 +183,7 @@ if (isset($_SESSION['username']))
 		<div class="content">
 			<form action="edit_infos.php" method="post">
 				You can change your stored user data here:<br />
-				<p style="font-size:14px;">(Password requires 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
+				<p style="font-size:14px;color:Red;">(Password requires 8 characters minimum and must include at least one number, one lowercase letter, one uppercase letter and one symbol)</p><br />
 				<div class="center">
 					<label for="username">Username</label><input type="text" name="username" id="username" value="<?php echo $username_input; ?>" readonly/><br />
 					<label for="confirm">Old Password<span class="small"></span></label><input type="password" name="confirm" id="confirm" value="" /><br />
@@ -201,7 +204,7 @@ if (isset($_SESSION['username']))
 
 <?php
 		//We display a message if necessary
-		if(isset($message)) echo '</br><strong>'.$message.'</strong>';
+		if(isset($message)) echo '<br><div class="message">'.$message.'</div>';
 	}
 }
 else {
