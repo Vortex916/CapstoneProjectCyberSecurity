@@ -21,7 +21,7 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 {
 	//We check if the two passwords are identical
 	$errors = [];
-	if ($_POST['maidenname'] == '' or $_POST['maidennamerepeat'] == '' or $_POST['elemschool'] == '' or $_POST['elemschoolrepeat'] == '' or  $_POST['road'] == '' or $_POST['roadrepeat'] == '')
+	if ($_POST['maidenname'] != '' and $_POST['maidennamerepeat'] != '' and $_POST['elemschool'] != '' and $_POST['elemschoolrepeat'] != '' and  $_POST['road'] != '' and $_POST['roadrepeat'] != '')
 	{
 		if($_POST['password'] == $_POST['passverif'])
 		{		
