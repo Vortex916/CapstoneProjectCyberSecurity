@@ -39,13 +39,13 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['em
 					$road_input	      = $_POST['road'];
 					
 					//Generate a five digit salt.				
-					$salt	  = (string)rand(10000, 99999);
+					$salt = (string)rand(10000, 99999);
 					
 					//Compute the hashes of salt concatenated to user data for sensitive information. 				
-					$password_input = hash("sha512", $salt.$password_input);
+					$password_input   = hash("sha512", $salt.$password_input);
 					$maidenname_input = hash("sha512", $salt.$maidenname_input);
 					$elemschool_input = hash("sha512", $salt.$elemschool_input);
-					$road_input = hash("sha512", $salt.$road_input);
+					$road_input       = hash("sha512", $salt.$road_input);
 					
 					// Check if user exists already in database
 					$stmt = $link->prepare("SELECT id FROM users WHERE username=?"); // prepare sql statement for execution

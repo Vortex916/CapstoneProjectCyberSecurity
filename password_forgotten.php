@@ -59,10 +59,10 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 		$result = $stmt->get_result(); // get result of executed statement
 		$stmt->close();
 		
-		$user_data = mysqli_fetch_array($result);
+		$user_data  = mysqli_fetch_array($result);
 		$maidenname = hash("sha512", $user_data['salt'].$maidenname); // Hash with the salt to match database.
 		$elemschool = hash("sha512", $user_data['salt'].$elemschool); // Hash with the salt to match database.
-		$road = hash("sha512", $user_data['salt'].$road); // Hash with the salt to match database.
+		$road       = hash("sha512", $user_data['salt'].$road); // Hash with the salt to match database.
 		
 		//Check if security questions are answered correctly
 		if ($user_data['maidenname'] == $maidenname and $user_data['elemschool'] == $elemschool and $user_data['road'] == $road)
@@ -119,6 +119,18 @@ if(isset($_POST['username'], $_POST['password'], $_POST['passverif'], $_POST['ma
 			//A security question is not answered correctly
 			$form	= true;
 			$message = 'One or more of the security questions have not been answered correctly.';
+			if ($user_data['maidenname'] != $maidenname)
+			{
+				echo "maidenname not equal."
+			}
+			if ($user_data['elemschool'] != $elemschool)
+			{
+				echo "elemschool not equal."
+			}
+			if ($user_data['road'] != $road)
+			{
+				echo "road not equal."
+			}
 		}		
 	}
 }
