@@ -29,35 +29,35 @@ $design = 'default';
 
 // Create tables in database if not existing yet
 // code for development: comment out if a table needs to be deleted
-$delete_users_table = "DROP TABLE users";
-if ($link->query($delete_users_table) === TRUE) 
-{
-	echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
-} 
-else 
-{
-	echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
-}
+// $delete_users_table = "DROP TABLE users";
+// if ($link->query($delete_users_table) === TRUE) 
+// {
+	// echo '<script type="text/javascript">alert("Table users deleted successfully.")</script>';
+// } 
+// else 
+// {
+	// echo "<script type=\"text/javascript\">alert(\"Error deleting table users: " . $link->error . "\")</script>";
+// }
 
-$delete_messages_table = "DROP TABLE messages";
-if ($link->query($delete_messages_table) === TRUE) 
-{
-	echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
-} 
-else 
-{
-	echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
-}
+// $delete_messages_table = "DROP TABLE messages";
+// if ($link->query($delete_messages_table) === TRUE) 
+// {
+	// echo '<script type="text/javascript">alert("Table messages deleted successfully.")</script>';
+// } 
+// else 
+// {
+	// echo "<script type=\"text/javascript\">alert(\"Error deleting table messages: " . $link->error . "\")</script>";
+// }
 
-$delete_messages_keys_table = "DROP TABLE messagekeys";
-if ($link->query($delete_messages_keys_table) === TRUE) 
-{
-	echo '<script type="text/javascript">alert("Table messagekeys deleted successfully.")</script>';
-} 
-else 
-{
-	echo "<script type=\"text/javascript\">alert(\"Error deleting table messagekeys: " . $link->error . "\")</script>";
-}
+// $delete_messages_keys_table = "DROP TABLE messagekeys";
+// if ($link->query($delete_messages_keys_table) === TRUE) 
+// {
+	// echo '<script type="text/javascript">alert("Table messagekeys deleted successfully.")</script>';
+// } 
+// else 
+// {
+	// echo "<script type=\"text/javascript\">alert(\"Error deleting table messagekeys: " . $link->error . "\")</script>";
+// }
 
 // users table
 $users_table = "CREATE TABLE users (
@@ -142,7 +142,8 @@ if($exists == FALSE)
 // $pwd receives the password to test.
 // $errors returns the non-compliant items of the provided password
 
-function checkPassword($pwd, &$errors) {
+function checkPassword($pwd, &$errors) 
+{
 	$errors_init = $errors;
 
 	if (strlen($pwd) < 8) $errors[] = "Password must have at least 8 characters!";
@@ -158,7 +159,8 @@ function checkPassword($pwd, &$errors) {
 // getKey: Set and retrieve password for message database encryption.
 // $user1 and $user2: users communicating each other.
 
-function getKey($user1, $user2) {
+function getKey($user1, $user2) 
+{
 	global $link;
 
 	//Message DataBase. Access data cryptography hardcoded.
@@ -167,7 +169,9 @@ function getKey($user1, $user2) {
 	$iv		= base64_decode("5AIQsI+LyPUfWJpTo5em6A=="); // A hardcoded random iv  of 128 bits.
 	$dbkey  = base64_decode("zT/PCCuJnUGvSUYtd95tSw=="); // A hardcoded random key of 128 bits.
 
-	if ($user1 > $user2) {// Just to make $user1 < $user2. Swap if necessary. 
+	// Just to make $user1 < $user2. Swap if necessary. 
+	if ($user1 > $user2) 
+	{
 		$tmp = $user1;
 		$user1 = $user2;
 		$user2 = $tmp;
@@ -184,7 +188,10 @@ function getKey($user1, $user2) {
 		$dat = mysqli_fetch_array($req);
 
 		// No key. First message. Create a new key.
-		if ($dn == 0) mysqli_query($link, 'insert into messagekeys(user1, user2, mskey) values ('.$user1.', "'.$user2.'", "'.$encrypted_key.'")');
+		if ($dn == 0)
+		{
+			mysqli_query($link, 'insert into messagekeys(user1, user2, mskey) values ('.$user1.', "'.$user2.'", "'.$encrypted_key.'")');
+		}
 		else 
 		{
 			$cryp_key = $dat['mskey'];
