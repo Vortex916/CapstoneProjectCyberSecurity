@@ -53,7 +53,7 @@ if (isset($_SESSION['username']))
 					$message = $_POST['message'];
 
 					//We protect the variables
-					$message = mysqli_real_escape_string($link, nl2br(htmlentities($message, ENT_QUOTES, 'UTF-8')));					
+					$message = nl2br(htmlentities($message, ENT_QUOTES, 'UTF-8'));
 
 					$cipher = "aes-128-gcm";
 					$ivlen  = openssl_cipher_iv_length($cipher);

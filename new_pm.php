@@ -32,7 +32,6 @@ if (isset($_SESSION['username']))
 		//We check if all the fields are filled
 		if ($otitle != '' and $orecip != '' and $omessage != '') 
 		{
-			//$message = mysqli_real_escape_string($link, nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8')));
 			$message = nl2br(htmlentities($omessage, ENT_QUOTES, 'UTF-8'));
 			
 			//We check if the recipient exists
