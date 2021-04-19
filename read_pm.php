@@ -104,7 +104,10 @@ if (isset($_SESSION['username']))
 					<th class="author">User</th>
 					<th>Message</th>
 				</tr>
-<?php				while ($dn2 = mysqli_fetch_array($req2)) 
+<?php				
+					//We get the list of the messages
+					$req2 = mysqli_query($link, 'select messages.timestamp, messages.message, users.id as userid, users.username, messages.user1, messages.user2, messages.tag from messages, users where messages.id="'.$id.'" and users.id=messages.user1 order by messages.id2');
+                    while ($dn2 = mysqli_fetch_array($req2)) 
 					{
 						$cipher = "aes-128-gcm";
 						$ivlen  = openssl_cipher_iv_length($cipher);
